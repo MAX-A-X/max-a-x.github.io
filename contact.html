@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星桥联系 | MAX Apex Xenith</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">MAX Apex Xenith</div>
+    <ul class="nav-links">
+      <li><a href="/">星域</a></li>
+      <li><a href="/about">星渊</a></li>
+      <li><a href="/works">星辉</a></li>
+      <li><a href="/blog">星迹</a></li>
+      <li><a href="/forum">星云</a></li>
+      <li><a href="/contact">星桥</a></li>
+    </ul>
+    <div class="hamburger">☰</div>
+  </nav>
+
+  <main class="contact-section">
+    <div class="contact-container">
+      <h2>星际通讯</h2>
+      
+      <div class="contact-info">
+        <div class="info-item">
+          <i class="icon-location"></i>
+          <p>星域坐标：<br>银河系猎户座悬臂</p>
+        </div>
+        <div class="info-item">
+          <i class="icon-email"></i>
+          <p>量子通讯：<br>contact@max-a-x.com</p>
+        </div>
+        <div class="info-item">
+          <i class="icon-phone"></i>
+          <p>星际热线：<br>+86 138 0013 8000</p>
+        </div>
+      </div>
+
+      <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="您的称呼" required>
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="量子通讯地址" required>
+        </div>
+        <div class="form-group">
+          <textarea name="message" placeholder="您的星际讯息..." rows="5" required></textarea>
+        </div>
+        <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+        <button type="submit" class="neon-button">
+          发送讯息
+          <span class="send-icon">➤</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="star-map"></div>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
