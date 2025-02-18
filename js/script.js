@@ -184,3 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("✅ 返回顶部按钮已加载");
 });
+
+// 在showBlogDetail方法中添加
+const images = post.querySelectorAll('img');
+images.forEach(img => {
+  if (!img.src) {
+    img.src = img.dataset.src;
+  }
+});
