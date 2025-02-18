@@ -927,6 +927,65 @@ html {
   --text-secondary: #909090;
 }
 
+
+/* 博客详情页样式 */
+.blog-details {
+  display: none;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--secondary-bg);
+  border-radius: 1rem;
+}
+
+.post-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-to-list {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s;
+}
+
+.back-to-list:hover {
+  transform: translateX(-5px);
+}
+
+.post-meta {
+  color: var(--text-secondary);
+  margin: 1rem 0;
+}
+
+.post-body {
+  line-height: 1.8;
+  margin-top: 2rem;
+}
+
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+/* 显示详情时的状态 */
+.blog-details.active {
+  display: block;
+}
+
+.blog-grid.hidden {
+  display: none;
+}
+
+
+
+
+
 body {
   background: var(--primary-bg);
   color: var(--text-primary
