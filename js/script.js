@@ -145,3 +145,18 @@ backToTop.addEventListener('click', () => {
     behavior: 'smooth'
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.querySelector(".theme-toggle");
+  const body = document.body;
+  
+  // 读取存储的主题
+  if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-mode");
+  }
+
+  toggleButton.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
+  });
+});
