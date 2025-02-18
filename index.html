@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <link rel="preload" href="css/style.css" as="style">
+<link rel="preload" href="js/language.js" as="script">
+<link rel="preload" href="images/logo.svg" as="image">
   <link rel="alternate" hreflang="zh" href="https://max-a-x.github.io/zh-CN/">
 <link rel="alternate" hreflang="en" href="https://max-a-x.github.io/en-US/">
 <meta property="og:locale" content="zh_CN">
@@ -24,6 +27,10 @@
 
 </head>
 <body>
+  <div class="loading-screen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" data-i18n="loading">加载中...</div>
+</div>
   <nav class="navbar">
     <div class="brand">MAX Apex Xenith</div>
     <ul class="nav-links">
