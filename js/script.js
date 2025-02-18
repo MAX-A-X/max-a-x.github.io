@@ -167,38 +167,7 @@ backToTop.addEventListener('click', () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  class ThemeManager {
-    constructor() {
-      this.themeToggle = document.querySelector('.theme-toggle');
-      if (!this.themeToggle) {
-        console.error("❌ 主题切换按钮未找到！");
-        return;
-      }
-
-      this.currentTheme = localStorage.getItem('theme') ||
-                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      this.init();
-    }
-
-    init() {
-      this.setTheme(this.currentTheme);
-      this.themeToggle.addEventListener('click', () => this.toggleTheme());
-    }
-
-    setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      console.log(`🎨 主题切换为：${theme}`);
-    }
-
-    toggleTheme() {
-      const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      this.setTheme(newTheme);
-    }
-  }
-
-  new ThemeManager();
-});
+  
   
   const backToTop = document.querySelector('.back-to-top');
 
