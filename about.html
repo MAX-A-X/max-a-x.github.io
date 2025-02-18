@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link rel="preload" href="images/logo.svg" as="image">
+    <link rel="preload" href="css/style.css" as="style">
+<link rel="preload" href="js/language.js" as="script">
+<link rel="preload" href="images/logo.svg" as="image">
+  <link rel="alternate" hreflang="zh" href="https://max-a-x.github.io/zh-CN/">
+<link rel="alternate" hreflang="en" href="https://max-a-x.github.io/en-US/">
+<meta property="og:locale" content="zh_CN">
+  <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
+<link rel="preload" href="images/logo.svg" as="image">
 <link rel="icon" type="image/svg+xml" href="images/logo.svg">
 <link rel="alternate icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="images/logo.svg">
@@ -19,6 +26,10 @@
 
 </head>
 <body>
+  <div class="loading-screen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" data-i18n="loading">加载中...</div>
+</div>
   <nav class="navbar">
     <div class="brand">MAX Apex Xenith</div>
     <ul class="nav-links">
@@ -28,6 +39,21 @@
       <li><a href="/blog">星迹</a></li>
       <li><a href="/forum">星云</a></li>
       <li><a href="/contact">星桥</a></li>
+      <div class="search-container">
+  <input type="text" 
+         placeholder="搜索星域..." 
+         data-i18n-placeholder="searchPlaceholder">
+  <button class="search-button">🔍</button>
+</div>
+      <button class="theme-toggle">
+  <span class="light-icon">☀️</span>
+  <span class="dark-icon">🌙</span>
+</button>
+     <!-- 这是一段注释，浏览器不会显示它 
+      <div class="language-switcher">
+  <button data-lang="zh-CN">中文</button>
+  <button data-lang="en-US">English</button>
+      -->
     </ul>
     <div class="hamburger">☰</div>
   </nav>
@@ -44,6 +70,16 @@
             <h3>工作室成立</h3>
             <p>MAX至臻星域（MAX Apex Xenith）属于MAX工作室的子工作室</p>
             <p>在数字宇宙的边缘，我们开启了探索之旅...</p>
+          </div>
+        </div>
+        <div class="content-box">
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2024.12</div>
+          <div class="timeline-content">
+            <h3>工作室口号</h3>
+            <p>「独筑星海，至臻永恒」</p>
           </div>
         </div>
         <!-- 更多时间线项目 -->
