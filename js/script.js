@@ -89,3 +89,14 @@ document.querySelectorAll('.blog-card, .thread-card').forEach(card => {
     this.style.setProperty('--y', `${y}px`);
   });
 });
+
+
+window.addEventListener('load', () => {
+  const loadingScreen = document.querySelector('.loading-screen');
+  if (loadingScreen) {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.remove();
+    }, 500);
+  }
+});
