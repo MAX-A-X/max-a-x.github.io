@@ -8,6 +8,10 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
+  <div class="loading-screen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" data-i18n="loading">加载中...</div>
+</div>
   <nav class="navbar">
     <div class="brand">MAX Apex Xenith</div>
     <ul class="nav-links">
@@ -17,7 +21,8 @@
       <li><a href="/blog">星迹</a></li>
       <li><a href="/forum">星云</a></li>
       <li><a href="/contact">星桥</a></li>
-      <input type="text" 
+      <div class="search-container">
+  <input type="text" 
          class="search-input"
          placeholder="搜索星域..."
          data-i18n-placeholder="searchPlaceholder">
@@ -28,8 +33,15 @@
   <span class="light-icon">☀️</span>
   <span class="dark-icon">🌙</span>
 </button>
+     <!-- 这是一段注释，浏览器不会显示它 
+      <div class="language-switcher">
+  <button data-lang="zh-CN">中文</button>
+  <button data-lang="en-US">English</button>
+      -->
     </ul>
     <div class="hamburger">☰</div>
+    
+</div>
   </nav>
 
   <main class="contact-section">
