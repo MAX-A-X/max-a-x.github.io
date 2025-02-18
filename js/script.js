@@ -165,6 +165,8 @@ backToTop.addEventListener('click', () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  
+  
   const backToTop = document.querySelector('.back-to-top');
 
   if (!backToTop) {
