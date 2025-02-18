@@ -558,3 +558,148 @@ body {
     margin-top: 1.5rem;
   }
 }
+
+/* 居中容器 */
+.centered-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+/* 关于页面样式 */
+.content-box {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  margin-top: 2rem;
+}
+
+.lead-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: var(--accent-color);
+}
+
+.timeline-item {
+  padding: 1rem 2rem;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+/* 博客页面样式 */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.blog-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-content {
+  padding: 2rem;
+}
+
+.excerpt {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.read-more {
+  color: var(--accent-color);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* 论坛页面样式 */
+.forum-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.forum-category {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.thread-card {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .timeline-item {
+    width: 100%;
+    left: 0 !important;
+    text-align: left !important;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    left: 1rem;
+  }
+}
+
+/* 渐显动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.centered-container > * {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* 延迟动画 */
+.centered-container > *:nth-child(1) { animation-delay: 0.2s; }
+.centered-container > *:nth-child(2) { animation-delay: 0.4s; }
+.centered-container > *:nth-child(3) { animation-delay: 0.6s; }
