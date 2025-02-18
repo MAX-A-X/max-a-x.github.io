@@ -843,3 +843,8 @@ html {
   opacity: 1;
   visibility: visible;
 }
+
+.dark-mode {
+  background-color: #111;
+  color: #eee;
+}
