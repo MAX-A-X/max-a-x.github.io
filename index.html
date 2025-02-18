@@ -1,51 +1,47 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
-<link rel="preload" href="images/logo.svg" as="image">
-<link rel="icon" type="image/svg+xml" href="images/logo.svg">
-<link rel="alternate icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="images/logo.svg">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAX Apex Xenith | 数字宇宙探索者</title>
-  <link rel="stylesheet" href="css/style.css">
-<nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <!-- 其他导航项保持不变 -->
-</nav>
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAX Apex Xenith</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="brand">MAX Apex Xenith</div>
-    <ul class="nav-links">
-      <li><a href="/">星域</a></li>
-      <li><a href="/about">星渊</a></li>
-      <li><a href="/works">星辉</a></li>
-      <li><a href="/blog">星迹</a></li>
-      <li><a href="/forum">星云</a></li>
-      <li><a href="/contact">星桥</a></li>
-    </ul>
-    <div class="hamburger">☰</div>
-  </nav>
-
-  <section class="hero">
-  <div class="stellar-bg"></div>
-  <div class="hero-content">
-    <h1 class="glitch-text">探索数字宇宙的终极边界</h1>
-    <div class="logo-container">
-      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="hero-logo">
-      <div class="logo-glow"></div>
-    </div>
-  </div>
-  <div class="particle-effects"></div>
-</section>
-
-  <script src="js/script.js"></script>
+    <header>
+        <h1>MAX Apex Xenith</h1>
+        <nav>
+            <ul>
+                <li><a href="#about" data-lang="about">About</a></li>
+                <li><a href="#works" data-lang="works">Works</a></li>
+                <li><a href="#blog" data-lang="blog">Blog</a></li>
+                <li><a href="#contact" data-lang="contact">Contact</a></li>
+                <li>
+                    <select id="language-switcher">
+                        <option value="en">English</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="about">
+            <h2 data-lang="about_title">About MAX Apex Xenith</h2>
+            <p data-lang="about_content">This is a one-person studio dedicated to technology and innovation.</p>
+        </section>
+        <section id="works">
+            <h2 data-lang="works_title">Our Works</h2>
+            <p data-lang="works_content">Explore our latest projects and creations.</p>
+        </section>
+        <section id="blog">
+            <h2 data-lang="blog_title">Blog</h2>
+            <p data-lang="blog_content">Read our latest insights and updates.</p>
+        </section>
+        <section id="contact">
+            <h2 data-lang="contact_title">Contact Us</h2>
+            <p data-lang="contact_content">Get in touch with us for collaborations.</p>
+        </section>
+    </main>
 </body>
 </html>
