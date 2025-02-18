@@ -1,4 +1,4 @@
-let logoContainer = document.querySelector(".logo-container");
+
 
 // 移动端菜单切换
 document.querySelector('.hamburger').addEventListener('click', function() {
