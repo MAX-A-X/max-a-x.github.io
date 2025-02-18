@@ -1,5 +1,3 @@
-
-
 // 移动端菜单切换
 document.querySelector('.hamburger').addEventListener('click', function() {
   this.classList.toggle('active');
@@ -167,8 +165,6 @@ backToTop.addEventListener('click', () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  
-  
   const backToTop = document.querySelector('.back-to-top');
 
   if (!backToTop) {
