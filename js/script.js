@@ -133,13 +133,18 @@ new ThemeManager();
 
 const backToTop = document.querySelector('.back-to-top');
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    backToTop.classList.add('visible');
-  } else {
-    backToTop.classList.remove('visible');
+window.addEventListener('load', () => {
+  console.log("✅ 页面加载完成");
+
+  const loadingScreen = document.querySelector('.loading-screen');
+  if (loadingScreen) {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';  // 用 display: none 替代 remove()，避免影响布局
+    }, 500);
   }
 });
+
 
 backToTop.addEventListener('click', () => {
   window.scrollTo({
