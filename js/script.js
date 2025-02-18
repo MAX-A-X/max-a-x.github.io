@@ -192,3 +192,9 @@ images.forEach(img => {
     img.src = img.dataset.src;
   }
 });
+
+window.addEventListener('popstate', () => {
+  if (!window.location.hash) {
+    this.showBlogList();
+  }
+});
