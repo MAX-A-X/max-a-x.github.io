@@ -848,3 +848,67 @@ html {
   background-color: #111;
   color: #eee;
 }
+
+/* 搜索容器 */
+.search-container {
+  position: relative;
+  margin-left: 2rem;
+}
+
+.search-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--accent-color);
+  padding: 0.8rem 1.5rem;
+  color: var(--text-primary);
+  width: 200px;
+  border-radius: 2rem;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  width: 300px;
+  outline: none;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.search-button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--secondary-bg);
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
+}
+
+.search-result-item {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-result-item:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.mark {
+  background-color: rgba(255, 235, 59, 0.3);
+  color: inherit;
+  padding: 0 0.2em;
+}
