@@ -167,18 +167,20 @@ backToTop.addEventListener('click', () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleButton = document.querySelector(".theme-toggle");
+  const backToTop = document.querySelector('.back-to-top');
 
-  if (!toggleButton) {
-    console.error("❌ 错误：找不到 .theme-toggle 按钮！");
-    return;
+  if (!backToTop) {
+    console.error("❌ 错误：找不到 .back-to-top 按钮！");
+    return;  // 提前退出，避免后面 `null.addEventListener` 报错
   }
 
-  toggleButton.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 300);
   });
 
-  console.log("✅ 暗黑模式功能已加载");
-});
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
+  console.log("✅ 返回顶部按钮已加载");
+});
