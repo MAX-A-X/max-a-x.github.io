@@ -150,25 +150,17 @@ backToTop.addEventListener('click', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.querySelector(".theme-toggle");
-  console.log("暗黑模式按钮:", toggleButton);
 
   if (!toggleButton) {
-    console.error("找不到 .theme-toggle 按钮！");
+    console.error("❌ 错误：找不到 .theme-toggle 按钮！");
     return;
   }
 
-  const body = document.body;
-
-  // 读取存储的主题
-  if (localStorage.getItem("theme") === "dark") {
-    body.classList.add("dark-mode");
-    console.log("应用暗黑模式");
-  }
-
   toggleButton.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-    console.log("暗黑模式切换:", body.classList.contains("dark-mode"));
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
   });
+
+  console.log("✅ 暗黑模式功能已加载");
 });
 
