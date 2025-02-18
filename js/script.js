@@ -133,6 +133,19 @@ new ThemeManager();
 
 const backToTop = document.querySelector('.back-to-top');
 
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 300);
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+} else {
+  console.error("❌ 错误：找不到 .back-to-top 按钮！");
+}
+
+
 window.addEventListener('load', () => {
   console.log("✅ 页面加载完成");
 
