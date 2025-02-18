@@ -1,73 +1,72 @@
 class BlogManager {
   constructor() {
-    this.blogGrid = document.querySelector('.blog-grid');
-    this.blogDetails = document.querySelector('.blog-details');
+    this.blogList = document.getElementById('blog-list');
+    this.blogDetail = document.getElementById('blog-detail');
     this.init();
   }
 
   init() {
-    // 阅读更多点击事件
-    document.querySelectorAll('.read-more').forEach(link => {
-      link.addEventListener('click', this.handleReadMore.bind(this));
-    });
-
-    // 返回列表点击事件
-    document.querySelector('.back-to-list')?.addEventListener('click', () => {
-      this.showBlogList();
-    });
-
-    // 处理URL hash变化
-    window.addEventListener('hashchange', () => {
-      const postId = window.location.hash.replace('#', '');
-      if (postId) {
-        this.showBlogDetail(postId);
-      } else {
+    // 使用事件委托处理动态内容
+    document.body.addEventListener('click', (e) => {
+      if (e.target.classList.contains('read-more')) {
+        this.handleReadMore(e);
+      }
+      if (e.target.classList.contains('back-to-list')) {
         this.showBlogList();
       }
     });
 
     // 初始化时检查hash
-    if (window.location.hash) {
-      const postId = window.location.hash.replace('#', '');
-      this.showBlogDetail(postId);
-    }
+    this.checkInitialHash();
+    window.addEventListener('hashchange', () => this.checkInitialHash());
   }
 
   handleReadMore(e) {
     e.preventDefault();
-    const postId = e.target.getAttribute('href').replace('#', '');
+    const postId = e.target.getAttribute('href').split('#')[1];
     this.showBlogDetail(postId);
-    history.pushState(null, '', `#${postId}`);
   }
 
   showBlogDetail(postId) {
+    // 隐藏列表
+    this.blogList.style.opacity = '0';
+    
+    // 显示详情容器
+    this.blogDetail.classList.add('active');
+    
+    // 显示对应文章
     const post = document.getElementById(postId);
     if (post) {
-      this.blogGrid.classList.add('hidden');
-      this.blogDetails.classList.add('active');
-      post.style.display = 'block';
+      document.querySelectorAll('.post-content').forEach(p => p.classList.add('hidden'));
+      post.classList.remove('hidden');
+      window.location.hash = postId;
       
-      // 隐藏其他文章
-      document.querySelectorAll('.post-content').forEach(p => {
-        if (p.id !== postId) {
-          p.style.display = 'none';
-        }
-      });
-
-      // 滚动到文章顶部
-      post.scrollIntoView({ behavior: 'smooth' });
+      // 添加滚动锁定
+      document.body.style.overflow = 'hidden';
     }
   }
 
   showBlogList() {
-    this.blogGrid.classList.remove('hidden');
-    this.blogDetails.classList.remove('active');
-    history.pushState(null, '', window.location.pathname);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 显示列表
+    this.blogList.style.opacity = '1';
+    
+    // 隐藏详情容器
+    this.blogDetail.classList.remove('active');
+    
+    // 移除hash
+    history.replaceState(null, null, ' ');
+    
+    // 恢复滚动
+    document.body.style.overflow = 'auto';
+  }
+
+  checkInitialHash() {
+    if (window.location.hash) {
+      const postId = window.location.hash.split('#')[1];
+      this.showBlogDetail(postId);
+    }
   }
 }
 
 // 初始化
-document.addEventListener('DOMContentLoaded', () => {
-  new BlogManager();
-});
+new BlogManager();
