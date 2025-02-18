@@ -56,3 +56,24 @@ document.querySelectorAll('.work-item').forEach(item => {
     this.style.setProperty('--y', `${y}px`);
   });
 });
+
+// LOGO鼠标交互
+const logoContainer = document.querySelector('.logo-container');
+const heroLogo = document.querySelector('.hero-logo');
+
+if (logoContainer && heroLogo) {
+  logoContainer.addEventListener('mousemove', (e) => {
+    const rect = logoContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const rotateX = ((y - rect.height / 2) / rect.height) * 20;
+    const rotateY = ((x - rect.width / 2) / rect.width) * -20;
+    
+    heroLogo.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  logoContainer.addEventListener('mouseleave', () => {
+    heroLogo.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
+  });
+}
