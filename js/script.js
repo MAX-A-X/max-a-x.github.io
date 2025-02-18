@@ -100,3 +100,30 @@ window.addEventListener('load', () => {
     }, 500);
   }
 });
+
+
+class ThemeManager {
+  constructor() {
+    this.themeToggle = document.querySelector('.theme-toggle');
+    this.currentTheme = localStorage.getItem('theme') || 
+                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    this.init();
+  }
+
+  init() {
+    this.setTheme(this.currentTheme);
+    this.themeToggle?.addEventListener('click', () => this.toggleTheme());
+  }
+
+  setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    this.setTheme(this.currentTheme);
+  }
+}
+
+new ThemeManager();
