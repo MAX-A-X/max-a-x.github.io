@@ -1,3 +1,5 @@
+console.log("Script.js 已加载");
+
 // 移动端菜单切换
 document.querySelector('.hamburger').addEventListener('click', function() {
   this.classList.toggle('active');
