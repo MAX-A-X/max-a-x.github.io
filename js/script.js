@@ -77,3 +77,15 @@ if (logoContainer && heroLogo) {
     heroLogo.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
   });
 }
+
+
+// 卡片悬停效果
+document.querySelectorAll('.blog-card, .thread-card').forEach(card => {
+  card.addEventListener('mousemove', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.style.setProperty('--x', `${x}px`);
+    this.style.setProperty('--y', `${y}px`);
+  });
+});
