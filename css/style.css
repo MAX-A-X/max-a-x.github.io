@@ -792,3 +792,54 @@ html {
 [data-theme="dark"] .dark-icon {
   display: inline;
 }
+
+
+.search-container {
+  position: relative;
+  margin-left: 2rem;
+}
+
+.search-container input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--accent-color);
+  padding: 0.5rem 1rem;
+  color: var(--text-primary);
+  width: 200px;
+  transition: width 0.3s;
+}
+
+.search-container input:focus {
+  width: 300px;
+}
+
+.search-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background: var(--accent-color);
+  color: var(--primary-bg);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  box-shadow: var(--neon-shadow);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
