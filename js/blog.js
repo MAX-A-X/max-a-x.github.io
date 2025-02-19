@@ -92,25 +92,14 @@ class BlogManager {
 }
 
 function showBlogList() {
-    // 显示博客列表
     document.getElementById('blog-list').classList.remove('hidden');
-    
-    // 隐藏博客详情
     document.getElementById('blog-detail').classList.add('hidden');
 }
 
-
 function backToList() {
-    if (typeof window.showBlogList === 'function') {
-        window.showBlogList();
-    } else {
-        console.error("showBlogList 未定义");
-    }
-    
-    // 清除 URL Hash，回到博客列表
+    showBlogList();
     history.pushState("", document.title, window.location.pathname);
 }
-
 
 
 window.showBlogList = function () {
@@ -129,17 +118,14 @@ window.showBlogList = function () {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    let backButton = document.getElementById('back-button');
-    if (backButton) {
-        backButton.addEventListener('click', function() {
+    let backButtons = document.querySelectorAll('.back-to-list'); 
+    backButtons.forEach(button => {
+        button.addEventListener('click', function() {
             console.log("点击了返回列表");
             backToList();
         });
-    } else {
-        console.error("back-button 未找到");
-    }
+    });
 });
-
 
 
 // 启动博客管理
