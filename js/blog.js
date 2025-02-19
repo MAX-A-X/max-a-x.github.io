@@ -92,11 +92,12 @@ class BlogManager {
 }
 
 function backToList() {
-    // 显示博客列表
-    document.getElementById('blog-list').classList.remove('hidden');
-    
-    // 隐藏博客详情
-    document.getElementById('blog-detail').classList.add('hidden');
+    // 确保 showBlogList() 存在
+    if (typeof showBlogList === 'function') {
+        showBlogList();
+    } else {
+        console.error("showBlogList 方法未定义");
+    }
 
     // 清除 URL Hash
     history.pushState("", document.title, window.location.pathname);
