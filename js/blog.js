@@ -91,9 +91,6 @@ class BlogManager {
   }
 }
 
-// 启动博客管理
-new BlogManager();
-
 function backToList() {
     // 显示博客列表
     document.getElementById('blog-list').classList.remove('hidden');
@@ -104,4 +101,9 @@ function backToList() {
     // 清除 URL Hash
     history.pushState("", document.title, window.location.pathname);
 }
+
+
+
+// 启动博客管理
+new BlogManager();
 
