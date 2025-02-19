@@ -193,12 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 在showBlogDetail方法中添加
-const images = post.querySelectorAll('img');
-images.forEach(img => {
-  if (!img.src) {
-    img.src = img.dataset.src;
-  }
-});
+const post = document.getElementById(postId);
+if (!post) {
+    console.error(`❌ 错误：找不到 ID 为 ${postId} 的文章`);
+    return;
+}
+
 
 window.addEventListener('popstate', () => {
   if (!window.location.hash) {
