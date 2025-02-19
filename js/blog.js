@@ -34,18 +34,26 @@ class BlogManager {
   }
 
 showBlogDetail(postId) {
-    // 确保 `postId` 存在
-    if (!postId) return;
-
-    // 获取博客列表和详情元素
     const blogList = document.getElementById('blog-list');
     const blogDetail = document.getElementById('blog-detail');
 
-    // 确保元素存在
     if (!blogList || !blogDetail) {
         console.error('❌ 错误：找不到博客列表或详情元素！');
         return;
     }
+
+    blogList.classList.add('hidden');
+    blogDetail.classList.remove('hidden');
+
+    const post = document.getElementById(postId);
+    if (post) {
+        post.classList.remove('hidden');
+        window.location.hash = postId;
+    } else {
+        console.warn(`⚠️ 未找到文章 ID: ${postId}`);
+    }
+}
+
 
     // 隐藏博客列表
     blogList.classList.add('hidden');
