@@ -1,3 +1,4 @@
+alert("blog.js 加载成功")
 class BlogManager {
   constructor() {
     this.blogList = document.querySelector('.blog-grid'); // 确保获取的是博客列表
