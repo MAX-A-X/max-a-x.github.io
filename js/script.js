@@ -193,11 +193,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 在showBlogDetail方法中添加
-const post = document.getElementById(postId);
-if (!post) {
-    console.error(`❌ 错误：找不到 ID 为 ${postId} 的文章`);
-    return;
+function showBlogDetail(postId) {
+    const post = document.getElementById(postId);
+    if (!post) {
+        console.error(`❌ 错误：找不到 ID 为 ${postId} 的文章`);
+        return;  // ✅ 现在 return 在一个函数内，合法
+    }
+    post.classList.remove("hidden");
 }
+
 
 
 window.addEventListener('popstate', () => {
