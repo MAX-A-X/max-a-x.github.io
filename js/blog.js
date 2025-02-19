@@ -101,18 +101,32 @@ function showBlogList() {
 
 
 function backToList() {
-    // 确保 showBlogList() 存在
-    if (typeof showBlogList === 'function') {
-        showBlogList();
+    if (typeof window.showBlogList === 'function') {
+        window.showBlogList();
     } else {
-        console.error("showBlogList 方法未定义");
+        console.error("showBlogList 未定义");
     }
-
-    // 清除 URL Hash
+    
+    // 清除 URL Hash，回到博客列表
     history.pushState("", document.title, window.location.pathname);
 }
 
 
+
+window.showBlogList = function () {
+    console.log("返回博客列表");
+    
+    // 确保 HTML 元素存在
+    let blogList = document.getElementById('blog-list');
+    let blogDetail = document.getElementById('blog-detail');
+    
+    if (blogList && blogDetail) {
+        blogList.classList.remove('hidden');
+        blogDetail.classList.add('hidden');
+    } else {
+        console.error("blog-list 或 blog-detail 元素未找到");
+    }
+};
 
 // 启动博客管理
 new BlogManager();
