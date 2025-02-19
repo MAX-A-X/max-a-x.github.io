@@ -33,52 +33,41 @@ class BlogManager {
     this.checkInitialHash();
   }
 
-  showBlogDetail(postId) {
-    // 隐藏博客列表
-    this.blogList.classList.add('hidden');
-
-    // 显示博客详情页
-    this.blogDetail.classList.remove('hidden');
-
-    // 隐藏所有文章内容
-    document.querySelectorAll('.post-content').forEach(post => post.classList.add('hidden'));
-
-    // 显示目标文章
-    const post = document.getElementById(postId);
-    if (post) {
-      post.classList.remove('hidden');
-      window.location.hash = postId;
-    } else {
-      console.warn(文章 ${postId} 不存在);
-    }
-  }
-
-  showBlogDetail(postId) {
-    // 确保 postId 不是空的
+showBlogDetail(postId) {
+    // 确保 `postId` 存在
     if (!postId) return;
 
-    // 隐藏博客列表
-    this.blogList.classList.add('hidden');
+    // 获取博客列表和详情元素
+    const blogList = document.getElementById('blog-list');
+    const blogDetail = document.getElementById('blog-detail');
 
-    // 显示博客详情
-    this.blogDetail.classList.remove('hidden');
-
-    // 隐藏所有文章
-    document.querySelectorAll('.post-content').forEach(post => {
-        post.classList.add('hidden');
-    });
-
-    // 显示指定文章
-    const post = document.getElementById(postId);
-    if (post) {
-        post.classList.remove('hidden');
-    } else {
-        console.warn(未找到文章 ID: ${postId});
+    // 确保元素存在
+    if (!blogList || !blogDetail) {
+        console.error('❌ 错误：找不到博客列表或详情元素！');
+        return;
     }
 
-    // 更新 URL Hash
-    window.location.hash = postId;
+    // 隐藏博客列表
+    blogList.classList.add('hidden');
+
+    // 显示博客详情
+    blogDetail.classList.remove('hidden');
+
+    // 隐藏所有文章内容
+    const posts = document.querySelectorAll('.post-content');
+    posts.forEach(post => post.classList.add('hidden'));
+
+    // 显示指定的文章
+    const targetPost = document.getElementById(postId);
+    if (targetPost) {
+        targetPost.classList.remove('hidden');
+        // 更新 URL 哈希
+        window.location.hash = postId;
+    } else {
+        console.warn(`未找到文章 ID: ${postId}`);
+    }
 }
+
 
 
   checkInitialHash() {
