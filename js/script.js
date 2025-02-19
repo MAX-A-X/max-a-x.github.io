@@ -220,6 +220,12 @@ window.addEventListener('popstate', () => {
   }
 });
 
+const backButton = document.getElementById('back-button');
+if (backButton) {
+    backButton.addEventListener('click', backToList);
+} else {
+    console.error("❌ 错误：找不到返回按钮 #back-button");
+}
 
 
 document.getElementById('back-button').addEventListener('click', backToList);
