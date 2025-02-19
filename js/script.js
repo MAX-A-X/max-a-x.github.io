@@ -203,12 +203,23 @@ function showBlogDetail(postId) {
 }
 
 
-
+/*
 window.addEventListener('popstate', () => {
   if (!window.location.hash) {
     this.showBlogList();
   }
 });
+
+*/
+window.blogManager = new BlogManager();
+
+
+window.addEventListener('popstate', () => {
+  if (!window.location.hash) {
+    blogManager.showBlogList();  // ✅ 确保 `blogManager` 是已定义的对象
+  }
+});
+
 
 
 document.getElementById('back-button').addEventListener('click', backToList);
