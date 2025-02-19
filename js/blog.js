@@ -127,6 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.querySelectorAll('.read-more').forEach(button => {
+    button.addEventListener('click', function() {
+        console.log("阅读更多按钮被点击了", this.dataset.postId);
+    });
+});
+
 
 // 启动博客管理
 new BlogManager();
