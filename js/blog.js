@@ -93,3 +93,15 @@ class BlogManager {
 
 // 启动博客管理
 new BlogManager();
+
+function backToList() {
+    // 显示博客列表
+    document.getElementById('blog-list').classList.remove('hidden');
+    
+    // 隐藏博客详情
+    document.getElementById('blog-detail').classList.add('hidden');
+
+    // 清除 URL Hash
+    history.pushState("", document.title, window.location.pathname);
+}
+
