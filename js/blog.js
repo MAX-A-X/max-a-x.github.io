@@ -1,29 +1,20 @@
 class BlogManager {
   constructor() {
-    // 获取博客列表和详情容器
-    this.blogList = document.querySelector('.blog-grid'); 
+    this.blogList = document.getElementById('blog-list');
     this.blogDetail = document.getElementById('blog-detail');
-
-    if (!this.blogList || !this.blogDetail) {
-      console.error("❌ blog-list 或 blog-detail 未找到！");
-      return;
-    }
-
-    // 监听 DOMContentLoaded 确保脚本加载完成
+    
+    // 确保页面加载完成后再执行
     document.addEventListener('DOMContentLoaded', () => {
       this.init();
     });
   }
 
   init() {
-    console.log("✅ BlogManager 初始化成功");
-    
     // 监听“阅读更多”按钮点击
     document.body.addEventListener('click', (e) => {
       if (e.target.classList.contains('read-more')) {
         e.preventDefault();
         const postId = e.target.getAttribute('data-post-id');
-        console.log(`📖 阅读更多: postId = ${postId}`);
         this.showBlogDetail(postId);
       }
     });
@@ -31,7 +22,6 @@ class BlogManager {
     // 监听返回列表按钮
     document.body.addEventListener('click', (e) => {
       if (e.target.classList.contains('back-to-list')) {
-        console.log("🔙 返回列表");
         this.showBlogList();
       }
     });
@@ -44,12 +34,28 @@ class BlogManager {
   }
 
   showBlogDetail(postId) {
-    if (!postId) {
-      console.warn("⚠️ postId 为空，无法显示博客详情");
-      return;
-    }
+    // 隐藏博客列表
+    this.blogList.classList.add('hidden');
 
-    console.log(`📄 显示文章: postId = ${postId}`);
+    // 显示博客详情页
+    this.blogDetail.classList.remove('hidden');
+
+    // 隐藏所有文章内容
+    document.querySelectorAll('.post-content').forEach(post => post.classList.add('hidden'));
+
+    // 显示目标文章
+    const post = document.getElementById(postId);
+    if (post) {
+      post.classList.remove('hidden');
+      window.location.hash = postId;
+    } else {
+      console.warn(文章 ${postId} 不存在);
+    }
+  }
+
+  showBlogDetail(postId) {
+    // 确保 postId 不是空的
+    if (!postId) return;
 
     // 隐藏博客列表
     this.blogList.classList.add('hidden');
@@ -59,39 +65,74 @@ class BlogManager {
 
     // 隐藏所有文章
     document.querySelectorAll('.post-content').forEach(post => {
-      post.classList.add('hidden');
+        post.classList.add('hidden');
     });
 
-    // 获取目标文章
+    // 显示指定文章
     const post = document.getElementById(postId);
     if (post) {
-      post.classList.remove('hidden');
-      window.location.hash = postId;
+        post.classList.remove('hidden');
     } else {
-      console.warn(`❌ 未找到文章 ID: ${postId}`);
+        console.warn(未找到文章 ID: ${postId});
     }
-  }
 
-  showBlogList() {
-    console.log("📃 显示博客列表");
+    // 更新 URL Hash
+    window.location.hash = postId;
+}
 
-    this.blogList.classList.remove('hidden');
-    this.blogDetail.classList.add('hidden');
-
-    // 清除 Hash
-    history.pushState("", document.title, window.location.pathname);
-  }
 
   checkInitialHash() {
-    const hash = window.location.hash.substring(1); // 去掉 `#`
+    const hash = window.location.hash.substring(1); // 去掉 #
     if (hash) {
-      console.log(`🔍 Hash 解析: ${hash}`);
       this.showBlogDetail(hash);
     } else {
       this.showBlogList();
     }
   }
 }
+
+function showBlogList() {
+    document.getElementById('blog-list').classList.remove('hidden');
+    document.getElementById('blog-detail').classList.add('hidden');
+}
+
+function backToList() {
+    showBlogList();
+    history.pushState("", document.title, window.location.pathname);
+}
+
+
+window.showBlogList = function () {
+    console.log("返回博客列表");
+    
+    // 确保 HTML 元素存在
+    let blogList = document.getElementById('blog-list');
+    let blogDetail = document.getElementById('blog-detail');
+    
+    if (blogList && blogDetail) {
+        blogList.classList.remove('hidden');
+        blogDetail.classList.add('hidden');
+    } else {
+        console.error("blog-list 或 blog-detail 元素未找到");
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    let backButtons = document.querySelectorAll('.back-to-list'); 
+    backButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log("点击了返回列表");
+            backToList();
+        });
+    });
+});
+
+document.querySelectorAll('.read-more').forEach(button => {
+    button.addEventListener('click', function() {
+        console.log("阅读更多按钮被点击了", this.dataset.postId);
+    });
+});
+
 
 // 启动博客管理
 new BlogManager();
