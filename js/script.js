@@ -157,12 +157,19 @@ window.addEventListener('load', () => {
 });
 
 
-backToTop.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.querySelector('.back-to-top');
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    } else {
+        console.error('❌ 错误：找不到 .back-to-top 按钮！');
+    }
 });
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   
