@@ -128,6 +128,20 @@ window.showBlogList = function () {
     }
 };
 
+document.addEventListener('DOMContentLoaded', function() {
+    let backButton = document.getElementById('back-button');
+    if (backButton) {
+        backButton.addEventListener('click', function() {
+            console.log("点击了返回列表");
+            backToList();
+        });
+    } else {
+        console.error("back-button 未找到");
+    }
+});
+
+
+
 // 启动博客管理
 new BlogManager();
 
