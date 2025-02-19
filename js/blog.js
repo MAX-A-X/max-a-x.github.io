@@ -1,3 +1,4 @@
+/*
 class BlogManager {
   constructor() {
     this.blogList = document.getElementById('blog-list');
@@ -130,7 +131,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 */
-  
+/* */
+ /* 
 document.querySelectorAll('.read-more').forEach(button => {
     button.addEventListener('click', function() {
         console.log("阅读更多按钮被点击了", this.dataset.postId);
@@ -155,3 +157,79 @@ class BlogManager {
 
 // 启动博客管理
 new BlogManager();
+
+*/
+
+
+class BlogManager {
+  constructor() {
+    this.blogList = document.querySelector(".blog-grid");
+    this.blogDetail = document.getElementById("blog-detail");
+
+    if (!this.blogList || !this.blogDetail) {
+      console.error("❌ 错误：找不到博客列表或详情元素！");
+      return;
+    }
+
+    this.init();
+  }
+
+  init() {
+    console.log("✅ 博客管理器初始化");
+    this.setupEventListeners();
+    this.checkInitialHash();
+  }
+
+  setupEventListeners() {
+    // 监听“阅读更多”按钮点击
+    document.querySelectorAll(".read-more").forEach(button => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const postId = event.target.dataset.postId;
+        console.log(`📌 阅读更多按钮被点击了 ${postId}`);
+        this.showBlogDetail(postId);
+      });
+    });
+
+    // 监听返回列表按钮
+    document.querySelectorAll(".back-to-list").forEach(button => {
+      button.addEventListener("click", () => this.showBlogList());
+    });
+  }
+
+  checkInitialHash() {
+    if (window.location.hash) {
+      const postId = window.location.hash.substring(1);
+      this.showBlogDetail(postId);
+    } else {
+      this.showBlogList();
+    }
+  }
+
+  showBlogDetail(postId) {
+    const post = document.getElementById(postId);
+    if (!post) {
+      console.error(`❌ 错误：找不到 ID 为 ${postId} 的文章`);
+      return;
+    }
+
+    this.blogList.style.display = "none";
+    this.blogDetail.style.display = "block";
+
+    document.querySelectorAll(".post-content").forEach(post => {
+      post.classList.add("hidden");
+    });
+
+    post.classList.remove("hidden");
+    window.location.hash = postId;
+  }
+
+  showBlogList() {
+    this.blogList.style.display = "grid";
+    this.blogDetail.style.display = "none";
+    history.pushState(null, "", "#");
+  }
+}
+
+// 初始化博客管理器
+document.addEventListener("DOMContentLoaded", () => new BlogManager());
