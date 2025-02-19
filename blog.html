@@ -70,6 +70,32 @@
 <main class="page-content">
   <div class="centered-container">
     <!-- 博客列表 -->
+
+    <div id="blog-list">
+    <div class="post">
+        <h2>文章 1</h2>
+        <p>简介部分...</p>
+        <a href="#post-1" class="read-more" data-post-id="post-1">阅读更多</a>
+    </div>
+</div>
+
+<div id="blog-detail" class="hidden">
+    <button class="back-to-list">返回列表</button>
+    
+    <article id="post-1" class="post-content hidden">
+        <h2>文章 1 标题</h2>
+        <p>文章 1 的内容...</p>
+    </article>
+
+    <article id="post-2" class="post-content hidden">
+        <h2>文章 2 标题</h2>
+        <p>文章 2 的内容...</p>
+    </article>
+</div>
+
+
+<!--
+    
     <div class="blog-grid" id="blog-list">
       <article class="blog-card" data-post-id="post-1">
         <div class="card-content">
@@ -97,6 +123,7 @@
     </div>
 
     <!-- 博客详情 -->
+    <!--
     <div class="blog-detail-container hidden" id="blog-detail">
       <button class="back-to-list">← 返回列表</button>
       <article id="post-1" class="post-content hidden">
