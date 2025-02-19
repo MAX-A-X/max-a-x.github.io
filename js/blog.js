@@ -53,16 +53,33 @@ class BlogManager {
     }
   }
 
-  showBlogList() {
-    // 显示博客列表
-    this.blogList.classList.remove('hidden');
+  showBlogDetail(postId) {
+    // 确保 `postId` 不是空的
+    if (!postId) return;
 
-    // 隐藏博客详情
-    this.blogDetail.classList.add('hidden');
+    // 隐藏博客列表
+    this.blogList.classList.add('hidden');
 
-    // 清除 Hash
-    history.replaceState(null, null, window.location.pathname);
-  }
+    // 显示博客详情
+    this.blogDetail.classList.remove('hidden');
+
+    // 隐藏所有文章
+    document.querySelectorAll('.post-content').forEach(post => {
+        post.classList.add('hidden');
+    });
+
+    // 显示指定文章
+    const post = document.getElementById(postId);
+    if (post) {
+        post.classList.remove('hidden');
+    } else {
+        console.warn(`未找到文章 ID: ${postId}`);
+    }
+
+    // 更新 URL Hash
+    window.location.hash = postId;
+}
+
 
   checkInitialHash() {
     const hash = window.location.hash.substring(1); // 去掉 `#`
