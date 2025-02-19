@@ -1,42 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link rel="prefetch" href="images/quantum.jpg" as="image">
-  <link rel="preload" href="css/style.css" as="style">
-
-<link rel="preload" href="images/logo.svg" as="image">
-
-
-  <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
-<link rel="preload" href="images/logo.svg" as="image">
-<link rel="icon" type="image/svg+xml" href="images/logo.svg">
-<link rel="alternate icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="images/logo.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>星迹博客 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
-<nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <!-- 其他导航项保持不变 -->
-</nav>
-
-
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
 </head>
 <body>
-  <div class="loading-indicator">
-  <div class="spinner"></div>
-  <p>加载中...</p>
-</div>
-  <div class="loading-screen">
-  <div class="loading-spinner"></div>
-  <div class="loading-text" data-i18n="loading">加载中...</div>
-</div>
   <nav class="navbar">
-    <div class="brand">MAX Apex Xenith</div>
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
     <ul class="nav-links">
       <li><a href="/">星域</a></li>
       <li><a href="/about">星渊</a></li>
@@ -45,201 +23,50 @@
       <li><a href="/forum">星云</a></li>
       <li><a href="/contact">星桥</a></li>
       <div class="search-container">
-  <input type="text" 
-         class="search-input"
-         placeholder="搜索星域..."
-         data-i18n-placeholder="searchPlaceholder">
-  <button class="search-button">🔍</button>
-  <div class="search-results"></div>
-</div>
+        <input type="text" class="search-input" placeholder="搜索星域...">
+        <button class="search-button">🔍</button>
+        <div class="search-results"></div>
+      </div>
       <button class="theme-toggle">
-  <span class="light-icon">☀️</span>
-  <span class="dark-icon">🌙</span>
-</button>
-     <!-- 这是一段注释，浏览器不会显示它 
-      <div class="language-switcher">
-  <button data-lang="zh-CN">中文</button>
-  <button data-lang="en-US">English</button>
-      -->
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon">🌙</span>
+      </button>
     </ul>
     <div class="hamburger">☰</div>
-    
-</div>
   </nav>
 
-<main class="page-content">
-  <div class="centered-container">
-    <!-- 博客列表 -->
-
+  <main class="page-content">
     <div id="blog-list">
-    <div class="post">
-      <div class="card-content">
-        <h2>空间波 Space Waves》游戏上线</h2>
-      <div class="meta">
-            <span class="date">2025-01-25</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
+      <div class="post" data-post-id="post-1">
+        <h2>《空间波 Space Waves》游戏上线</h2>
+        <div class="meta"><span class="date">2025-01-25</span> | <span class="author">MAX至臻星域</span></div>
         <p>一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战...</p>
-        <a href="#post-1" class="read-more" data-post-id="post-1">阅读更多</a>
-    </div>
-</div>
-
-
+        <button class="read-more" data-post-id="post-1">阅读更多</button>
+      </div>
+      <div class="post" data-post-id="post-2">
         <h2>2025木屋杯</h2>
-      <div class="meta">
-            <span class="date">2025-02-01</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
+        <div class="meta"><span class="date">2025-02-01</span> | <span class="author">MAX至臻星域</span></div>
         <p>使用《空间波 Space Waves》进行投稿参赛</p>
-        <a href="#post-1" class="read-more" data-post-id="post-1">阅读更多</a>
-    </div>
-</div>
-        
-
-    
-<div id="blog-detail" class="hidden">
-    
-    
-    <article id="post-1" class="post-content hidden">
-      
-
-      <div class="card-content">
-        <h2>空间波 Space Waves》游戏上线</h2>
-        <div class="meta">
-            <span class="date">2025-01-25</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
-        <iframe src="https://maxmzh666.github.io/project8.html?embed=true" width="100%" height="600px" style="border:none;"></iframe>
-        <p>文章 1 的内容...</p>
-        <button class="back-to-list">返回列表</button>
-
-    </article>
-
-    <article id="post-2" class="post-content hidden">
-        <h2>2025木屋杯</h2>
-        <p>使用《空间波 Space Waves》进行投稿参赛</p>
-    </article>
-
-
-      <article class="blog-card" data-post-id="post-2">
-        <div class="card-content">
-          <h2>2025木屋杯</h2>
-          <div class="meta">
-            <span class="date">2025-02-01</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
-          <p class="excerpt">使用《空间波 Space Waves》进行投稿参赛</p>
-          <button class="read-more" data-post-id="post-2">阅读更多</button>
-        </div>
-      </article>
+        <button class="read-more" data-post-id="post-2">阅读更多</button>
+      </div>
     </div>
 
-    <!-- 博客详情 -->
-    <!--
-    <div class="blog-detail-container hidden" id="blog-detail">
+    <div id="blog-detail" class="hidden">
       <button class="back-to-list">← 返回列表</button>
       <article id="post-1" class="post-content hidden">
         <h2>《空间波 Space Waves》游戏上线</h2>
-        <p>一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战...</p>
+        <div class="meta"><span class="date">2025-01-25</span> | <span class="author">MAX至臻星域</span></div>
+        <iframe src="https://maxmzh666.github.io/project8.html?embed=true" width="100%" height="600px" style="border:none;"></iframe>
+        <p>详细介绍游戏内容...</p>
       </article>
       <article id="post-2" class="post-content hidden">
         <h2>2025木屋杯</h2>
-        <p>使用《空间波 Space Waves》进行投稿参赛。</p>
+        <p>使用《空间波 Space Waves》进行投稿参赛</p>
       </article>
     </div>
-  </div>
-</main>
+  </main>
 
-
-
-<!--   
-  <main class="page-content">
-  <div class="centered-container">
-    <h1>星迹博客</h1>
-    <div class="blog-grid">
-      <article class="blog-card">
-        <div class="card-content">
-          <h2>《空间波 Space Waves》游戏上线</h2>
-          <div class="meta">
-            <span class="date">2025-01-25</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
-          <p class="excerpt">一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战。控制一支箭飞过充满障碍物的太空隧道。</p>
-          <a href="#" class="read-more">阅读更多</a>
-        </div>
-      </article>
-      <!-- 更多博客卡片 -->
-  <!--
-    </div>
-    
-    <!-- 博客详情部分 -->
-  <!--
-  
-    <div class="blog-details">
-      <article id="post-1" class="post-content">
-        <button class="back-to-list">← 返回列表</button>
-        <h2>《空间波 Space Waves》游戏上线</h2>
-        <div class="post-meta">
-          <span class="date">2025-01-25</span>
-          <span class="author">MAX至臻星域制作团队</span>
-        </div>
-        <div class="post-body">
-          <!-- 完整文章内容 -->
-  <!--
-          <p>一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战。控制一支箭飞过充满障碍物的太空隧道。</p>
-          <!-- 更多内容 -->
-  <!--
-        </div>
-      </article>
-      <!-- 更多文章详情 -->
-  <!--
-    </div>
-  </div>
-</main>
-
-
-  
-<!--  
-  <main class="page-content">
-  <div class="centered-container">
-    <h1>星迹博客</h1>
-    <div class="blog-grid">
-      <article class="blog-card">
-        <div class="card-content">
-          <h2>《空间波 Space Waves》游戏上线</h2>
-          <div class="meta">
-            <span class="date">2025-01-25</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
-          <p class="excerpt">一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战。控制一支箭飞过充满障碍物的太空隧道。</p>
-          <a href="#" class="read-more">阅读更多</a>
-        </div>
-      </article>
-      <article class="blog-card">
-        <div class="card-content">
-          <h2>2025木屋杯</h2>
-          <div class="meta">
-            <span class="date">2025-02-01</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
-          <p class="excerpt">使用《空间波 Space Waves》进行投稿参赛</p>
-          <a href="#" class="read-more">阅读更多</a>
-        </div>
-      </article>
-      </article>
-      <article class="blog-card">
-        <div class="card-content">
-          <h2>《审判行动：致命瞄准》游戏正在制作中！</h2>
-          <div class="meta">
-            <span class="date">2025-02-01</span>
-            <span class="author">MAX至臻星域制作团队</span>
-          </div>
-          <p class="excerpt">一款全scratch最真实的模拟类型的狙击游戏。</p>
-          <a href="#" class="read-more">阅读更多</a>
-        </div>
-      </article>
-       更多博客卡片 -->
-    <script src="js/blog.js"></script>  
+  <script src="js/blog.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
