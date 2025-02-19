@@ -1,78 +1,49 @@
-class BlogManager {
-  constructor() {
-    this.blogList = document.getElementById('blog-list');
-    this.blogDetail = document.getElementById('blog-detail');
-    
-    // 确保页面加载完成后再执行
-    document.addEventListener('DOMContentLoaded', () => {
-      this.init();
-    });
-  }
+<main class="page-content">
+  <div class="centered-container">
+    <!-- 博客列表 -->
+    <div class="blog-grid" id="blog-list">
+      <article class="blog-card" data-post="post-1">
+        <div class="card-content">
+          <h2>《空间波 Space Waves》游戏上线</h2>
+          <div class="meta">
+            <span class="date">2025-01-25</span>
+            <span class="author">MAX至臻星域制作团队</span>
+          </div>
+          <p class="excerpt">一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战。控制一支箭飞过充满障碍物的太空隧道。</p>
+          <a href="#post-1" class="read-more">阅读更多</a>
+        </div>
+      </article>
+      <!-- 更多博客卡片 -->
 
-  init() {
-    // 监听“阅读更多”按钮点击
-    document.body.addEventListener('click', (e) => {
-      if (e.target.classList.contains('read-more')) {
-        e.preventDefault();
-        const postId = e.target.getAttribute('data-post-id');
-        this.showBlogDetail(postId);
-      }
-    });
+      <div class="blog-grid" id="blog-list">
+      <article class="blog-card" data-post="post-2">
+        <div class="card-content">
+          <h2>2025木屋杯</h2>
+          <div class="meta">
+            <span class="date">2025-02-01</span>
+            <span class="author">MAX至臻星域制作团队</span>
+          </div>
+          <p class="excerpt">使用《空间波 Space Waves》进行投稿参赛</p>
+          <a href="#post-2" class="read-more">阅读更多</a>
+        </div>
+      </article>
 
-    // 监听返回列表按钮
-    document.body.addEventListener('click', (e) => {
-      if (e.target.classList.contains('back-to-list')) {
-        this.showBlogList();
-      }
-    });
 
-    // 监听 Hash 变化
-    window.addEventListener('hashchange', () => this.checkInitialHash());
 
-    // 初次加载时检查 Hash
-    this.checkInitialHash();
-  }
+      
+    </div>
 
-  showBlogDetail(postId) {
-    // 隐藏博客列表
-    this.blogList.classList.add('hidden');
-
-    // 显示博客详情页
-    this.blogDetail.classList.remove('hidden');
-
-    // 隐藏所有文章内容
-    document.querySelectorAll('.post-content').forEach(post => post.classList.add('hidden'));
-
-    // 显示目标文章
-    const post = document.getElementById(postId);
-    if (post) {
-      post.classList.remove('hidden');
-      window.location.hash = postId;
-    } else {
-      console.warn(`文章 ${postId} 不存在`);
-    }
-  }
-
-  showBlogList() {
-    // 显示博客列表
-    this.blogList.classList.remove('hidden');
-
-    // 隐藏博客详情
-    this.blogDetail.classList.add('hidden');
-
-    // 清除 Hash
-    history.replaceState(null, null, window.location.pathname);
-  }
-
-  checkInitialHash() {
-    const hash = window.location.hash.substring(1); // 去掉 `#`
-    if (hash) {
-      this.showBlogDetail(hash);
-    } else {
-      this.showBlogList();
-    }
-  }
-}
-
-// 启动博客管理
-new BlogManager();
+    <!-- 博客详情容器 -->
+    <div class="blog-detail-container" id="blog-detail">
+      <button class="back-to-list">← 返回列表</button>
+      <article id="post-1" class="post-content hidden">
+        <!-- 完整文章内容 -->
+        <p>一款激动人心的横向卷轴游戏，结合了快节奏的动作和挑战。控制一支箭飞过充满障碍物的太空隧道。</p>
+      </article>
+      <article id="post-2" class="post-content hidden">
+        <!-- 其他文章内容 -->
+        <p>使用《空间波 Space Waves》进行投稿参赛</p>
+      </article>
+    </div>
+  </div>
+</main>
