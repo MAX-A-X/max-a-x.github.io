@@ -201,3 +201,12 @@ window.addEventListener('popstate', () => {
 
 
 document.getElementById('back-button').addEventListener('click', backToList);
+
+const backToTopButton = document.querySelector('.back-to-top');
+if (backToTopButton) {
+   backToTopButton.addEventListener('click', () => {
+       // 处理返回顶部的逻辑
+   });
+} else {
+   console.error('找不到 .back-to-top 按钮！');
+}
