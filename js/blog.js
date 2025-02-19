@@ -6,7 +6,7 @@ class BlogManager {
   }
 
   init() {
-    // 使用事件委托处理动态内容
+    // 监听点击事件
     document.body.addEventListener('click', (e) => {
       if (e.target.classList.contains('read-more')) {
         this.handleReadMore(e);
@@ -16,57 +16,53 @@ class BlogManager {
       }
     });
 
-    // 初始化时检查hash
+    // 初始化时检查 URL Hash
     this.checkInitialHash();
     window.addEventListener('hashchange', () => this.checkInitialHash());
   }
 
   handleReadMore(e) {
     e.preventDefault();
-    const postId = e.target.getAttribute('href').split('#')[1];
+    const postId = e.target.getAttribute('data-post-id');
     this.showBlogDetail(postId);
   }
 
   showBlogDetail(postId) {
-    // 隐藏列表
-    this.blogList.style.opacity = '0';
-    
-    // 显示详情容器
-    this.blogDetail.classList.add('active');
-    
-    // 显示对应文章
+    // 隐藏博客列表
+    this.blogList.classList.add('hidden');
+
+    // 显示博客详情
+    this.blogDetail.classList.remove('hidden');
+
+    // 隐藏所有文章内容
+    document.querySelectorAll('.post-content').forEach(post => post.classList.add('hidden'));
+
+    // 显示当前文章
     const post = document.getElementById(postId);
     if (post) {
-      document.querySelectorAll('.post-content').forEach(p => p.classList.add('hidden'));
       post.classList.remove('hidden');
       window.location.hash = postId;
-      
-      // 添加滚动锁定
-      document.body.style.overflow = 'hidden';
     }
   }
 
   showBlogList() {
-    // 显示列表
-    this.blogList.style.opacity = '1';
-    
-    // 隐藏详情容器
-    this.blogDetail.classList.remove('active');
-    
-    // 移除hash
+    // 显示博客列表
+    this.blogList.classList.remove('hidden');
+
+    // 隐藏博客详情
+    this.blogDetail.classList.add('hidden');
+
+    // 清除 Hash
     history.replaceState(null, null, ' ');
-    
-    // 恢复滚动
-    document.body.style.overflow = 'auto';
   }
 
   checkInitialHash() {
     if (window.location.hash) {
-      const postId = window.location.hash.split('#')[1];
+      const postId = window.location.hash.substring(1);
       this.showBlogDetail(postId);
     }
   }
 }
 
-// 初始化
+// 初始化博客管理
 new BlogManager();
