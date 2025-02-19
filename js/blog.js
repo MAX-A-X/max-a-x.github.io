@@ -107,6 +107,12 @@ window.showBlogList = function () {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+    const blogManager = new BlogManager();
+    blogManager.showBlogList();
+});
+
+/*
+document.addEventListener('DOMContentLoaded', function() {
     let backButtons = document.querySelectorAll('.back-to-list'); 
     backButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -115,13 +121,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
+*/
+  
 document.querySelectorAll('.read-more').forEach(button => {
     button.addEventListener('click', function() {
         console.log("阅读更多按钮被点击了", this.dataset.postId);
     });
 });
 
+class BlogManager {
+    constructor() {
+        this.blogList = document.getElementById('blog-list');
+        this.blogDetail = document.getElementById('blog-detail');
+    }
+
+    showBlogList() {
+        if (this.blogList && this.blogDetail) {
+            this.blogList.classList.remove('hidden');
+            this.blogDetail.classList.add('hidden');
+        } else {
+            console.error('❌ 错误：找不到博客列表或详情元素！');
+        }
+    }
+}
 
 // 启动博客管理
 new BlogManager();
