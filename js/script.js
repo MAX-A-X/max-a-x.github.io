@@ -198,3 +198,6 @@ window.addEventListener('popstate', () => {
     this.showBlogList();
   }
 });
+
+
+document.getElementById('back-button').addEventListener('click', backToList);
