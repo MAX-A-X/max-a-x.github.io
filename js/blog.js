@@ -2,46 +2,54 @@ class BlogManager {
   constructor() {
     this.blogList = document.getElementById('blog-list');
     this.blogDetail = document.getElementById('blog-detail');
-    this.init();
+    
+    // 确保页面加载完成后再执行
+    document.addEventListener('DOMContentLoaded', () => {
+      this.init();
+    });
   }
 
   init() {
-    // 监听点击事件
+    // 监听“阅读更多”按钮点击
     document.body.addEventListener('click', (e) => {
       if (e.target.classList.contains('read-more')) {
-        this.handleReadMore(e);
+        e.preventDefault();
+        const postId = e.target.getAttribute('data-post-id');
+        this.showBlogDetail(postId);
       }
+    });
+
+    // 监听返回列表按钮
+    document.body.addEventListener('click', (e) => {
       if (e.target.classList.contains('back-to-list')) {
         this.showBlogList();
       }
     });
 
-    // 初始化时检查 URL Hash
-    this.checkInitialHash();
+    // 监听 Hash 变化
     window.addEventListener('hashchange', () => this.checkInitialHash());
-  }
 
-  handleReadMore(e) {
-    e.preventDefault();
-    const postId = e.target.getAttribute('data-post-id');
-    this.showBlogDetail(postId);
+    // 初次加载时检查 Hash
+    this.checkInitialHash();
   }
 
   showBlogDetail(postId) {
     // 隐藏博客列表
     this.blogList.classList.add('hidden');
 
-    // 显示博客详情
+    // 显示博客详情页
     this.blogDetail.classList.remove('hidden');
 
     // 隐藏所有文章内容
     document.querySelectorAll('.post-content').forEach(post => post.classList.add('hidden'));
 
-    // 显示当前文章
+    // 显示目标文章
     const post = document.getElementById(postId);
     if (post) {
       post.classList.remove('hidden');
       window.location.hash = postId;
+    } else {
+      console.warn(`文章 ${postId} 不存在`);
     }
   }
 
@@ -53,16 +61,18 @@ class BlogManager {
     this.blogDetail.classList.add('hidden');
 
     // 清除 Hash
-    history.replaceState(null, null, ' ');
+    history.replaceState(null, null, window.location.pathname);
   }
 
   checkInitialHash() {
-    if (window.location.hash) {
-      const postId = window.location.hash.substring(1);
-      this.showBlogDetail(postId);
+    const hash = window.location.hash.substring(1); // 去掉 `#`
+    if (hash) {
+      this.showBlogDetail(hash);
+    } else {
+      this.showBlogList();
     }
   }
 }
 
-// 初始化博客管理
+// 启动博客管理
 new BlogManager();
