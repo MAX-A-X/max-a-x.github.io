@@ -249,85 +249,76 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-class WorkManager {
-  constructor() {
-    this.workList = document.querySelector(".grid-container"); // 作品列表
-    this.workDetail = document.getElementById("work-detail"); // 作品详情区域
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ DOM 加载完成，初始化 WorkManager");
 
-    if (!this.workList || !this.workDetail) {
-      console.error("❌ 错误：找不到作品列表或详情元素！");
-      return;
-    }
+  class WorkManager {
+    constructor() {
+      this.workList = document.querySelector(".grid-container"); // 作品列表
+      this.workDetail = document.getElementById("work-detail"); // 作品详情区域
 
-    this.init();
-  }
+      if (!this.workList || !this.workDetail) {
+        console.error("❌ 错误：找不到作品列表或详情元素！");
+        return;
+      }
 
-  init() {
-    console.log("✅ 作品管理器初始化");
-    this.setupEventListeners();
-    this.checkInitialHash();
-  }
-
-  setupEventListeners() {
-    // 监听所有作品卡片点击事件
-    document.querySelectorAll(".work-item").forEach(item => {
-      item.addEventListener("click", (event) => {
-        const workId = item.dataset.id;
-        console.log(`📌 作品卡片点击，ID: ${workId}`);
-        this.showWorkDetail(workId);
-      });
-    });
-
-    // 监听返回按钮
-    document.querySelectorAll(".back-to-list").forEach(button => {
-      button.addEventListener("click", () => this.showWorkList());
-    });
-
-    // 监听 URL hash 变化
-    window.addEventListener("hashchange", () => {
+      this.setupEventListeners();
       this.checkInitialHash();
-    });
-  }
+    }
 
-  checkInitialHash() {
-    if (window.location.hash) {
-      const workId = window.location.hash.substring(1);
-      this.showWorkDetail(workId);
-    } else {
-      this.showWorkList();
+    setupEventListeners() {
+      console.log("🎯 绑定点击事件到作品卡片...");
+      document.querySelectorAll(".work-item").forEach(item => {
+        item.addEventListener("click", (event) => {
+          const workId = item.dataset.id;
+          console.log(`📌 作品卡片点击，ID: ${workId}`);
+          this.showWorkDetail(workId);
+        });
+      });
+
+      document.querySelectorAll(".back-to-list").forEach(button => {
+        button.addEventListener("click", () => this.showWorkList());
+      });
+
+      window.addEventListener("hashchange", () => {
+        this.checkInitialHash();
+      });
+    }
+
+    checkInitialHash() {
+      if (window.location.hash) {
+        const workId = window.location.hash.substring(1);
+        this.showWorkDetail(workId);
+      } else {
+        this.showWorkList();
+      }
+    }
+
+    showWorkDetail(workId) {
+      const work = document.getElementById(workId);
+      if (!work) {
+        console.error(`❌ 错误：找不到 ID 为 ${workId} 的作品`);
+        return;
+      }
+
+      console.log(`✅ 显示作品: ${workId}`);
+      this.workList.style.display = "none"; // 隐藏作品列表
+      this.workDetail.style.display = "block"; // 显示作品详情
+
+      document.querySelectorAll(".work-content").forEach(item => {
+        item.classList.add("hidden");
+      });
+
+      work.classList.remove("hidden");
+      window.location.hash = workId;
+    }
+
+    showWorkList() {
+      this.workList.style.display = "grid";
+      this.workDetail.style.display = "none";
+      history.pushState(null, "", "#");
     }
   }
 
-  showWorkDetail(workId) {
-    const work = document.getElementById(workId);
-    if (!work) {
-      console.error(`❌ 错误：找不到 ID 为 ${workId} 的作品`);
-      return;
-    }
-
-    console.log(`✅ 显示作品: ${workId}`);
-    this.workList.style.display = "none"; // 隐藏作品列表
-    this.workDetail.style.display = "block"; // 显示作品详情
-
-    // 隐藏所有作品详情
-    document.querySelectorAll(".work-content").forEach(item => {
-      item.classList.add("hidden");
-    });
-
-    // 仅显示点击的作品
-    work.classList.remove("hidden");
-    window.location.hash = workId; // 更新 URL
-  }
-
-  showWorkList() {
-    this.workList.style.display = "grid"; // 显示作品列表
-    this.workDetail.style.display = "none"; // 隐藏作品详情
-    history.pushState(null, "", "#"); // 清除 hash
-  }
-}
-
-// 初始化作品管理器
-document.addEventListener("DOMContentLoaded", () => new WorkManager());
-
-
-
+  new WorkManager();
+});
