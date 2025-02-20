@@ -974,16 +974,10 @@ html {
   }
 }
 
-.nav-logo {
+.logo {
   width: 40px;
   height: auto;
   margin-right: 10px;
-  display: none; /* 默认隐藏 */
-}
-
-.brand-container {
-  display: flex;
-  align-items: center;
 }
 
 .navbar {
@@ -992,6 +986,24 @@ html {
   align-items: center;
   padding: 10px 20px;
 }
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* 首页隐藏 logo */
+.home .logo {
+  display: none;
+}
+
 
 
 
