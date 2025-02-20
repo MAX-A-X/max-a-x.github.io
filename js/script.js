@@ -250,7 +250,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM 加载完成，初始化 WorkManager");
+    console.log("✅ 作品项:", document.querySelectorAll(".work-item"));
+});
+
 
   class WorkManager {
     constructor() {
