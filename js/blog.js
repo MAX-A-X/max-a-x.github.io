@@ -321,5 +321,42 @@ class BlogManager {
   }
 }
 
+
+
 // 初始化博客管理器
 document.addEventListener("DOMContentLoaded", () => new BlogManager());
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const readMoreLinks = document.querySelectorAll(".read-more");
+  const blogGrid = document.querySelector(".blog-grid");
+  const blogDetail = document.getElementById("blog-detail");
+  const backButtons = document.querySelectorAll(".back-to-list");
+
+  readMoreLinks.forEach(link => {
+    link.addEventListener("click", function (event) {
+      event.preventDefault(); // 阻止默认的跳转行为
+
+      const postId = this.getAttribute("data-post-id");
+      const postContent = document.getElementById(postId);
+
+      if (postContent) {
+        blogGrid.style.display = "none"; // 隐藏文章列表
+        blogDetail.classList.remove("hidden"); // 显示文章详情
+        postContent.classList.remove("hidden"); // 显示具体文章
+      }
+    });
+  });
+
+  backButtons.forEach(button => {
+    button.addEventListener("click", function () {
+      blogGrid.style.display = "flex"; // 显示文章列表
+      blogDetail.classList.add("hidden"); // 隐藏文章详情
+      document.querySelectorAll(".post-content").forEach(post => {
+        post.classList.add("hidden"); // 隐藏所有文章
+      });
+    });
+  });
+});
