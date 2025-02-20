@@ -15,6 +15,7 @@
       font-family: 'Arial', sans-serif;
       background: #0d0d0d;
       color: #e0e0e0;
+      position: relative;
     }
     a {
       color: #ffd700;
@@ -28,12 +29,24 @@
       margin: auto;
       padding: 20px;
     }
+    /* 滚动淡入效果 */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ========== 头部与导航 ========== */
     header {
       background: #1a1a1a;
       padding: 10px 0;
       border-bottom: 2px solid #ffd700;
+      position: relative;
+      z-index: 10;
     }
     nav {
       display: flex;
@@ -104,22 +117,21 @@
       height: 400px;
       margin-bottom: 20px;
     }
-    .home-banner::after {
-      content: '';
+    /* 在 Banner 中添加粒子背景容器 */
+    #particles-js {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
     .banner-content {
       position: relative;
       z-index: 1;
       text-align: center;
       padding-top: 150px;
-      /* 淡入动画 */
-      animation: fadeInUp 1s forwards;
-      opacity: 0; /* 初始隐藏，用于淡入 */
     }
-    /* 主标题：渐变文字 + 霓虹闪烁 */
+    /* 渐变+霓虹闪烁的文字 */
     .animated-title {
       font-size: 3rem;
       margin-bottom: 10px;
@@ -127,14 +139,12 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: neon-flicker 3s infinite, fadeInUp 1s forwards;
-      opacity: 0; /* 配合 fadeInUp 动画 */
     }
     .animated-subtitle {
       font-size: 1.2rem;
       margin-top: 10px;
       animation: fadeInUp 1s forwards;
       animation-delay: 0.5s;
-      opacity: 0; /* 初始隐藏 */
     }
     .game-images {
       display: flex;
@@ -172,9 +182,7 @@
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
-      /* 淡入动画 */
       animation: fadeInUp 1s forwards;
-      opacity: 0;
     }
     .card:hover {
       transform: scale(1.05);
@@ -184,7 +192,7 @@
       margin-bottom: 10px;
       color: #ffd700;
     }
-    /* 让卡片依次出现 */
+    /* 依次出现的延迟 */
     .card:nth-child(1) { animation-delay: 0.2s; }
     .card:nth-child(2) { animation-delay: 0.4s; }
     .card:nth-child(3) { animation-delay: 0.6s; }
@@ -196,7 +204,8 @@
     /* 弹出详情框 */
     .detail-modal {
       position: fixed;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       background: #1a1a1a;
       padding: 30px;
@@ -296,8 +305,10 @@
       display: none;
       position: fixed;
       z-index: 2000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
       overflow: auto;
       background: rgba(0,0,0,0.8);
     }
@@ -340,11 +351,13 @@
   </style>
 </head>
 <body>
+  <!-- 粒子背景容器 -->
+  <div id="particles-js"></div>
+
   <!-- ========== 头部：LOGO 与导航菜单 ========== -->
   <header>
     <div class="container">
       <nav>
-        <!-- 如果你有新的 Logo 图片，可替换 src -->
         <img src="logo.png" alt="Logo" class="logo" />
         <ul class="nav-menu">
           <li><button onclick="switchPage('page-home')">首页</button></li>
@@ -367,16 +380,14 @@
   <!-- ========== 内容区域：各“页面” ========== -->
   <div id="content" class="container">
     <!-- 主页：展示新闻公告和游戏图片 -->
-    <div id="page-home" class="page active">
+    <div id="page-home" class="page active fade-in">
       <div class="home-banner">
-        <div class="banner-content">
-          <!-- 渐变+霓虹闪烁的文字 -->
+        <div class="banner-content fade-in">
           <h1 class="animated-title">审判行动：致命瞄准</h1>
           <p class="animated-subtitle">新闻公告：最新更新、活动、新版本发布等信息</p>
         </div>
       </div>
-      <div class="game-images">
-        <!-- 替换为你的实际游戏图片 -->
+      <div class="game-images fade-in">
         <img src="game1.jpg" alt="游戏图片1">
         <img src="game2.jpg" alt="游戏图片2">
         <img src="game3.jpg" alt="游戏图片3">
@@ -384,34 +395,34 @@
     </div>
 
     <!-- 游戏介绍：卡片形式，包含玩法、背景、角色、武器、瞄准镜、防具、道具 -->
-    <div id="page-game-intro" class="page">
+    <div id="page-game-intro" class="page fade-in">
       <h2>游戏介绍</h2>
       <div class="card-container">
-        <div class="card" onclick="openDetail('play-detail')">
+        <div class="card fade-in" onclick="openDetail('play-detail')">
           <h3>玩法介绍</h3>
           <p>点击查看详情</p>
         </div>
-        <div class="card" onclick="openDetail('backstory-detail')">
+        <div class="card fade-in" onclick="openDetail('backstory-detail')">
           <h3>背景介绍</h3>
           <p>点击查看详情</p>
         </div>
-        <div class="card" onclick="openDetail('character-detail')">
+        <div class="card fade-in" onclick="openDetail('character-detail')">
           <h3>角色介绍</h3>
           <p>点击查看详情</p>
         </div>
-        <div class="card" onclick="openDetail('weapon-detail')">
+        <div class="card fade-in" onclick="openDetail('weapon-detail')">
           <h3>武器介绍</h3>
           <p>点击查看详情</p>
         </div>
-        <div class="card" onclick="openDetail('scope-detail')">
+        <div class="card fade-in" onclick="openDetail('scope-detail')">
           <h3>瞄准镜介绍</h3>
           <p>点击查看详情</p>
         </div>
-        <div class="card" onclick="openDetail('armor-detail')">
+        <div class="card fade-in" onclick="openDetail('armor-detail')">
           <h3>防具介绍</h3>
           <p>点击查看详情</p>
         </div>
-        <div class="card" onclick="openDetail('item-detail')">
+        <div class="card fade-in" onclick="openDetail('item-detail')">
           <h3>道具介绍</h3>
           <p>点击查看详情</p>
         </div>
@@ -499,7 +510,7 @@
     </div>
 
     <!-- 开发进度 -->
-    <div id="page-progress" class="page">
+    <div id="page-progress" class="page fade-in">
       <h2>开发进度</h2>
       <div class="timeline">
         <div class="timeline-item"><strong>v0.1 RC</strong> - 初始测试版本发布</div>
@@ -509,13 +520,13 @@
     </div>
 
     <!-- 讨论交流 -->
-    <div id="page-discussion" class="page">
+    <div id="page-discussion" class="page fade-in">
       <h2>讨论交流</h2>
       <p>这里可嵌入第三方讨论版（如 Disqus）或其他评论系统。</p>
     </div>
 
     <!-- 开始游玩 -->
-    <div id="page-play" class="page">
+    <div id="page-play" class="page fade-in">
       <h2>开始游玩</h2>
       <div>
         <p>在线游玩：</p>
@@ -534,7 +545,7 @@
     </div>
 
     <!-- 关于我们 -->
-    <div id="page-about" class="page">
+    <div id="page-about" class="page fade-in">
       <h2>关于我们</h2>
       <p>这里介绍开发团队、支持与帮助信息等。</p>
       <div class="interactive-buttons">
@@ -545,7 +556,7 @@
     </div>
 
     <!-- 个人主页 -->
-    <div id="page-personal" class="page">
+    <div id="page-personal" class="page fade-in">
       <h2>个人主页</h2>
       <p>欢迎来到您的个人中心！</p>
       <p>这里可以显示用户的基本信息、历史记录等（需后端支持）。</p>
@@ -562,6 +573,76 @@
     </div>
   </div>
 
+  <!-- ========== 引入 particles.js ========== -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    // 初始化粒子背景
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 50,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          }
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
   <script>
     // 页面切换：显示对应页面，隐藏其他页面
     function switchPage(pageId) {
@@ -571,7 +652,6 @@
       });
       document.getElementById(pageId).classList.add('active');
     }
-
     // 打开/关闭详情弹窗
     function openDetail(detailId) {
       document.getElementById(detailId).style.display = 'block';
@@ -579,29 +659,27 @@
     function closeDetail(detailId) {
       document.getElementById(detailId).style.display = 'none';
     }
-
     // 中英切换（示例，待完善）
     document.getElementById('lang-toggle').addEventListener('click', function() {
       alert('中英切换功能暂未实现！');
     });
-
     // 模态框：登录/注册
     var modal = document.getElementById('modal');
     var modalBody = document.getElementById('modal-body');
     document.getElementById('login-btn').addEventListener('click', function() {
       modalBody.innerHTML = '<h2>登录</h2><form>' +
-        '<input type=\"text\" placeholder=\"用户名\" style=\"width:100%; margin-bottom:10px; padding:8px;\"><br>' +
-        '<input type=\"password\" placeholder=\"密码\" style=\"width:100%; margin-bottom:10px; padding:8px;\"><br>' +
-        '<button type=\"submit\" style=\"width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;\">登录</button>' +
+        '<input type="text" placeholder="用户名" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
+        '<input type="password" placeholder="密码" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
+        '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">登录</button>' +
         '</form>';
       modal.style.display = 'block';
     });
     document.getElementById('register-btn').addEventListener('click', function() {
       modalBody.innerHTML = '<h2>注册</h2><form>' +
-        '<input type=\"text\" placeholder=\"用户名\" style=\"width:100%; margin-bottom:10px; padding:8px;\"><br>' +
-        '<input type=\"email\" placeholder=\"邮箱\" style=\"width:100%; margin-bottom:10px; padding:8px;\"><br>' +
-        '<input type=\"password\" placeholder=\"密码\" style=\"width:100%; margin-bottom:10px; padding:8px;\"><br>' +
-        '<button type=\"submit\" style=\"width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;\">注册</button>' +
+        '<input type="text" placeholder="用户名" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
+        '<input type="email" placeholder="邮箱" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
+        '<input type="password" placeholder="密码" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
+        '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">注册</button>' +
         '</form>';
       modal.style.display = 'block';
     });
@@ -613,6 +691,19 @@
         modal.style.display = 'none';
       }
     };
+
+    // IntersectionObserver：为带有 .fade-in 类的元素添加 visible 类
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    });
   </script>
 </body>
 </html>
