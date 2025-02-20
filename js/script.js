@@ -240,7 +240,7 @@ if (backToTopButton) {
 }
 
 
-
+/*
 
 document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname === "/") {
@@ -253,3 +253,16 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM 加载完成，初始化 WorkManager");
 
   
+*/
+
+
+
+window.addEventListener("load", function () {
+  const loadingScreen = document.querySelector(".loading-screen");
+  if (loadingScreen) {
+    loadingScreen.style.opacity = "0";
+    setTimeout(() => {
+      loadingScreen.style.display = "none";
+    }, 500);
+  }
+});
