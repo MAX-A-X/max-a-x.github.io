@@ -161,6 +161,16 @@ new BlogManager();
 */
 
 
+
+
+
+
+
+
+
+
+/*
+
 class BlogManager {
   constructor() {
     this.blogList = document.querySelector(".blog-grid");
@@ -228,6 +238,86 @@ class BlogManager {
     this.blogList.style.display = "grid";
     this.blogDetail.style.display = "none";
     history.pushState(null, "", "#");
+  }
+}
+
+// 初始化博客管理器
+document.addEventListener("DOMContentLoaded", () => new BlogManager());
+*/
+
+
+
+
+class BlogManager {
+  constructor() {
+    this.blogList = document.querySelector(".blog-grid"); // 博客列表
+    this.blogDetail = document.getElementById("blog-detail"); // 博客详情区域
+
+    if (!this.blogList || !this.blogDetail) {
+      console.error("❌ 错误：找不到博客列表或详情元素！");
+      return;
+    }
+
+    this.init();
+  }
+
+  init() {
+    console.log("✅ 博客管理器初始化");
+    this.setupEventListeners();
+    this.checkInitialHash();
+  }
+
+  setupEventListeners() {
+    // 监听所有 "阅读更多" 按钮
+    document.querySelectorAll(".read-more").forEach(button => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const postId = event.target.dataset.postId;
+        console.log(`📌 阅读更多按钮被点击，文章ID: ${postId}`);
+        this.showBlogDetail(postId);
+      });
+    });
+
+    // 监听返回按钮
+    document.querySelectorAll(".back-to-list").forEach(button => {
+      button.addEventListener("click", () => this.showBlogList());
+    });
+  }
+
+  checkInitialHash() {
+    if (window.location.hash) {
+      const postId = window.location.hash.substring(1);
+      this.showBlogDetail(postId);
+    } else {
+      this.showBlogList();
+    }
+  }
+
+  showBlogDetail(postId) {
+    const post = document.getElementById(postId);
+    if (!post) {
+      console.error(`❌ 错误：找不到 ID 为 ${postId} 的文章`);
+      return;
+    }
+
+    console.log(`✅ 显示文章: ${postId}`);
+    this.blogList.style.display = "none"; // 隐藏博客列表
+    this.blogDetail.style.display = "block"; // 显示文章详情
+
+    // 隐藏所有文章
+    document.querySelectorAll(".post-content").forEach(post => {
+      post.classList.add("hidden");
+    });
+
+    // 仅显示点击的文章
+    post.classList.remove("hidden");
+    window.location.hash = postId; // 更新 URL
+  }
+
+  showBlogList() {
+    this.blogList.style.display = "grid"; // 显示博客列表
+    this.blogDetail.style.display = "none"; // 隐藏博客详情
+    history.pushState(null, "", "#"); // 清除 hash
   }
 }
 
