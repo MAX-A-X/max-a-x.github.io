@@ -973,7 +973,7 @@ html {
     transform: translateY(0);
   }
 }
-
+/*
 .logo {
   width: 40px;
   height: auto;
@@ -998,7 +998,7 @@ html {
   font-size: 1.5em;
   font-weight: bold;
 }
-
+*/
 /* 首页隐藏 logo */
 .home .logo {
   display: none;
