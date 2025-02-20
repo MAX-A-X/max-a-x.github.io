@@ -243,8 +243,7 @@ if (backToTopButton) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const logo = document.querySelector(".nav-logo");
-  if (window.location.pathname !== "/" && logo) {
-    logo.style.display = "block"; // 只有在非首页时显示 logo
+  if (window.location.pathname === "/") {
+    document.querySelector(".logo").style.display = "none";
   }
 });
