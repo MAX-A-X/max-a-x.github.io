@@ -1033,6 +1033,14 @@ html {
 
 
 
+.work-item {
+  cursor: pointer;
+}
+
+
+
 body {
   background: var(--primary-bg);
   color: var(--text-primary
+
+             
