@@ -974,6 +974,24 @@ html {
   }
 }
 
+.nav-logo {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+  display: none; /* 默认隐藏 */
+}
+
+.brand-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
 
 
 
