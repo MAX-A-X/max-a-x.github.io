@@ -41,11 +41,12 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    /* LOGO文字设计 */
+    /* LOGO文字优化：增加整体容器及悬停缩放效果 */
     #logo-text {
       margin-left: 20px;
-      line-height: 1;
+      transition: transform 0.3s;
     }
+    #logo-text:hover { transform: scale(1.05); }
     /* “审判”字体：金属银灰 */
     #logo-judge {
       font-size: 2.5rem;
@@ -66,7 +67,7 @@
       position: relative;
       top: 5px;
     }
-    /* 副标题“致命瞄准”，并在“瞄准”上添加小交叉准星点缀 */
+    /* 副标题“致命瞄准”，添加交叉准星点缀 */
     #logo-subtitle {
       font-size: 1.2rem;
       font-family: Arial, sans-serif;
@@ -172,7 +173,7 @@
       transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.7);
     }
 
-    /* ========== 游戏介绍（卡片+弹窗详情） ========== */
+    /* ========== 游戏介绍：卡片+弹窗详情 ========== */
     .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px; }
     .card {
       background: #222; border: 1px solid #444; border-radius: 8px;
@@ -204,28 +205,31 @@
     }
 
     /* ========== 武器介绍参数表 ========== */
-    .weapon-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .table-container { overflow-x: auto; }
+    .weapon-table {
+      width: 100%; border-collapse: collapse; margin-top: 20px;
+      table-layout: auto;
+    }
     .weapon-table th, .weapon-table td {
-      border: 1px solid #444; padding: 10px; text-align: center;
+      border: 1px solid #444; padding: 8px 10px; text-align: center;
+      white-space: nowrap;
     }
-    .weapon-table th {
-      background: #222; color: #ffd700;
-    }
+    .weapon-table th { background: #222; color: #ffd700; }
 
     /* ========== 后坐力数据表 ========== */
-    .recoil-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .recoil-table {
+      width: 100%; border-collapse: collapse; margin-top: 20px;
+      table-layout: auto;
+    }
     .recoil-table th, .recoil-table td {
-      border: 1px solid #444; padding: 10px; text-align: center;
+      border: 1px solid #444; padding: 8px 10px; text-align: center;
+      white-space: nowrap;
     }
-    .recoil-table th {
-      background: #222; color: #ffd700;
-    }
+    .recoil-table th { background: #222; color: #ffd700; }
 
     /* ========== 开发进度时间轴 ========== */
     .timeline { border-left: 2px solid #ffd700; padding-left: 20px; margin-top: 20px; }
-    .timeline-item {
-      margin-bottom: 20px; position: relative; padding-left: 20px;
-    }
+    .timeline-item { margin-bottom: 20px; position: relative; padding-left: 20px; }
     .timeline-item::before {
       content: ''; position: absolute; left: -9px; top: 5px;
       width: 16px; height: 16px; background: #ffd700; border-radius: 50%;
@@ -255,15 +259,8 @@
     }
 
     /* ========== CSS 动画 Keyframes ========== */
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes neon-flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { filter: drop-shadow(0 0 8px #FF2E63); }
-      20%, 24%, 55% { filter: none; }
-    }
-    /* 页面切换淡入 */
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes neon-flicker { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { filter: drop-shadow(0 0 8px #FF2E63); } 20%, 24%, 55% { filter: none; } }
     @keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
@@ -277,13 +274,11 @@
   <header>
     <div class="container">
       <nav>
-        <!-- LOGO文字 -->
+        <!-- 优化后的 LOGO（鼠标悬停时整体缩放） -->
         <div id="logo-text">
           <div id="logo-judge">审判</div>
           <div id="logo-action">行动</div>
-          <div id="logo-subtitle">
-            致命<span class="crosshair-accent"></span>瞄准
-          </div>
+          <div id="logo-subtitle">致命<span class="crosshair-accent"></span>瞄准</div>
         </div>
         <ul class="nav-menu">
           <li><button onclick="switchPage('page-home')">首页</button></li>
@@ -320,7 +315,7 @@
       </div>
     </div>
 
-    <!-- 游戏介绍：卡片展示各子项（玩法、背景、角色、武器、瞄准镜、防具、道具） -->
+    <!-- 游戏介绍：卡片展示各子项 -->
     <div id="page-game-intro" class="page fade-in">
       <h2>游戏介绍</h2>
       <div class="card-container">
@@ -353,7 +348,7 @@
           <p>点击查看详情</p>
         </div>
       </div>
-      <!-- 各子项详情弹窗 -->
+      <!-- 详情弹窗 -->
       <div id="play-detail" class="detail-modal">
         <h3>玩法介绍详情</h3>
         <p>这里详细介绍游戏的玩法、操作方式和战斗机制。</p>
@@ -372,412 +367,416 @@
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
         <p>以下是详细枪械参数：</p>
-        <!-- 武器参数表 -->
-        <table class="weapon-table">
-          <tr>
-            <th>武器名称</th>
-            <th>口径</th>
-            <th>射程 (m)</th>
-            <th>伤害</th>
-            <th>穿甲能力 (mm RHA)</th>
-            <th>弹匣容量</th>
-            <th>标准子弹装填</th>
-            <th>后坐力 (N)</th>
-            <th>弹头速度 (m/s)</th>
-            <th>品质</th>
-            <th>备注</th>
-          </tr>
-          <tr>
-            <td>AMR（Anti-Material Rifle）</td>
-            <td>12.7×99mm</td>
-            <td>★★★★★ (1800)</td>
-            <td>★★★★★</td>
-            <td>32mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>1200</td>
-            <td>900</td>
-            <td>金色</td>
-            <td>反器材步枪，极高穿甲能力，超强后坐力</td>
-          </tr>
-          <tr>
-            <td>Barrett M82A1</td>
-            <td>.50 BMG</td>
-            <td>★★★★★ (1800)</td>
-            <td>★★★★★</td>
-            <td>30mm</td>
-            <td>★★★★★ (10)</td>
-            <td>★★★★☆</td>
-            <td>1100</td>
-            <td>850</td>
-            <td>金色</td>
-            <td>半自动，超强穿甲，极高后坐力</td>
-          </tr>
-          <tr>
-            <td>M200 "Intervention"</td>
-            <td>.408 CheyTac</td>
-            <td>★★★★★ (2000)</td>
-            <td>★★★★★</td>
-            <td>25mm</td>
-            <td>★★★☆☆ (7)</td>
-            <td>★★★★☆</td>
-            <td>900</td>
-            <td>910</td>
-            <td>金色</td>
-            <td>射程最远，精准度顶级</td>
-          </tr>
-          <tr>
-            <td>OM-50 "涅墨西斯"</td>
-            <td>.50 BMG</td>
-            <td>★★★★☆ (1600)</td>
-            <td>★★★★☆</td>
-            <td>28mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>1000</td>
-            <td>880</td>
-            <td>紫色</td>
-            <td>栓动版.50 BMG，精准度高，后坐力略低</td>
-          </tr>
-          <tr>
-            <td>BA-50</td>
-            <td>.50 BMG</td>
-            <td>★★★★☆ (1700)</td>
-            <td>★★★★☆</td>
-            <td>29mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>1050</td>
-            <td>870</td>
-            <td>紫色</td>
-            <td>大威力狙击步枪</td>
-          </tr>
-          <tr>
-            <td>DT-HTI</td>
-            <td>.50 BMG / .375</td>
-            <td>★★★★☆ (1600)</td>
-            <td>★★★★☆</td>
-            <td>27mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>950</td>
-            <td>890</td>
-            <td>紫色</td>
-            <td>可更换.375 Cheytac，精度高</td>
-          </tr>
-          <tr>
-            <td>SIG50</td>
-            <td>.50 BMG</td>
-            <td>★★★★☆ (1650)</td>
-            <td>★★★★☆</td>
-            <td>28mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>970</td>
-            <td>860</td>
-            <td>紫色</td>
-            <td>高精准度.50 BMG狙击枪</td>
-          </tr>
-          <tr>
-            <td>AX-50</td>
-            <td>.50 BMG</td>
-            <td>★★★★☆ (1550)</td>
-            <td>★★★★☆</td>
-            <td>26mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>960</td>
-            <td>875</td>
-            <td>紫色</td>
-            <td>瞄准快，穿甲稍逊于M82A1</td>
-          </tr>
-          <tr>
-            <td>AWM</td>
-            <td>.338 LM</td>
-            <td>★★★★☆ (1500)</td>
-            <td>★★★★☆</td>
-            <td>24mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>600</td>
-            <td>890</td>
-            <td>紫色</td>
-            <td>经典狙击枪，高精准度</td>
-          </tr>
-          <tr>
-            <td>MK3</td>
-            <td>.338 LM</td>
-            <td>★★★★☆ (1450)</td>
-            <td>★★★★☆</td>
-            <td>23mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>590</td>
-            <td>880</td>
-            <td>紫色</td>
-            <td>现代化栓动狙击步枪</td>
-          </tr>
-          <tr>
-            <td>Tactical 2</td>
-            <td>.338 LM</td>
-            <td>★★★★☆ (1400)</td>
-            <td>★★★★☆</td>
-            <td>22mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>590</td>
-            <td>875</td>
-            <td>紫色</td>
-            <td>专业竞技狙击枪，精准度高</td>
-          </tr>
-          <tr>
-            <td>CSRX-300</td>
-            <td>.300 Win Mag</td>
-            <td>★★★☆☆ (1300)</td>
-            <td>★★★☆☆</td>
-            <td>20mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★☆☆☆</td>
-            <td>450</td>
-            <td>860</td>
-            <td>蓝色</td>
-            <td>现代化.300狙击步枪，后坐力最低</td>
-          </tr>
-          <tr>
-            <td>SSG M1</td>
-            <td>.338 LM</td>
-            <td>★★★★☆ (1400)</td>
-            <td>★★★☆☆</td>
-            <td>22mm</td>
-            <td>★★★★★ (10)</td>
-            <td>★★★☆☆</td>
-            <td>600</td>
-            <td>880</td>
-            <td>蓝色</td>
-            <td>半自动，速射能力强，后坐力可控</td>
-          </tr>
-          <tr>
-            <td>AX338</td>
-            <td>.338 LM</td>
-            <td>★★★☆☆ (1350)</td>
-            <td>★★★☆☆</td>
-            <td>21mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>580</td>
-            <td>870</td>
-            <td>蓝色</td>
-            <td>经典.338步枪，精准度高</td>
-          </tr>
-          <tr>
-            <td>M24A3</td>
-            <td>.338 LM</td>
-            <td>★★★☆☆ (1300)</td>
-            <td>★★★☆☆</td>
-            <td>21mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★★☆☆</td>
-            <td>570</td>
-            <td>865</td>
-            <td>蓝色</td>
-            <td>美军制式狙击枪</td>
-          </tr>
-          <tr>
-            <td>SVDK</td>
-            <td>9.3×64mm</td>
-            <td>★★★★☆ (1200)</td>
-            <td>★★★★☆</td>
-            <td>23mm</td>
-            <td>★★★★★ (10)</td>
-            <td>★★★☆☆</td>
-            <td>620</td>
-            <td>840</td>
-            <td>蓝色</td>
-            <td>俄式重型狙击枪，半自动</td>
-          </tr>
-          <tr>
-            <td>M40A6</td>
-            <td>7.62×51mm</td>
-            <td>★★☆☆☆ (1000)</td>
-            <td>★★☆☆☆</td>
-            <td>15mm</td>
-            <td>★★☆☆☆ (5)</td>
-            <td>★★☆☆☆</td>
-            <td>400</td>
-            <td>820</td>
-            <td>白色</td>
-            <td>轻便精准，适合中距离狙击</td>
-          </tr>
-          <tr>
-            <td>Izhmash SV98</td>
-            <td>7.62×54mmR</td>
-            <td>★★☆☆☆ (1100)</td>
-            <td>★★☆☆☆</td>
-            <td>16mm</td>
-            <td>★★★★★ (10)</td>
-            <td>★★☆☆☆</td>
-            <td>420</td>
-            <td>830</td>
-            <td>白色</td>
-            <td>俄军狙击枪，精准度高</td>
-          </tr>
-        </table>
+        <div class="table-container">
+          <table class="weapon-table">
+            <tr>
+              <th>武器名称</th>
+              <th>口径</th>
+              <th>射程 (m)</th>
+              <th>伤害</th>
+              <th>穿甲能力 (mm RHA)</th>
+              <th>弹匣容量</th>
+              <th>标准子弹装填</th>
+              <th>后坐力 (N)</th>
+              <th>弹头速度 (m/s)</th>
+              <th>品质</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>AMR（Anti-Material Rifle）</td>
+              <td>12.7×99mm</td>
+              <td>★★★★★ (1800)</td>
+              <td>★★★★★</td>
+              <td>32mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>1200</td>
+              <td>900</td>
+              <td>金色</td>
+              <td>反器材步枪，极高穿甲能力，超强后坐力</td>
+            </tr>
+            <tr>
+              <td>Barrett M82A1</td>
+              <td>.50 BMG</td>
+              <td>★★★★★ (1800)</td>
+              <td>★★★★★</td>
+              <td>30mm</td>
+              <td>★★★★★ (10)</td>
+              <td>★★★★☆</td>
+              <td>1100</td>
+              <td>850</td>
+              <td>金色</td>
+              <td>半自动，超强穿甲，极高后坐力</td>
+            </tr>
+            <tr>
+              <td>M200 "Intervention"</td>
+              <td>.408 CheyTac</td>
+              <td>★★★★★ (2000)</td>
+              <td>★★★★★</td>
+              <td>25mm</td>
+              <td>★★★☆☆ (7)</td>
+              <td>★★★★☆</td>
+              <td>900</td>
+              <td>910</td>
+              <td>金色</td>
+              <td>射程最远，精准度顶级</td>
+            </tr>
+            <tr>
+              <td>OM-50 "涅墨西斯"</td>
+              <td>.50 BMG</td>
+              <td>★★★★☆ (1600)</td>
+              <td>★★★★☆</td>
+              <td>28mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>1000</td>
+              <td>880</td>
+              <td>紫色</td>
+              <td>栓动版.50 BMG，精准度高，后坐力略低</td>
+            </tr>
+            <tr>
+              <td>BA-50</td>
+              <td>.50 BMG</td>
+              <td>★★★★☆ (1700)</td>
+              <td>★★★★☆</td>
+              <td>29mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>1050</td>
+              <td>870</td>
+              <td>紫色</td>
+              <td>大威力狙击步枪</td>
+            </tr>
+            <tr>
+              <td>DT-HTI</td>
+              <td>.50 BMG / .375</td>
+              <td>★★★★☆ (1600)</td>
+              <td>★★★★☆</td>
+              <td>27mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>950</td>
+              <td>890</td>
+              <td>紫色</td>
+              <td>可更换.375 Cheytac，精度高</td>
+            </tr>
+            <tr>
+              <td>SIG50</td>
+              <td>.50 BMG</td>
+              <td>★★★★☆ (1650)</td>
+              <td>★★★★☆</td>
+              <td>28mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>970</td>
+              <td>860</td>
+              <td>紫色</td>
+              <td>高精准度.50 BMG狙击枪</td>
+            </tr>
+            <tr>
+              <td>AX-50</td>
+              <td>.50 BMG</td>
+              <td>★★★★☆ (1550)</td>
+              <td>★★★★☆</td>
+              <td>26mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>960</td>
+              <td>875</td>
+              <td>紫色</td>
+              <td>瞄准快，穿甲稍逊于M82A1</td>
+            </tr>
+            <tr>
+              <td>AWM</td>
+              <td>.338 LM</td>
+              <td>★★★★☆ (1500)</td>
+              <td>★★★★☆</td>
+              <td>24mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>600</td>
+              <td>890</td>
+              <td>紫色</td>
+              <td>经典狙击枪，高精准度</td>
+            </tr>
+            <tr>
+              <td>MK3</td>
+              <td>.338 LM</td>
+              <td>★★★★☆ (1450)</td>
+              <td>★★★★☆</td>
+              <td>23mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>590</td>
+              <td>880</td>
+              <td>紫色</td>
+              <td>现代化栓动狙击步枪</td>
+            </tr>
+            <tr>
+              <td>Tactical 2</td>
+              <td>.338 LM</td>
+              <td>★★★★☆ (1400)</td>
+              <td>★★★★☆</td>
+              <td>22mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>590</td>
+              <td>875</td>
+              <td>紫色</td>
+              <td>专业竞技狙击枪，精准度高</td>
+            </tr>
+            <tr>
+              <td>CSRX-300</td>
+              <td>.300 Win Mag</td>
+              <td>★★★☆☆ (1300)</td>
+              <td>★★★☆☆</td>
+              <td>20mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★☆☆☆</td>
+              <td>450</td>
+              <td>860</td>
+              <td>蓝色</td>
+              <td>现代化.300狙击步枪，后坐力最低</td>
+            </tr>
+            <tr>
+              <td>SSG M1</td>
+              <td>.338 LM</td>
+              <td>★★★★☆ (1400)</td>
+              <td>★★★☆☆</td>
+              <td>22mm</td>
+              <td>★★★★★ (10)</td>
+              <td>★★★☆☆</td>
+              <td>600</td>
+              <td>880</td>
+              <td>蓝色</td>
+              <td>半自动，速射能力强，后坐力可控</td>
+            </tr>
+            <tr>
+              <td>AX338</td>
+              <td>.338 LM</td>
+              <td>★★★☆☆ (1350)</td>
+              <td>★★★☆☆</td>
+              <td>21mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>580</td>
+              <td>870</td>
+              <td>蓝色</td>
+              <td>经典.338步枪，精准度高</td>
+            </tr>
+            <tr>
+              <td>M24A3</td>
+              <td>.338 LM</td>
+              <td>★★★☆☆ (1300)</td>
+              <td>★★★☆☆</td>
+              <td>21mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★★☆☆</td>
+              <td>570</td>
+              <td>865</td>
+              <td>蓝色</td>
+              <td>美军制式狙击枪</td>
+            </tr>
+            <tr>
+              <td>SVDK</td>
+              <td>9.3×64mm</td>
+              <td>★★★★☆ (1200)</td>
+              <td>★★★★☆</td>
+              <td>23mm</td>
+              <td>★★★★★ (10)</td>
+              <td>★★★☆☆</td>
+              <td>620</td>
+              <td>840</td>
+              <td>蓝色</td>
+              <td>俄式重型狙击枪，半自动</td>
+            </tr>
+            <tr>
+              <td>M40A6</td>
+              <td>7.62×51mm</td>
+              <td>★★☆☆☆ (1000)</td>
+              <td>★★☆☆☆</td>
+              <td>15mm</td>
+              <td>★★☆☆☆ (5)</td>
+              <td>★★☆☆☆</td>
+              <td>400</td>
+              <td>820</td>
+              <td>白色</td>
+              <td>轻便精准，适合中距离狙击</td>
+            </tr>
+            <tr>
+              <td>Izhmash SV98</td>
+              <td>7.62×54mmR</td>
+              <td>★★☆☆☆ (1100)</td>
+              <td>★★☆☆☆</td>
+              <td>16mm</td>
+              <td>★★★★★ (10)</td>
+              <td>★★☆☆☆</td>
+              <td>420</td>
+              <td>830</td>
+              <td>白色</td>
+              <td>俄军狙击枪，精准度高</td>
+            </tr>
+          </table>
+        </div>
+        <br>
         <!-- 后坐力数据表 -->
-        <h4 style="margin-top:20px;">后坐力数据</h4>
-        <table class="recoil-table">
-          <tr>
-            <th>武器名称</th>
-            <th>初始</th>
-            <th>第一次开火</th>
-            <th>第一次衰减</th>
-            <th>第二次开火</th>
-            <th>最终后坐力</th>
-          </tr>
-          <tr>
-            <td>AMR</td>
-            <td>0</td>
-            <td>10.00</td>
-            <td>9.00</td>
-            <td>19.00</td>
-            <td>17.10</td>
-          </tr>
-          <tr>
-            <td>Barrett M82A1</td>
-            <td>0</td>
-            <td>9.17</td>
-            <td>8.25</td>
-            <td>17.42</td>
-            <td>15.67</td>
-          </tr>
-          <tr>
-            <td>M200 Intervention</td>
-            <td>0</td>
-            <td>7.50</td>
-            <td>6.75</td>
-            <td>14.25</td>
-            <td>12.82</td>
-          </tr>
-          <tr>
-            <td>OM-50 涅墨西斯</td>
-            <td>0</td>
-            <td>8.33</td>
-            <td>7.50</td>
-            <td>15.83</td>
-            <td>14.25</td>
-          </tr>
-          <tr>
-            <td>BA-50</td>
-            <td>0</td>
-            <td>8.75</td>
-            <td>7.88</td>
-            <td>16.62</td>
-            <td>14.96</td>
-          </tr>
-          <tr>
-            <td>DT-HTI</td>
-            <td>0</td>
-            <td>7.92</td>
-            <td>7.12</td>
-            <td>15.04</td>
-            <td>13.54</td>
-          </tr>
-          <tr>
-            <td>SIG50</td>
-            <td>0</td>
-            <td>8.08</td>
-            <td>7.28</td>
-            <td>15.36</td>
-            <td>13.82</td>
-          </tr>
-          <tr>
-            <td>AX-50</td>
-            <td>0</td>
-            <td>8.00</td>
-            <td>7.20</td>
-            <td>15.20</td>
-            <td>13.68</td>
-          </tr>
-          <tr>
-            <td>AWM</td>
-            <td>0</td>
-            <td>5.00</td>
-            <td>4.50</td>
-            <td>9.50</td>
-            <td>8.55</td>
-          </tr>
-          <tr>
-            <td>MK3</td>
-            <td>0</td>
-            <td>4.92</td>
-            <td>4.42</td>
-            <td>9.34</td>
-            <td>8.41</td>
-          </tr>
-          <tr>
-            <td>Tactical 2</td>
-            <td>0</td>
-            <td>4.92</td>
-            <td>4.42</td>
-            <td>9.34</td>
-            <td>8.41</td>
-          </tr>
-          <tr>
-            <td>CSRX-300</td>
-            <td>0</td>
-            <td>3.75</td>
-            <td>3.38</td>
-            <td>7.12</td>
-            <td>6.41</td>
-          </tr>
-          <tr>
-            <td>SSG M1</td>
-            <td>0</td>
-            <td>5.00</td>
-            <td>4.50</td>
-            <td>9.50</td>
-            <td>8.55</td>
-          </tr>
-          <tr>
-            <td>AX338</td>
-            <td>0</td>
-            <td>4.83</td>
-            <td>4.35</td>
-            <td>9.18</td>
-            <td>8.27</td>
-          </tr>
-          <tr>
-            <td>M24A3</td>
-            <td>0</td>
-            <td>4.75</td>
-            <td>4.28</td>
-            <td>9.03</td>
-            <td>8.12</td>
-          </tr>
-          <tr>
-            <td>SVDK</td>
-            <td>0</td>
-            <td>5.17</td>
-            <td>4.65</td>
-            <td>9.82</td>
-            <td>8.83</td>
-          </tr>
-          <tr>
-            <td>M40A6</td>
-            <td>0</td>
-            <td>3.33</td>
-            <td>3.00</td>
-            <td>6.33</td>
-            <td>5.70</td>
-          </tr>
-          <tr>
-            <td>Izhmash SV98</td>
-            <td>0</td>
-            <td>3.50</td>
-            <td>3.15</td>
-            <td>6.65</td>
-            <td>5.99</td>
-          </tr>
-        </table>
+        <h4>后坐力数据</h4>
+        <div class="table-container">
+          <table class="recoil-table">
+            <tr>
+              <th>武器名称</th>
+              <th>初始</th>
+              <th>第一次开火</th>
+              <th>第一次衰减</th>
+              <th>第二次开火</th>
+              <th>最终后坐力</th>
+            </tr>
+            <tr>
+              <td>AMR</td>
+              <td>0</td>
+              <td>10.00</td>
+              <td>9.00</td>
+              <td>19.00</td>
+              <td>17.10</td>
+            </tr>
+            <tr>
+              <td>Barrett M82A1</td>
+              <td>0</td>
+              <td>9.17</td>
+              <td>8.25</td>
+              <td>17.42</td>
+              <td>15.67</td>
+            </tr>
+            <tr>
+              <td>M200 Intervention</td>
+              <td>0</td>
+              <td>7.50</td>
+              <td>6.75</td>
+              <td>14.25</td>
+              <td>12.82</td>
+            </tr>
+            <tr>
+              <td>OM-50 涅墨西斯</td>
+              <td>0</td>
+              <td>8.33</td>
+              <td>7.50</td>
+              <td>15.83</td>
+              <td>14.25</td>
+            </tr>
+            <tr>
+              <td>BA-50</td>
+              <td>0</td>
+              <td>8.75</td>
+              <td>7.88</td>
+              <td>16.62</td>
+              <td>14.96</td>
+            </tr>
+            <tr>
+              <td>DT-HTI</td>
+              <td>0</td>
+              <td>7.92</td>
+              <td>7.12</td>
+              <td>15.04</td>
+              <td>13.54</td>
+            </tr>
+            <tr>
+              <td>SIG50</td>
+              <td>0</td>
+              <td>8.08</td>
+              <td>7.28</td>
+              <td>15.36</td>
+              <td>13.82</td>
+            </tr>
+            <tr>
+              <td>AX-50</td>
+              <td>0</td>
+              <td>8.00</td>
+              <td>7.20</td>
+              <td>15.20</td>
+              <td>13.68</td>
+            </tr>
+            <tr>
+              <td>AWM</td>
+              <td>0</td>
+              <td>5.00</td>
+              <td>4.50</td>
+              <td>9.50</td>
+              <td>8.55</td>
+            </tr>
+            <tr>
+              <td>MK3</td>
+              <td>0</td>
+              <td>4.92</td>
+              <td>4.42</td>
+              <td>9.34</td>
+              <td>8.41</td>
+            </tr>
+            <tr>
+              <td>Tactical 2</td>
+              <td>0</td>
+              <td>4.92</td>
+              <td>4.42</td>
+              <td>9.34</td>
+              <td>8.41</td>
+            </tr>
+            <tr>
+              <td>CSRX-300</td>
+              <td>0</td>
+              <td>3.75</td>
+              <td>3.38</td>
+              <td>7.12</td>
+              <td>6.41</td>
+            </tr>
+            <tr>
+              <td>SSG M1</td>
+              <td>0</td>
+              <td>5.00</td>
+              <td>4.50</td>
+              <td>9.50</td>
+              <td>8.55</td>
+            </tr>
+            <tr>
+              <td>AX338</td>
+              <td>0</td>
+              <td>4.83</td>
+              <td>4.35</td>
+              <td>9.18</td>
+              <td>8.27</td>
+            </tr>
+            <tr>
+              <td>M24A3</td>
+              <td>0</td>
+              <td>4.75</td>
+              <td>4.28</td>
+              <td>9.03</td>
+              <td>8.12</td>
+            </tr>
+            <tr>
+              <td>SVDK</td>
+              <td>0</td>
+              <td>5.17</td>
+              <td>4.65</td>
+              <td>9.82</td>
+              <td>8.83</td>
+            </tr>
+            <tr>
+              <td>M40A6</td>
+              <td>0</td>
+              <td>3.33</td>
+              <td>3.00</td>
+              <td>6.33</td>
+              <td>5.70</td>
+            </tr>
+            <tr>
+              <td>Izhmash SV98</td>
+              <td>0</td>
+              <td>3.50</td>
+              <td>3.15</td>
+              <td>6.65</td>
+              <td>5.99</td>
+            </tr>
+          </table>
+        </div>
         <button onclick="closeDetail('weapon-detail')">关闭</button>
       </div>
       <div id="scope-detail" class="detail-modal">
@@ -818,7 +817,6 @@
       <h2>开始游玩</h2>
       <div>
         <p>在线游玩：</p>
-        <!-- 替换 src 为实际在线游戏地址 -->
         <iframe src="https://example.com/online-game" width="100%" height="500" frameborder="0"></iframe>
       </div>
       <div style="margin-top:20px;">
@@ -851,7 +849,7 @@
     </div>
   </div>
 
-  <!-- ========== 模态框：用户登录/注册 ========== -->
+  <!-- ========== 模态框：登录/注册 ========== -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" id="modal-close">&times;</span>
@@ -894,51 +892,4 @@
     function switchPage(pageId) {
       var pages = document.querySelectorAll('.page');
       pages.forEach(function(page) { page.classList.remove('active'); });
-      document.getElementById(pageId).classList.add('active');
-    }
-    // 打开/关闭详情弹窗
-    function openDetail(detailId) { document.getElementById(detailId).style.display = 'block'; }
-    function closeDetail(detailId) { document.getElementById(detailId).style.display = 'none'; }
-    // 中英切换（示例，待完善）
-    document.getElementById('lang-toggle').addEventListener('click', function() {
-      alert('中英切换功能暂未实现！');
-    });
-    // 模态框：登录/注册
-    var modal = document.getElementById('modal');
-    var modalBody = document.getElementById('modal-body');
-    document.getElementById('login-btn').addEventListener('click', function() {
-      modalBody.innerHTML = '<h2>登录</h2><form>' +
-        '<input type="text" placeholder="用户名" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<input type="password" placeholder="密码" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">登录</button>' +
-        '</form>';
-      modal.style.display = 'block';
-    });
-    document.getElementById('register-btn').addEventListener('click', function() {
-      modalBody.innerHTML = '<h2>注册</h2><form>' +
-        '<input type="text" placeholder="用户名" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<input type="email" placeholder="邮箱" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<input type="password" placeholder="密码" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">注册</button>' +
-        '</form>';
-      modal.style.display = 'block';
-    });
-    document.getElementById('modal-close').addEventListener('click', function() {
-      modal.style.display = 'none';
-    });
-    window.onclick = function(event) {
-      if (event.target === modal) { modal.style.display = 'none'; }
-    };
-
-    // IntersectionObserver：为所有 .fade-in 元素添加 visible 类（滚动淡入效果）
-    document.addEventListener("DOMContentLoaded", function() {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-        });
-      });
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    });
-  </script>
-</body>
-</html>
+      document.getElem
