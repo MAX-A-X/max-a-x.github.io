@@ -1,4 +1,5 @@
-class WorkManager {
+document.addEventListener("DOMContentLoaded", () => {
+  class WorkManager {
     constructor() {
       this.workList = document.querySelector(".grid-container"); // 作品列表
       this.workDetail = document.getElementById("work-detail"); // 作品详情区域
@@ -14,6 +15,8 @@ class WorkManager {
 
     setupEventListeners() {
       console.log("🎯 绑定点击事件到作品卡片...");
+      
+      // 动态绑定作品点击事件
       document.querySelectorAll(".work-item").forEach(item => {
         item.addEventListener("click", (event) => {
           const workId = item.dataset.id;
@@ -22,18 +25,18 @@ class WorkManager {
         });
       });
 
+      // 绑定返回按钮
       document.querySelectorAll(".back-to-list").forEach(button => {
         button.addEventListener("click", () => this.showWorkList());
       });
 
-      window.addEventListener("hashchange", () => {
-        this.checkInitialHash();
-      });
+      // 监听 URL 变化
+      window.addEventListener("hashchange", () => this.checkInitialHash());
     }
 
     checkInitialHash() {
-      if (window.location.hash) {
-        const workId = window.location.hash.substring(1);
+      const workId = window.location.hash.substring(1);
+      if (workId) {
         this.showWorkDetail(workId);
       } else {
         this.showWorkList();
