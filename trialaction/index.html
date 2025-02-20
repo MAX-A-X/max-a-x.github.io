@@ -16,6 +16,7 @@
       background: #0d0d0d;
       color: #e0e0e0;
       position: relative;
+      overflow-x: hidden;
     }
     a {
       color: #ffd700;
@@ -29,6 +30,7 @@
       margin: auto;
       padding: 20px;
     }
+
     /* 滚动淡入效果 */
     .fade-in {
       opacity: 0;
@@ -79,6 +81,7 @@
       font-size: 16px;
       cursor: pointer;
       padding: 10px;
+      transition: color 0.3s;
     }
     .nav-menu li button:hover {
       color: #fff;
@@ -94,6 +97,7 @@
       color: #ffd700;
       border-radius: 4px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     .nav-right button:hover {
       background: #444;
@@ -108,6 +112,11 @@
     }
     .page.active {
       display: block;
+      animation: pageFade 0.5s ease;
+    }
+    @keyframes pageFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* ========== 主页：Banner & 新闻、游戏图片 ========== */
@@ -116,6 +125,7 @@
       position: relative;
       height: 400px;
       margin-bottom: 20px;
+      background-attachment: fixed;
     }
     /* 在 Banner 中添加粒子背景容器 */
     #particles-js {
@@ -131,7 +141,7 @@
       text-align: center;
       padding-top: 150px;
     }
-    /* 渐变+霓虹闪烁的文字 */
+    /* 渐变+霓虹闪烁的标题 */
     .animated-title {
       font-size: 3rem;
       margin-bottom: 10px;
@@ -215,6 +225,7 @@
       width: 90%;
       max-width: 600px;
       display: none;
+      animation: fadeInUp 0.5s ease;
     }
     .detail-modal button {
       margin-top: 20px;
@@ -277,6 +288,7 @@
       padding: 10px 20px;
       border-radius: 4px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     .interactive-buttons button:hover {
       background: #ffc107;
@@ -348,17 +360,47 @@
         filter: none;
       }
     }
+    /* ========== 跨页动画（页面切换时淡入） ========== */
+    @keyframes pageFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ========== 狙击风格：中央交叉瞄准镜 ========== */
+    #crosshair {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin-top: -25px;
+      margin-left: -25px;
+      pointer-events: none;
+      background: url('crosshair.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.8;
+      animation: pulse 2s infinite;
+      z-index: 1500;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
   </style>
 </head>
 <body>
   <!-- 粒子背景容器 -->
   <div id="particles-js"></div>
 
+  <!-- 中央交叉瞄准镜 -->
+  <div id="crosshair"></div>
+
   <!-- ========== 头部：LOGO 与导航菜单 ========== -->
   <header>
     <div class="container">
       <nav>
-        <img src="logo.svg" alt="Logo" class="logo" />
+        <img src="logo.png" alt="Logo" class="logo" />
         <ul class="nav-menu">
           <li><button onclick="switchPage('page-home')">首页</button></li>
           <li><button onclick="switchPage('page-game-intro')">游戏介绍</button></li>
