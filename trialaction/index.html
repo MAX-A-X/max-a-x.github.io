@@ -5,12 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>审判行动：致命瞄准</title>
   <style>
-    /* 通用样式 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ========== 通用样式 ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Arial', sans-serif;
       background: #0d0d0d;
@@ -18,31 +14,20 @@
       position: relative;
       overflow-x: hidden;
     }
-    a {
-      color: #ffd700;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
+    a { color: #ffd700; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1200px; margin: auto; padding: 20px; }
 
     /* 滚动淡入效果 */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease-out;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* ========== 头部与导航 ========== */
+    /* ========== 页面切换动画 ========== */
+    .page { display: none; }
+    .page.active { display: block; animation: pageFade 0.5s ease; }
+    @keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ========== Header 与 LOGO ========== */
     header {
       background: #1a1a1a;
       padding: 10px 0;
@@ -56,70 +41,100 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    /* LOGO 图片：悬停放大 + 光晕 */
-    .logo {
-      height: 50px;
+    /* LOGO文字设计 */
+    #logo-text {
       margin-left: 20px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      line-height: 1;
     }
-    .logo:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 46, 99, 0.7);
+    /* “审判”字体：金属银灰 */
+    #logo-judge {
+      font-size: 2.5rem;
+      font-family: Impact, sans-serif;
+      background: linear-gradient(to bottom, #707070, #D0D0D0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 2px #000000, 4px 4px 4px #8B0000;
     }
-    .nav-menu {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
+    /* “行动”字体：亮金色，稍大且下移 */
+    #logo-action {
+      font-size: 3rem;
+      font-family: "Arial Rounded MT Bold", sans-serif;
+      background: linear-gradient(to bottom, #FFE680, #B8860B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 1px #000000;
+      position: relative;
+      top: 5px;
     }
-    .nav-menu li {
-      margin: 5px 10px;
+    /* 副标题“致命瞄准”，并在“瞄准”上添加小交叉准星点缀 */
+    #logo-subtitle {
+      font-size: 1.2rem;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #660000, #FF0000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 1px #000000;
+      margin-top: 5px;
     }
+    #logo-subtitle .crosshair-accent {
+      position: relative;
+      padding-left: 20px;
+    }
+    #logo-subtitle .crosshair-accent::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: #FF3333;
+      border: 2px solid #000000;
+      border-radius: 50%;
+    }
+
+    /* ========== 导航菜单 ========== */
+    .nav-menu { list-style: none; display: flex; flex-wrap: wrap; }
+    .nav-menu li { margin: 5px 10px; }
     .nav-menu li button {
-      background: none;
-      border: none;
-      color: #ffd700;
-      font-size: 16px;
-      cursor: pointer;
-      padding: 10px;
-      transition: color 0.3s;
+      background: none; border: none; color: #ffd700; font-size: 16px;
+      cursor: pointer; padding: 10px; transition: color 0.3s;
     }
-    .nav-menu li button:hover {
-      color: #fff;
-    }
-    .nav-right {
-      margin-right: 20px;
-    }
+    .nav-menu li button:hover { color: #fff; }
+    .nav-right { margin-right: 20px; }
     .nav-right button {
-      margin-left: 10px;
-      padding: 8px 12px;
-      background: #333;
-      border: 1px solid #ffd700;
-      color: #ffd700;
-      border-radius: 4px;
-      cursor: pointer;
+      margin-left: 10px; padding: 8px 12px; background: #333;
+      border: 1px solid #ffd700; color: #ffd700; border-radius: 4px; cursor: pointer;
       transition: background 0.3s;
     }
-    .nav-right button:hover {
-      background: #444;
+    .nav-right button:hover { background: #444; }
+
+    /* ========== 粒子背景 ========== */
+    #particles-js {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; z-index: 0;
     }
 
-    /* ========== 页面切换区域 ========== */
-    #content {
-      padding: 20px;
+    /* ========== 狙击风格：中央交叉瞄准镜 ========== */
+    #crosshair {
+      position: fixed;
+      top: 50%; left: 50%;
+      width: 50px; height: 50px;
+      margin-top: -25px; margin-left: -25px;
+      pointer-events: none;
+      background: url('crosshair.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.8;
+      animation: pulse 2s infinite;
+      z-index: 1500;
     }
-    .page {
-      display: none;
-    }
-    .page.active {
-      display: block;
-      animation: pageFade 0.5s ease;
-    }
-    @keyframes pageFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
     }
 
-    /* ========== 主页：Banner & 新闻、游戏图片 ========== */
+    /* ========== 主页 Banner ========== */
     .home-banner {
       background: url('banner.jpg') no-repeat center center/cover;
       position: relative;
@@ -127,21 +142,10 @@
       margin-bottom: 20px;
       background-attachment: fixed;
     }
-    /* 在 Banner 中添加粒子背景容器 */
-    #particles-js {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
     .banner-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding-top: 150px;
+      position: relative; z-index: 1;
+      text-align: center; padding-top: 150px;
     }
-    /* 渐变+霓虹闪烁的标题 */
     .animated-title {
       font-size: 3rem;
       margin-bottom: 10px;
@@ -157,52 +161,26 @@
       animation-delay: 0.5s;
     }
     .game-images {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
+      display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;
     }
     .game-images img {
-      width: 300px;
-      height: 170px;
-      object-fit: cover;
-      border: 2px solid #ffd700;
-      border-radius: 8px;
+      width: 300px; height: 170px; object-fit: cover;
+      border: 2px solid #ffd700; border-radius: 8px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .game-images img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+      transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.7);
     }
 
-    /* ========== 游戏介绍：卡片 + 弹窗详情 ========== */
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 20px;
-    }
+    /* ========== 游戏介绍（卡片+弹窗详情） ========== */
+    .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px; }
     .card {
-      background: #222;
-      border: 1px solid #444;
-      border-radius: 8px;
-      width: 280px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: fadeInUp 1s forwards;
+      background: #222; border: 1px solid #444; border-radius: 8px;
+      width: 280px; padding: 20px; text-align: center; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s; animation: fadeInUp 1s forwards;
     }
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #ffd700;
-    }
-    .card h3 {
-      margin-bottom: 10px;
-      color: #ffd700;
-    }
-    /* 依次出现的延迟 */
+    .card:hover { transform: scale(1.05); box-shadow: 0 0 10px #ffd700; }
+    .card h3 { margin-bottom: 10px; color: #ffd700; }
     .card:nth-child(1) { animation-delay: 0.2s; }
     .card:nth-child(2) { animation-delay: 0.4s; }
     .card:nth-child(3) { animation-delay: 0.6s; }
@@ -211,188 +189,87 @@
     .card:nth-child(6) { animation-delay: 1.2s; }
     .card:nth-child(7) { animation-delay: 1.4s; }
 
-    /* 弹出详情框 */
     .detail-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
+      position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: #1a1a1a;
-      padding: 30px;
-      border: 2px solid #ffd700;
-      border-radius: 8px;
-      z-index: 1000;
-      width: 90%;
-      max-width: 600px;
-      display: none;
-      animation: fadeInUp 0.5s ease;
+      background: #1a1a1a; padding: 30px;
+      border: 2px solid #ffd700; border-radius: 8px;
+      z-index: 1000; width: 90%; max-width: 600px;
+      display: none; animation: fadeInUp 0.5s ease;
     }
     .detail-modal button {
-      margin-top: 20px;
-      padding: 8px 16px;
-      background: #ffd700;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #0d0d0d;
+      margin-top: 20px; padding: 8px 16px;
+      background: #ffd700; border: none; border-radius: 4px;
+      cursor: pointer; color: #0d0d0d;
     }
 
-    /* ========== 表格：枪械参数 ========== */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+    /* ========== 武器介绍参数表 ========== */
+    .weapon-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .weapon-table th, .weapon-table td {
+      border: 1px solid #444; padding: 10px; text-align: center;
     }
-    th, td {
-      border: 1px solid #444;
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background: #222;
-      color: #ffd700;
+    .weapon-table th {
+      background: #222; color: #ffd700;
     }
 
-    /* ========== 开发进度：时间轴 ========== */
-    .timeline {
-      border-left: 2px solid #ffd700;
-      padding-left: 20px;
-      margin-top: 20px;
+    /* ========== 后坐力数据表 ========== */
+    .recoil-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .recoil-table th, .recoil-table td {
+      border: 1px solid #444; padding: 10px; text-align: center;
     }
+    .recoil-table th {
+      background: #222; color: #ffd700;
+    }
+
+    /* ========== 开发进度时间轴 ========== */
+    .timeline { border-left: 2px solid #ffd700; padding-left: 20px; margin-top: 20px; }
     .timeline-item {
-      margin-bottom: 20px;
-      position: relative;
-      padding-left: 20px;
+      margin-bottom: 20px; position: relative; padding-left: 20px;
     }
     .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -9px;
-      top: 5px;
-      width: 16px;
-      height: 16px;
-      background: #ffd700;
-      border-radius: 50%;
+      content: ''; position: absolute; left: -9px; top: 5px;
+      width: 16px; height: 16px; background: #ffd700; border-radius: 50%;
     }
 
     /* ========== 关于我们：互动按钮 ========== */
-    .interactive-buttons {
-      display: flex;
-      gap: 15px;
-      margin-top: 20px;
-    }
+    .interactive-buttons { display: flex; gap: 15px; margin-top: 20px; }
     .interactive-buttons button {
-      background: #ffd700;
-      color: #0d0d0d;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
+      background: #ffd700; color: #0d0d0d; border: none; padding: 10px 20px;
+      border-radius: 4px; cursor: pointer; transition: background 0.3s;
     }
-    .interactive-buttons button:hover {
-      background: #ffc107;
-    }
-
-    /* ========== 响应式 ========== */
-    @media (max-width: 768px) {
-      .card-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      nav {
-        flex-direction: column;
-      }
-      .nav-menu {
-        flex-direction: column;
-      }
-      .game-images {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
+    .interactive-buttons button:hover { background: #ffc107; }
 
     /* ========== 模态框（登录/注册） ========== */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
+      display: none; position: fixed; z-index: 2000;
+      left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
       background: rgba(0,0,0,0.8);
     }
     .modal-content {
-      background: #1a1a1a;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #ffd700;
-      width: 90%;
-      max-width: 400px;
+      background: #1a1a1a; margin: 15% auto; padding: 20px;
+      border: 1px solid #ffd700; width: 90%; max-width: 400px;
       border-radius: 8px;
     }
     .close {
-      color: #ffd700;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
+      color: #ffd700; float: right; font-size: 28px; font-weight: bold; cursor: pointer;
     }
 
     /* ========== CSS 动画 Keyframes ========== */
     @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
     @keyframes neon-flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        filter: drop-shadow(0 0 8px #FF2E63);
-      }
-      20%, 24%, 55% {
-        filter: none;
-      }
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { filter: drop-shadow(0 0 8px #FF2E63); }
+      20%, 24%, 55% { filter: none; }
     }
-    /* ========== 跨页动画（页面切换时淡入） ========== */
-    @keyframes pageFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* ========== 狙击风格：中央交叉瞄准镜 ========== */
-    #crosshair {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 50px;
-      height: 50px;
-      margin-top: -25px;
-      margin-left: -25px;
-      pointer-events: none;
-      background: url('crosshair.png') no-repeat center center;
-      background-size: contain;
-      opacity: 0.8;
-      animation: pulse 2s infinite;
-      z-index: 1500;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.8; }
-    }
+    /* 页面切换淡入 */
+    @keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
-  <!-- 粒子背景容器 -->
+  <!-- 粒子背景 -->
   <div id="particles-js"></div>
-
   <!-- 中央交叉瞄准镜 -->
   <div id="crosshair"></div>
 
@@ -400,7 +277,14 @@
   <header>
     <div class="container">
       <nav>
-        <img src="logo.png" alt="Logo" class="logo" />
+        <!-- LOGO文字 -->
+        <div id="logo-text">
+          <div id="logo-judge">审判</div>
+          <div id="logo-action">行动</div>
+          <div id="logo-subtitle">
+            致命<span class="crosshair-accent"></span>瞄准
+          </div>
+        </div>
         <ul class="nav-menu">
           <li><button onclick="switchPage('page-home')">首页</button></li>
           <li><button onclick="switchPage('page-game-intro')">游戏介绍</button></li>
@@ -419,9 +303,9 @@
     </div>
   </header>
 
-  <!-- ========== 内容区域：各“页面” ========== -->
+  <!-- ========== 内容区域：各页面 ========== -->
   <div id="content" class="container">
-    <!-- 主页：展示新闻公告和游戏图片 -->
+    <!-- 主页：Banner、新闻公告、游戏图片 -->
     <div id="page-home" class="page active fade-in">
       <div class="home-banner">
         <div class="banner-content fade-in">
@@ -436,7 +320,7 @@
       </div>
     </div>
 
-    <!-- 游戏介绍：卡片形式，包含玩法、背景、角色、武器、瞄准镜、防具、道具 -->
+    <!-- 游戏介绍：卡片展示各子项（玩法、背景、角色、武器、瞄准镜、防具、道具） -->
     <div id="page-game-intro" class="page fade-in">
       <h2>游戏介绍</h2>
       <div class="card-container">
@@ -469,7 +353,7 @@
           <p>点击查看详情</p>
         </div>
       </div>
-      <!-- 详情弹窗 -->
+      <!-- 各子项详情弹窗 -->
       <div id="play-detail" class="detail-modal">
         <h3>玩法介绍详情</h3>
         <p>这里详细介绍游戏的玩法、操作方式和战斗机制。</p>
@@ -488,48 +372,410 @@
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
         <p>以下是详细枪械参数：</p>
-        <table>
+        <!-- 武器参数表 -->
+        <table class="weapon-table">
           <tr>
             <th>武器名称</th>
             <th>口径</th>
-            <th>有效射程</th>
-            <th>重量</th>
-            <th>射速</th>
+            <th>射程 (m)</th>
+            <th>伤害</th>
+            <th>穿甲能力 (mm RHA)</th>
+            <th>弹匣容量</th>
+            <th>标准子弹装填</th>
+            <th>后坐力 (N)</th>
+            <th>弹头速度 (m/s)</th>
+            <th>品质</th>
+            <th>备注</th>
           </tr>
           <tr>
-            <td>AMR</td>
-            <td>7.62mm</td>
-            <td>800m</td>
-            <td>7.5kg</td>
-            <td>600 rpm</td>
+            <td>AMR（Anti-Material Rifle）</td>
+            <td>12.7×99mm</td>
+            <td>★★★★★ (1800)</td>
+            <td>★★★★★</td>
+            <td>32mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>1200</td>
+            <td>900</td>
+            <td>金色</td>
+            <td>反器材步枪，极高穿甲能力，超强后坐力</td>
           </tr>
           <tr>
-            <td>巴雷特M82A1</td>
+            <td>Barrett M82A1</td>
             <td>.50 BMG</td>
-            <td>1800m</td>
-            <td>14kg</td>
-            <td>50 rpm</td>
+            <td>★★★★★ (1800)</td>
+            <td>★★★★★</td>
+            <td>30mm</td>
+            <td>★★★★★ (10)</td>
+            <td>★★★★☆</td>
+            <td>1100</td>
+            <td>850</td>
+            <td>金色</td>
+            <td>半自动，超强穿甲，极高后坐力</td>
           </tr>
           <tr>
-            <td>MK3</td>
-            <td>5.56mm</td>
-            <td>600m</td>
-            <td>3.2kg</td>
-            <td>750 rpm</td>
+            <td>M200 "Intervention"</td>
+            <td>.408 CheyTac</td>
+            <td>★★★★★ (2000)</td>
+            <td>★★★★★</td>
+            <td>25mm</td>
+            <td>★★★☆☆ (7)</td>
+            <td>★★★★☆</td>
+            <td>900</td>
+            <td>910</td>
+            <td>金色</td>
+            <td>射程最远，精准度顶级</td>
           </tr>
           <tr>
-            <td>SV98</td>
-            <td>7.62mm</td>
-            <td>1000m</td>
-            <td>6.5kg</td>
-            <td>40 rpm</td>
+            <td>OM-50 "涅墨西斯"</td>
+            <td>.50 BMG</td>
+            <td>★★★★☆ (1600)</td>
+            <td>★★★★☆</td>
+            <td>28mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>1000</td>
+            <td>880</td>
+            <td>紫色</td>
+            <td>栓动版.50 BMG，精准度高，后坐力略低</td>
+          </tr>
+          <tr>
+            <td>BA-50</td>
+            <td>.50 BMG</td>
+            <td>★★★★☆ (1700)</td>
+            <td>★★★★☆</td>
+            <td>29mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>1050</td>
+            <td>870</td>
+            <td>紫色</td>
+            <td>大威力狙击步枪</td>
+          </tr>
+          <tr>
+            <td>DT-HTI</td>
+            <td>.50 BMG / .375</td>
+            <td>★★★★☆ (1600)</td>
+            <td>★★★★☆</td>
+            <td>27mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>950</td>
+            <td>890</td>
+            <td>紫色</td>
+            <td>可更换.375 Cheytac，精度高</td>
+          </tr>
+          <tr>
+            <td>SIG50</td>
+            <td>.50 BMG</td>
+            <td>★★★★☆ (1650)</td>
+            <td>★★★★☆</td>
+            <td>28mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>970</td>
+            <td>860</td>
+            <td>紫色</td>
+            <td>高精准度.50 BMG狙击枪</td>
+          </tr>
+          <tr>
+            <td>AX-50</td>
+            <td>.50 BMG</td>
+            <td>★★★★☆ (1550)</td>
+            <td>★★★★☆</td>
+            <td>26mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>960</td>
+            <td>875</td>
+            <td>紫色</td>
+            <td>瞄准快，穿甲稍逊于M82A1</td>
           </tr>
           <tr>
             <td>AWM</td>
+            <td>.338 LM</td>
+            <td>★★★★☆ (1500)</td>
+            <td>★★★★☆</td>
+            <td>24mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>600</td>
+            <td>890</td>
+            <td>紫色</td>
+            <td>经典狙击枪，高精准度</td>
+          </tr>
+          <tr>
+            <td>MK3</td>
+            <td>.338 LM</td>
+            <td>★★★★☆ (1450)</td>
+            <td>★★★★☆</td>
+            <td>23mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>590</td>
+            <td>880</td>
+            <td>紫色</td>
+            <td>现代化栓动狙击步枪</td>
+          </tr>
+          <tr>
+            <td>Tactical 2</td>
+            <td>.338 LM</td>
+            <td>★★★★☆ (1400)</td>
+            <td>★★★★☆</td>
+            <td>22mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>590</td>
+            <td>875</td>
+            <td>紫色</td>
+            <td>专业竞技狙击枪，精准度高</td>
+          </tr>
+          <tr>
+            <td>CSRX-300</td>
             <td>.300 Win Mag</td>
-            <td>1500m</td>
-            <td>9.0kg</td>
-            <td>35 rpm</td>
+            <td>★★★☆☆ (1300)</td>
+            <td>★★★☆☆</td>
+            <td>20mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★☆☆☆</td>
+            <td>450</td>
+            <td>860</td>
+            <td>蓝色</td>
+            <td>现代化.300狙击步枪，后坐力最低</td>
+          </tr>
+          <tr>
+            <td>SSG M1</td>
+            <td>.338 LM</td>
+            <td>★★★★☆ (1400)</td>
+            <td>★★★☆☆</td>
+            <td>22mm</td>
+            <td>★★★★★ (10)</td>
+            <td>★★★☆☆</td>
+            <td>600</td>
+            <td>880</td>
+            <td>蓝色</td>
+            <td>半自动，速射能力强，后坐力可控</td>
+          </tr>
+          <tr>
+            <td>AX338</td>
+            <td>.338 LM</td>
+            <td>★★★☆☆ (1350)</td>
+            <td>★★★☆☆</td>
+            <td>21mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>580</td>
+            <td>870</td>
+            <td>蓝色</td>
+            <td>经典.338步枪，精准度高</td>
+          </tr>
+          <tr>
+            <td>M24A3</td>
+            <td>.338 LM</td>
+            <td>★★★☆☆ (1300)</td>
+            <td>★★★☆☆</td>
+            <td>21mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★★☆☆</td>
+            <td>570</td>
+            <td>865</td>
+            <td>蓝色</td>
+            <td>美军制式狙击枪</td>
+          </tr>
+          <tr>
+            <td>SVDK</td>
+            <td>9.3×64mm</td>
+            <td>★★★★☆ (1200)</td>
+            <td>★★★★☆</td>
+            <td>23mm</td>
+            <td>★★★★★ (10)</td>
+            <td>★★★☆☆</td>
+            <td>620</td>
+            <td>840</td>
+            <td>蓝色</td>
+            <td>俄式重型狙击枪，半自动</td>
+          </tr>
+          <tr>
+            <td>M40A6</td>
+            <td>7.62×51mm</td>
+            <td>★★☆☆☆ (1000)</td>
+            <td>★★☆☆☆</td>
+            <td>15mm</td>
+            <td>★★☆☆☆ (5)</td>
+            <td>★★☆☆☆</td>
+            <td>400</td>
+            <td>820</td>
+            <td>白色</td>
+            <td>轻便精准，适合中距离狙击</td>
+          </tr>
+          <tr>
+            <td>Izhmash SV98</td>
+            <td>7.62×54mmR</td>
+            <td>★★☆☆☆ (1100)</td>
+            <td>★★☆☆☆</td>
+            <td>16mm</td>
+            <td>★★★★★ (10)</td>
+            <td>★★☆☆☆</td>
+            <td>420</td>
+            <td>830</td>
+            <td>白色</td>
+            <td>俄军狙击枪，精准度高</td>
+          </tr>
+        </table>
+        <!-- 后坐力数据表 -->
+        <h4 style="margin-top:20px;">后坐力数据</h4>
+        <table class="recoil-table">
+          <tr>
+            <th>武器名称</th>
+            <th>初始</th>
+            <th>第一次开火</th>
+            <th>第一次衰减</th>
+            <th>第二次开火</th>
+            <th>最终后坐力</th>
+          </tr>
+          <tr>
+            <td>AMR</td>
+            <td>0</td>
+            <td>10.00</td>
+            <td>9.00</td>
+            <td>19.00</td>
+            <td>17.10</td>
+          </tr>
+          <tr>
+            <td>Barrett M82A1</td>
+            <td>0</td>
+            <td>9.17</td>
+            <td>8.25</td>
+            <td>17.42</td>
+            <td>15.67</td>
+          </tr>
+          <tr>
+            <td>M200 Intervention</td>
+            <td>0</td>
+            <td>7.50</td>
+            <td>6.75</td>
+            <td>14.25</td>
+            <td>12.82</td>
+          </tr>
+          <tr>
+            <td>OM-50 涅墨西斯</td>
+            <td>0</td>
+            <td>8.33</td>
+            <td>7.50</td>
+            <td>15.83</td>
+            <td>14.25</td>
+          </tr>
+          <tr>
+            <td>BA-50</td>
+            <td>0</td>
+            <td>8.75</td>
+            <td>7.88</td>
+            <td>16.62</td>
+            <td>14.96</td>
+          </tr>
+          <tr>
+            <td>DT-HTI</td>
+            <td>0</td>
+            <td>7.92</td>
+            <td>7.12</td>
+            <td>15.04</td>
+            <td>13.54</td>
+          </tr>
+          <tr>
+            <td>SIG50</td>
+            <td>0</td>
+            <td>8.08</td>
+            <td>7.28</td>
+            <td>15.36</td>
+            <td>13.82</td>
+          </tr>
+          <tr>
+            <td>AX-50</td>
+            <td>0</td>
+            <td>8.00</td>
+            <td>7.20</td>
+            <td>15.20</td>
+            <td>13.68</td>
+          </tr>
+          <tr>
+            <td>AWM</td>
+            <td>0</td>
+            <td>5.00</td>
+            <td>4.50</td>
+            <td>9.50</td>
+            <td>8.55</td>
+          </tr>
+          <tr>
+            <td>MK3</td>
+            <td>0</td>
+            <td>4.92</td>
+            <td>4.42</td>
+            <td>9.34</td>
+            <td>8.41</td>
+          </tr>
+          <tr>
+            <td>Tactical 2</td>
+            <td>0</td>
+            <td>4.92</td>
+            <td>4.42</td>
+            <td>9.34</td>
+            <td>8.41</td>
+          </tr>
+          <tr>
+            <td>CSRX-300</td>
+            <td>0</td>
+            <td>3.75</td>
+            <td>3.38</td>
+            <td>7.12</td>
+            <td>6.41</td>
+          </tr>
+          <tr>
+            <td>SSG M1</td>
+            <td>0</td>
+            <td>5.00</td>
+            <td>4.50</td>
+            <td>9.50</td>
+            <td>8.55</td>
+          </tr>
+          <tr>
+            <td>AX338</td>
+            <td>0</td>
+            <td>4.83</td>
+            <td>4.35</td>
+            <td>9.18</td>
+            <td>8.27</td>
+          </tr>
+          <tr>
+            <td>M24A3</td>
+            <td>0</td>
+            <td>4.75</td>
+            <td>4.28</td>
+            <td>9.03</td>
+            <td>8.12</td>
+          </tr>
+          <tr>
+            <td>SVDK</td>
+            <td>0</td>
+            <td>5.17</td>
+            <td>4.65</td>
+            <td>9.82</td>
+            <td>8.83</td>
+          </tr>
+          <tr>
+            <td>M40A6</td>
+            <td>0</td>
+            <td>3.33</td>
+            <td>3.00</td>
+            <td>6.33</td>
+            <td>5.70</td>
+          </tr>
+          <tr>
+            <td>Izhmash SV98</td>
+            <td>0</td>
+            <td>3.50</td>
+            <td>3.15</td>
+            <td>6.65</td>
+            <td>5.99</td>
           </tr>
         </table>
         <button onclick="closeDetail('weapon-detail')">关闭</button>
@@ -621,65 +867,23 @@
     // 初始化粒子背景
     particlesJS('particles-js', {
       "particles": {
-        "number": {
-          "value": 50,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#ffffff"
-        },
-        "shape": {
-          "type": "circle"
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": false
-        },
-        "size": {
-          "value": 3,
-          "random": true
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out"
-        }
+        "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+        "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
       },
       "interactivity": {
         "detect_on": "canvas",
         "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "grab"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          }
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" }
         },
         "modes": {
-          "grab": {
-            "distance": 140,
-            "line_linked": {
-              "opacity": 1
-            }
-          },
-          "push": {
-            "particles_nb": 4
-          }
+          "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+          "push": { "particles_nb": 4 }
         }
       },
       "retina_detect": true
@@ -689,18 +893,12 @@
     // 页面切换：显示对应页面，隐藏其他页面
     function switchPage(pageId) {
       var pages = document.querySelectorAll('.page');
-      pages.forEach(function(page) {
-        page.classList.remove('active');
-      });
+      pages.forEach(function(page) { page.classList.remove('active'); });
       document.getElementById(pageId).classList.add('active');
     }
     // 打开/关闭详情弹窗
-    function openDetail(detailId) {
-      document.getElementById(detailId).style.display = 'block';
-    }
-    function closeDetail(detailId) {
-      document.getElementById(detailId).style.display = 'none';
-    }
+    function openDetail(detailId) { document.getElementById(detailId).style.display = 'block'; }
+    function closeDetail(detailId) { document.getElementById(detailId).style.display = 'none'; }
     // 中英切换（示例，待完善）
     document.getElementById('lang-toggle').addEventListener('click', function() {
       alert('中英切换功能暂未实现！');
@@ -729,19 +927,14 @@
       modal.style.display = 'none';
     });
     window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
+      if (event.target === modal) { modal.style.display = 'none'; }
     };
 
-    // IntersectionObserver：为带有 .fade-in 类的元素添加 visible 类
+    // IntersectionObserver：为所有 .fade-in 元素添加 visible 类（滚动淡入效果）
     document.addEventListener("DOMContentLoaded", function() {
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
         });
       });
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
