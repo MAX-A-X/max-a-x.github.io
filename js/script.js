@@ -238,3 +238,13 @@ if (backToTopButton) {
 } else {
    console.error('找不到 .back-to-top 按钮！');
 }
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const logo = document.querySelector(".nav-logo");
+  if (window.location.pathname !== "/" && logo) {
+    logo.style.display = "block"; // 只有在非首页时显示 logo
+  }
+});
