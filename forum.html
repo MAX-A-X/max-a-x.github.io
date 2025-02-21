@@ -4,7 +4,6 @@
   <link rel="preload" href="css/style.css" as="style">
   <link rel="preload" href="images/logo.svg" as="image">
   <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
-  <link rel="preload" href="images/logo.svg" as="image">
   <link rel="icon" type="image/svg+xml" href="images/logo.svg">
   <link rel="alternate icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="images/logo.svg">
@@ -13,62 +12,71 @@
   <title>星云论坛 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
   <nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <!-- 其他导航项保持不变 -->
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
+    <!-- 其他导航项保持不变 -->
   </nav>
 </head>
 <body>
   <div class="loading-screen">
-  <div class="loading-spinner"></div>
-  <div class="loading-text" data-i18n="loading">加载中...</div>
-</div>
-  <nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="/">星域</a></li>
-    <li><a href="/about">星渊</a></li>
-    <li><a href="/works">星辉</a></li>
-    <li><a href="/blog">星迹</a></li>
-    <li><a href="/forum">星云</a></li>
-    <li><a href="/contact">星桥</a></li>
-    <div class="search-container">
-      <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
-      <button class="search-button">🔍</button>
-      <div class="search-results"></div>
-    </div>
-    <button class="theme-toggle">
-      <span class="light-icon">☀️</span>
-      <span class="dark-icon">🌙</span>
-    </button>
-  </ul>
-  <div class="hamburger">☰</div>
-</nav>
-
-
-  <main class="page-content">
-  <div class="centered-container">
-    <h1>星云论坛</h1>
-    <div class="forum-grid">
-      <section class="forum-category">
-        <h2>技术讨论</h2>
-        <div class="thread-card">
-          <h3>《审判行动：致命瞄准》游戏的制作方案</h3>
-          <div class="meta">
-            <span>最后回复：MAX至臻星域制作团队</span>
-            <span>2025-01-25</span>
-          </div>
-        </div>
-        <!-- 更多讨论主题 -->
-      </section>
-    </div>
+    <div class="loading-spinner"></div>
+    <div class="loading-text" data-i18n="loading">加载中...</div>
   </div>
-</main>
+  <nav class="navbar">
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">星域</a></li>
+      <li><a href="/about">星渊</a></li>
+      <li><a href="/works">星辉</a></li>
+      <li><a href="/blog">星迹</a></li>
+      <li><a href="/forum">星云</a></li>
+      <li><a href="/contact">星桥</a></li>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
+        <button class="search-button"></button>
+        <div class="search-results"></div>
+      </div>
+      <button class="theme-toggle">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon"></span>
+      </button>
+    </ul>
+    <div class="hamburger">☰</div>
+  </nav>
+  <main class="page-content">
+    <div class="centered-container">
+      <h1>星云论坛</h1>
+      <div class="forum-grid">
+        <section class="forum-category">
+          <h2>技术讨论</h2>
+          <div class="thread-card">
+            <h3>《审判行动：致命瞄准》游戏的制作方案</h3>
+            <div class="meta">
+              <span>最后回复：MAX至臻星域制作团队</span>
+              <span>2025-01-25</span>
+            </div>
+          </div>
+          <!-- 更多讨论主题 -->
+        </section>
+      </div>
+      <!-- 集成 Utterances 评论区域 -->
+      <div id="comments">
+        <script src="https://utteranc.es/client.js"
+                repo="MAX-A-X/max-a-x.github.io"
+                issue-term="pathname"
+                label="评论"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+      </div>
+    </div>
+  </main>
   <button class="back-to-top">⬆ 返回顶部</button>
   <script src="js/script.js"></script>
 </body>
