@@ -45,7 +45,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    /* 使用原来的SVG LOGO，并添加悬停缩放特效 */
+    /* 使用原来的 SVG LOGO，并添加悬停缩放特效 */
     .logo {
       height: 60px;
       margin-left: 20px;
@@ -56,19 +56,16 @@
     /* ========== 导航菜单 ========== */
     .nav-menu { list-style: none; display: flex; flex-wrap: wrap; }
     .nav-menu li { margin: 5px 10px; }
-    .nav-menu li button {
-      background: none; border: none; color: #ffd700; font-size: 16px;
-      cursor: pointer; padding: 10px; transition: color 0.3s;
-    }
+    /* 预留中英切换后更新的导航文字 */
+    .nav-menu li button { background: none; border: none; color: #ffd700; font-size: 16px; cursor: pointer; padding: 10px; transition: color 0.3s; }
     .nav-menu li button:hover { color: #fff; }
     .nav-right { margin-right: 20px; }
     .nav-right button {
       margin-left: 10px; padding: 8px 12px; background: #333;
-      border: 1px solid #ffd700; color: #ffd700; border-radius: 4px; cursor: pointer;
-      transition: background 0.3s;
+      border: 1px solid #ffd700; color: #ffd700; border-radius: 4px; cursor: pointer; transition: background 0.3s;
     }
     .nav-right button:hover { background: #444; }
-    /* 背景音效切换按钮 */
+    /* 背景音乐切换器 */
     #bg-music-toggle {
       margin-left: 10px;
       padding: 8px 12px;
@@ -121,7 +118,6 @@
     .animated-title {
       font-size: 3rem;
       margin-bottom: 10px;
-      /* 渐变与霓虹效果：融合金属、白色和暗红色 */
       background: linear-gradient(90deg, #FFD700 0%, #FF2E63 50%, #FFFFFF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -177,7 +173,7 @@
       cursor: pointer; color: #0d0d0d;
     }
     
-    /* 新增“游戏简介”详细信息 */
+    /* ========== 游戏简介 ========== */
     .game-description {
       background: #222;
       padding: 20px;
@@ -209,17 +205,52 @@
     }
     .recoil-table th { background: #222; color: #ffd700; }
     
-    /* ========== 开发进度 ========== */
-    .timeline { margin-top: 20px; }
-    pre.timeline-content {
-      background: #222;
-      border: 1px solid #444;
-      padding: 15px;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-family: monospace;
-      color: #ffd700;
-      white-space: pre-wrap;
+    /* ========== 炫酷时间线 ========== */
+    .timeline-container {
+      position: relative;
+      margin-top: 20px;
+      padding-left: 40px;
+    }
+    .timeline-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 20px;
+      width: 4px;
+      background: linear-gradient(to bottom, #ffd700, #ffffff);
+      border-radius: 2px;
+      animation: pulseLine 3s infinite;
+    }
+    @keyframes pulseLine {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -32px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: #ffd700;
+      border: 3px solid #0d0d0d;
+      border-radius: 50%;
+      animation: scalePulse 2s infinite;
+    }
+    @keyframes scalePulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    .timeline-item .timeline-content {
+      font-size: 0.9rem;
       line-height: 1.4;
     }
     
@@ -295,19 +326,19 @@
         <!-- 使用原来的 SVG LOGO -->
         <img src="logo.svg" alt="Logo" class="logo">
         <ul class="nav-menu">
-          <li><button onclick="switchPage('page-home')">首页</button></li>
-          <li><button onclick="switchPage('page-game-intro')">游戏介绍</button></li>
-          <li><button onclick="switchPage('page-progress')">开发进度</button></li>
-          <li><button onclick="switchPage('page-discussion')">讨论交流</button></li>
-          <li><button onclick="switchPage('page-play')">开始游玩</button></li>
-          <li><button onclick="switchPage('page-about')">关于我们</button></li>
-          <li><button onclick="switchPage('page-personal')">个人主页</button></li>
+          <li><button class="nav-item" data-key="home">首页</button></li>
+          <li><button class="nav-item" data-key="intro">游戏介绍</button></li>
+          <li><button class="nav-item" data-key="progress">开发进度</button></li>
+          <li><button class="nav-item" data-key="discussion">讨论交流</button></li>
+          <li><button class="nav-item" data-key="play">开始游玩</button></li>
+          <li><button class="nav-item" data-key="about">关于我们</button></li>
+          <li><button class="nav-item" data-key="personal">个人主页</button></li>
         </ul>
         <div class="nav-right">
           <button id="lang-toggle">中文/English</button>
           <button id="login-btn">登录</button>
           <button id="register-btn">注册</button>
-          <button id="bg-music-toggle">背景音效开</button>
+          <button id="bg-music-toggle">背景音乐开</button>
         </div>
       </nav>
     </div>
@@ -315,7 +346,7 @@
   
   <!-- ========== 内容区域：各页面 ========== -->
   <div id="content" class="container">
-    <!-- 主页：Banner、新闻公告、游戏图片 -->
+    <!-- 主页 -->
     <div id="page-home" class="page active fade-in">
       <div class="home-banner">
         <div class="banner-content fade-in">
@@ -330,94 +361,61 @@
       </div>
     </div>
     
-    <!-- 游戏介绍：卡片展示各子项，并在下方加入游戏简介 -->
+    <!-- 游戏介绍 -->
     <div id="page-game-intro" class="page fade-in">
-      <h2>游戏介绍</h2>
+      <h2 class="page-title" data-key="intro">游戏介绍</h2>
       <div class="card-container">
         <div class="card fade-in" onclick="openDetail('play-detail')">
-          <h3>玩法介绍</h3>
+          <h3 data-key="playTitle">玩法介绍</h3>
           <p>详细了解操作技巧、射击机制及策略。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('backstory-detail')">
-          <h3>背景介绍</h3>
+          <h3 data-key="backstoryTitle">背景介绍</h3>
           <p>探索末日废墟下的真实故事与阴谋。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('character-detail')">
-          <h3>角色介绍</h3>
+          <h3 data-key="characterTitle">角色介绍</h3>
           <p>了解精英狙击手的背景与动机。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('weapon-detail')">
-          <h3>武器介绍</h3>
+          <h3 data-key="weaponTitle">武器介绍</h3>
           <p>查看各型号狙击枪的详细参数。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('scope-detail')">
-          <h3>瞄准镜介绍</h3>
+          <h3 data-key="scopeTitle">瞄准镜介绍</h3>
           <p>比较不同瞄准镜的优势与特点。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('armor-detail')">
-          <h3>防具介绍</h3>
+          <h3 data-key="armorTitle">防具介绍</h3>
           <p>选择最佳防具，增强生存能力。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('item-detail')">
-          <h3>道具介绍</h3>
+          <h3 data-key="itemTitle">道具介绍</h3>
           <p>辅助装备的详细说明及使用技巧。</p>
         </div>
       </div>
       <!-- 游戏简介详细信息 -->
-      <div class="game-description fade-in">
-        <strong>作品名称：</strong>《审判行动：致命瞄准》<br><br>
-        <strong>游戏类型：</strong>第一人称战术狙击射击游戏（FPS）<br><br>
-        <strong>开发平台：</strong>PC / 移动设备 / Web 端<br><br>
-        <strong>当前版本：</strong>RC 1.0.0<br><br>
-        <strong>游戏官网：</strong> <a href="https://max-a-x.github.io/trialaction/" target="_blank">https://max-a-x.github.io/trialaction/</a><br><br>
-        <strong>游戏背景：</strong><br>
-        玩家代号“鹰眼”，军衔为一级军士，隶属于精英特种作战部队“审判小队”。在世界范围内，毒贩组织的活动愈发猖獗，他们不仅控制着庞大的毒品交易网络，还掌握着先进的武装力量。为维护全球安全，玩家受命执行“审判行动”，通过精准狙杀敌方目标，瓦解毒贩组织的核心势力。<br><br>
-        <strong>游戏简介：</strong><br>
-        《审判行动：致命瞄准》是一款专注于单发狙击枪战斗的战术射击游戏，玩家将扮演一名精英狙击手，在各种高风险任务中执行精准打击，完成致命狙杀。游戏强调真实的狙击体验，包括弹道计算、风速影响、心跳控制等元素，力求带给玩家极致的战术狙击沉浸感。<br><br>
-        <strong>核心玩法：</strong><br>
-        1. 真实狙击模拟 - 模拟物理弹道，考虑距离、风速、重力与呼吸控制。<br>
-        2. 战术任务执行 - 完成暗杀、破坏等多种任务，制定灵活策略。<br>
-        3. 多种狙击枪械 - 仅采用单发狙击枪，各枪械特性不同，需灵活选择。<br>
-        4. 动态环境影响 - 天气、地形和目标移动都会影响射击。<br>
-        5. 自定义装备与技能升级 - 对狙击枪进行配件升级和角色技能提升。<br>
-        6. 沉浸式任务模式 - 真实战场任务，部分任务具有限时性。<br><br>
-        <strong>游戏模式：</strong><br>
-        - 任务模式：以故事为驱动，扮演狙击手完成各类任务。<br>
-        - 靶场模式：设定不同距离靶标，击杀目标获得奖励。<br><br>
-        <strong>操作说明：</strong><br>
-        - 瞄准：使用鼠标指针，按 Q / E 进行左右倾斜。<br>
-        - 射击：鼠标左键射击。<br>
-        - 呼吸控制：按住空格屏息以减少准星抖动。<br>
-        - 换弹：鼠标左键进行拉栓/换弹。<br>
-        - 道具使用/切换：滚动鼠标中键调出道具，点击切换装备。<br><br>
-        <strong>开发周期：</strong><br>
-        前期策划与原型设计（1-2 个月）<br>
-        开发与测试阶段（1-2 个月）<br>
-        优化与发布（2-3 个月）<br><br>
-        <strong>文件大小：</strong>42MB<br><br>
-        <strong>开发愿景：</strong><br>
-        《审判行动：致命瞄准》旨在打造一款硬核、写实的狙击游戏，为热爱战术狙击的玩家提供独特体验。游戏将摒弃传统FPS枪战快节奏，强调隐蔽、耐心与精准，带来最纯粹的狙击快感。
-      </div>
+      <div id="game-description" class="game-description fade-in"></div>
       
       <!-- 弹窗详情 -->
       <div id="play-detail" class="detail-modal">
         <h3>玩法介绍详情</h3>
-        <p>在《审判行动》中，你扮演一名精英狙击手。游戏采用真实物理模拟，每次射击要求你精确计算距离、风速、重力及呼吸状态，并利用地形、掩体实现最佳狙击效果。</p>
+        <p>在《审判行动》中，你扮演一名精英狙击手。游戏采用真实物理模拟，每次射击要求你精确计算距离、风速、重力及呼吸状态，并利用地形和掩体实现最佳狙击效果。</p>
         <button onclick="closeDetail('play-detail')">关闭</button>
       </div>
       <div id="backstory-detail" class="detail-modal">
         <h3>背景介绍详情</h3>
-        <p>设定在后末日的废墟世界，各大势力为争夺资源展开激烈斗争。你所属的“审判小队”肩负拯救人类的使命，深入敌后，揭露毒贩组织的阴谋。</p>
+        <p>设定在后末日的废墟世界，各大势力为争夺资源展开激烈斗争。你所属的“审判小队”肩负着拯救人类的使命，深入敌后揭露毒贩组织的阴谋。</p>
         <button onclick="closeDetail('backstory-detail')">关闭</button>
       </div>
       <div id="character-detail" class="detail-modal">
         <h3>角色介绍详情</h3>
-        <p>游戏中角色个性鲜明：冷静精准的狙击手、勇猛果敢的突击手等。每个角色都有独特技能和背景故事，助你在战场上实现最佳战术配合。</p>
+        <p>游戏中角色各具特色：冷静精准的狙击手、果敢勇猛的突击手等。每个角色不仅拥有独特技能，还承载着各自的背景故事与使命，助你在战场上形成最佳搭配。</p>
         <button onclick="closeDetail('character-detail')">关闭</button>
       </div>
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
-        <p>以下是各型号狙击枪的详细参数及后坐力数据：</p>
+        <p>下面列出了各型号狙击枪的详细参数及后坐力数据：</p>
         <div class="table-container">
           <table class="weapon-table">
             <tr>
@@ -433,7 +431,7 @@
               <th>品质</th>
               <th>备注</th>
             </tr>
-            <!-- 此处保留之前的表格数据 -->
+            <!-- 此处请保留或补充完整所有枪械数据 -->
             <tr>
               <td>AMR（Anti-Material Rifle）</td>
               <td>12.7×99mm</td>
@@ -447,7 +445,6 @@
               <td>金色</td>
               <td>反器材步枪，极高穿甲能力，超强后坐力</td>
             </tr>
-            <!-- 其他数据行省略，保持原样 -->
             <tr>
               <td>Barrett M82A1</td>
               <td>.50 BMG</td>
@@ -461,10 +458,9 @@
               <td>金色</td>
               <td>半自动，超强穿甲，极高后坐力</td>
             </tr>
-            <!-- 其他表格行同前文保持 -->
+            <!-- 更多数据行... -->
           </table>
         </div>
-        <!-- 后坐力数据表 -->
         <br>
         <h4>后坐力数据</h4>
         <div class="table-container">
@@ -485,19 +481,19 @@
               <td>19.00</td>
               <td>17.10</td>
             </tr>
-            <!-- 其他后坐力数据行同前文保持 -->
+            <!-- 更多数据行... -->
           </table>
         </div>
         <button onclick="closeDetail('weapon-detail')">关闭</button>
       </div>
       <div id="scope-detail" class="detail-modal">
         <h3>瞄准镜介绍详情</h3>
-        <p>介绍各类瞄准镜的倍率、视野、使用环境及特殊效果，助你在不同战场下选用最佳瞄准配件。</p>
+        <p>介绍各类瞄准镜的倍率、视野、使用环境及特殊效果，助你在不同战场下选用最佳配件。</p>
         <button onclick="closeDetail('scope-detail')">关闭</button>
       </div>
       <div id="armor-detail" class="detail-modal">
         <h3>防具介绍详情</h3>
-        <p>详细介绍各种防具的材质、重量、保护值及灵活性，帮助你在战斗中有效降低伤害。</p>
+        <p>详细介绍各种防具的材质、重量、保护值和灵活性，帮助你在战斗中有效降低伤害。</p>
         <button onclick="closeDetail('armor-detail')">关闭</button>
       </div>
       <div id="item-detail" class="detail-modal">
@@ -507,296 +503,69 @@
       </div>
     </div>
     
-    <!-- 开发进度 -->
+    <!-- 开发进度：炫酷时间线 -->
     <div id="page-progress" class="page fade-in">
-      <h2>开发进度</h2>
-      <pre class="timeline-content">
------BETA-----
-V1.0 重制审判行动
-V1.1 优化所有界面
-V1.1.1 优化图层问题
-V1.2 新增主菜单
-V1.3 优化主菜单
-V1.4 制作新版商店
-V1.4.1 优化并新增新的商店内容
-V1.4.2 优化商店购买按钮，商店出现克隆体异常，超过scratch限制，无法修复
-V1.5 新增个人主页
-V1.6 新增数字打印模块
-V1.7 新增存档码功能
-V1.8 新增公共存档码功能
-V1.9 新增设置功能
-V1.9.1 完善设置功能
-V2.0 游戏大致完成
-V2.1 新增AMR金色品质狙击枪，并新增黑市
-V2.1 完善黑市
-V2.2 优化
-V2.3 新增未来科技系列瞄准镜
-V2.3.1 优化
-V2.4 新增电脑端和移动端选择
-V2.4.1 新增移动端按钮并优化
-V2.5 新增游戏关卡
-V2.5.1 优化并修复游戏关卡
-V2.6 新增大量枪支
-V2.7 改善商店界面并分类物品
-V2.8 完善枪支
-V2.9 新增大量枪支真实数据（数据来源于ChatGPT）
-V3.0 枪支完善完成
-V3.1 新增防具
-V3.2 将防具分类进商店，并添加大厅交互功能
-V3.3 改善购买功能并添加列表数据
-V3.4 新增技能功能
-V3.5 完善技能功能
-V3.6 新增成就功能
-V3.7 优化并修复背景音乐播放异常
-V3.8 为平衡游戏增加了关卡的奖励程度
-V3.9 进行了游戏整体的优化，解决了卡顿的问题
-V4.0 为迎接新年，新增了烟花装饰
-V4.1 完善了狙击射击功能，并使用了真实的枪支数据
-V4.2 项目达到了6000积木！
-V4.3 新增无需计时器的停止页
-V4.4 完善了枪械提示栏
-V4.5 新增了有时间限制的任务，提升了游戏难度
-V4.6 新增了玩家ID
-V4.7 新增了赛季榜单，并且有大厅交互功能
-V4.8 为补充原版Scratch只能使用云变量，不可使用云列表，新增了实现云变量转云列表的功能
-V4.9 修复了存档功能无法存储列表的问题
-V5.0 终于是个像样的游戏了！
-V5.1 修复弹着点闪光无法正常显示的问题
-V5.2 修复了目标碰到判定点没有反应的问题
-V5.3 优化了目标造型
-V5.4 完善并精简了代码
-V5.4 新增赛季皮肤
-V5.5 新增关于功能
-V5.6 积木总数超过了10000，手都麻了！
-V5.7 优化
-V5.8 开始内测
-V5.9 研制云变量私有云存档
-V5.9.1 新增ID
-V5.9.2 新增云密码
-V5.9.3 新增自动存档
-V5.9.4 存档异常，修复
-V5.9.5 修复
-V5.9.6 修复完成
-V6.0 即将发布
-V6.1 新增采集榜单
-V6.2 研制排行榜
-V6.3 排行榜研制成功
-V6.3.1 修复商店关闭后开始游戏不显示的问题
-V6.3.2 优化
------RC-----
-V1.0.0 公测。
-      </pre>
-    </div>
-    
-    <!-- 讨论交流 -->
-    <div id="page-discussion" class="page fade-in">
-      <h2>讨论交流</h2>
-      <p>下面是玩家讨论区，请遵守以下规则：</p>
-      <div class="forum-rules">
-        <strong>论坛规则与注意事项：</strong><br>
-        1. 尊重他人，禁止恶意攻击与辱骂。<br>
-        2. 禁止发布违法、违规、色情等内容。<br>
-        3. 请保持讨论内容与游戏相关，避免刷屏。<br>
-        4. 遵守GitHub社区准则，禁止广告宣传。<br>
-        5. 违反规则者将被禁言或删除评论。
-      </div>
-      <!-- Utterances 评论系统 -->
-      <div id="utterances"></div>
-      <script src="https://utteranc.es/client.js"
-          repo="max-a-x/trialaction-comments"  <!-- 请替换为你的 GitHub 评论仓库 -->
-          issue-term="pathname"
-          label="Comment"
-          theme="github-dark"
-          crossorigin="anonymous"
-          async>
-      </script>
-    </div>
-    
-    <!-- 开始游玩 -->
-    <div id="page-play" class="page fade-in">
-      <h2>开始游玩</h2>
-      <div class="version-container">
-        <div class="version">
-          <h4>在线游玩版本</h4>
-          <p>无需下载，直接在网页上体验全动态狙击模拟。支持多人实时对战、竞技排位与战术协作，适合快节奏竞技。</p>
+      <h2 class="page-title" data-key="progress">开发进度</h2>
+      <div class="timeline-container">
+        <div class="timeline-item">
+          <div class="timeline-content">V1.0 重制审判行动</div>
         </div>
-        <div class="version">
-          <h4>Windows 版本</h4>
-          <p>提供完整的PC端安装包，拥有更丰富的图形与音效，支持高分辨率显示和自定义设置，适合追求极致画质的玩家。</p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.1 优化所有界面</div>
         </div>
-        <div class="version">
-          <h4>Linux 版本</h4>
-          <p>专为Linux玩家优化的安装包，兼容主流发行版，确保流畅运行与高稳定性，是开源爱好者的不二选择。</p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.1.1 优化图层问题</div>
         </div>
-        <div class="version">
-          <h4>Android 版本</h4>
-          <p>移动端版本，适配多种设备分辨率，结合触控与陀螺仪控制，带来沉浸式狙击体验。</p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.2 新增主菜单</div>
         </div>
-        <div class="version">
-          <h4>RC 版本</h4>
-          <p>抢先体验预览版，收集玩家反馈，持续优化更新，体验最新功能和地图，欢迎参与内测。</p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.3 优化主菜单</div>
         </div>
-      </div>
-      <br>
-      <div>
-        <p>在线游玩示例：</p>
-        <iframe src="https://example.com/online-game" width="100%" height="500" frameborder="0"></iframe>
-      </div>
-    </div>
-    
-    <!-- 关于我们 -->
-    <div id="page-about" class="page fade-in">
-      <h2>关于我们</h2>
-      <div class="about-container">
-        <div class="about-section">
-          <h4>开发团队</h4>
-          <p>MAX至臻星域 (MAX Apex Xenith)<br>
-          官方网站：<a href="https://max-a-x.github.io/" target="_blank">https://max-a-x.github.io/</a></p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.4 制作新版商店</div>
         </div>
-        <div class="about-section">
-          <h4>支持与帮助</h4>
-          <p>如有疑问，请查阅常见问题解答（FAQ）或观看教程视频。我们的支持团队全天候在线，为你提供帮助。</p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.4.1 优化并新增新的商店内容</div>
         </div>
-        <div class="about-section">
-          <h4>联系方式</h4>
-          <p>客服邮箱：<a href="mailto:9675036@qq.com">9675036@qq.com</a><br>
-          工单系统：<a href="mailto:9675036@qq.com?subject=工单提交">点击这里提交工单</a><br>
-          在线客服：请点击右下角图标咨询</p>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.4.2 优化商店购买按钮，出现克隆体异常（超过Scratch限制）</div>
         </div>
-      </div>
-      <div class="interactive-buttons">
-        <button onclick="window.open('mailto:9675036@qq.com?subject=提交反馈','_blank')">提交反馈</button>
-        <button onclick="window.open('mailto:9675036@qq.com?subject=FAQ咨询','_blank')">FAQ</button>
-      </div>
-    </div>
-    
-    <!-- 个人主页 -->
-    <div id="page-personal" class="page fade-in">
-      <h2>个人主页</h2>
-      <p>欢迎来到您的个人中心！</p>
-      <p>在这里，你可以查看战绩统计、历史对战记录以及个性化设置。</p>
-      <div class="embed-placeholder">
-        预留嵌入空位：例如展示视频、数据统计或社交媒体内容
-      </div>
-    </div>
-  </div>
-  
-  <!-- ========== 模态框：登录/注册 ========== -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="modal-close">&times;</span>
-      <div id="modal-body">
-        <!-- 登录/注册内容由 JavaScript 动态填充 -->
-      </div>
-    </div>
-  </div>
-  
-  <!-- ========== 背景音效（可切换） ========== -->
-  <audio id="bg-music" src="bg-music.mp3" loop></audio>
-  
-  <!-- ========== 引入 particles.js ========== -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    // 初始化粒子背景
-    particlesJS('particles-js', {
-      "particles": {
-        "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5, "random": false },
-        "size": { "value": 3, "random": true },
-        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-        "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": true, "mode": "grab" },
-          "onclick": { "enable": true, "mode": "push" }
-        },
-        "modes": {
-          "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
-          "push": { "particles_nb": 4 }
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
-  <script>
-    // 页面切换
-    function switchPage(pageId) {
-      var pages = document.querySelectorAll('.page');
-      pages.forEach(function(page) { page.classList.remove('active'); });
-      document.getElementById(pageId).classList.add('active');
-    }
-    // 打开/关闭详情弹窗
-    function openDetail(detailId) {
-      document.getElementById(detailId).style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeDetail(detailId) {
-      document.getElementById(detailId).style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-    // 中英切换（示例）
-    document.getElementById('lang-toggle').addEventListener('click', function() {
-      alert('中英切换功能暂未实现！');
-    });
-    // 模态框：登录/注册
-    var modal = document.getElementById('modal');
-    var modalBody = document.getElementById('modal-body');
-    document.getElementById('login-btn').addEventListener('click', function() {
-      modalBody.innerHTML = '<h2>登录</h2><form>' +
-        '<input type="text" placeholder="用户名" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<input type="password" placeholder="密码" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">登录</button>' +
-        '</form>';
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    });
-    document.getElementById('register-btn').addEventListener('click', function() {
-      modalBody.innerHTML = '<h2>注册</h2><form>' +
-        '<input type="text" placeholder="用户名" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<input type="email" placeholder="邮箱" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<input type="password" placeholder="密码" style="width:100%; margin-bottom:10px; padding:8px;"><br>' +
-        '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">注册</button>' +
-        '</form>';
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    });
-    document.getElementById('modal-close').addEventListener('click', function() {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-    };
-    
-    // 背景音效切换
-    const bgMusic = document.getElementById('bg-music');
-    const bgToggle = document.getElementById('bg-music-toggle');
-    let musicOn = false;
-    bgToggle.addEventListener('click', function() {
-      if (musicOn) {
-        bgMusic.pause();
-        bgToggle.textContent = '背景音效开';
-      } else {
-        bgMusic.play();
-        bgToggle.textContent = '背景音效关';
-      }
-      musicOn = !musicOn;
-    });
-    
-    // IntersectionObserver：滚动淡入效果
-    document.addEventListener("DOMContentLoaded", function() {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
-      });
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    });
-  </script>
-</body>
-</html>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.5 新增个人主页</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.6 新增数字打印模块</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.7 新增存档码功能</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.8 新增公共存档码功能</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V1.9 新增设置功能 & V1.9.1 完善设置功能</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.0 游戏大致完成</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.1 新增AMR金色品质狙击枪，并新增黑市，完善黑市</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.2 优化</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.3 新增未来科技系列瞄准镜 & V2.3.1 优化</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.4 新增电脑端和移动端选择 & V2.4.1 新增移动端按钮并优化</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.5 新增游戏关卡 & V2.5.1 优化并修复游戏关卡</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">V2.6 新增大量枪支</div>
+        </div>
+        <div class="timeline-item">
+   
