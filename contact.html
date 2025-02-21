@@ -21,6 +21,7 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
+  <!-- 加载屏幕 -->
   <div class="loading-screen">
     <div class="loading-spinner"></div>
     <div class="loading-text" data-i18n="loading">加载中...</div>
@@ -37,7 +38,17 @@
       <li><a href="/blog">星迹</a></li>
       <li><a href="/forum">星云</a></li>
       <li><a href="/contact">星桥</a></li>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
+        <button class="search-button"></button>
+        <div class="search-results"></div>
+      </div>
+      <button class="theme-toggle">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon"></span>
+      </button>
     </ul>
+    <div class="hamburger">☰</div>
   </nav>
   <main class="contact-section">
     <div class="contact-container">
@@ -56,7 +67,8 @@
           <p>星际热线：<br>+86 000 0000 0000</p>
         </div>
       </div>
-      <form class="contact-form" name="contact" method="POST" netlify>
+      <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <!-- 隐藏字段确保 Netlify 识别表单 -->
         <input type="hidden" name="form-name" value="contact">
         <div class="form-group">
           <input type="text" name="name" placeholder="您的称呼" required>
@@ -67,22 +79,26 @@
         <div class="form-group">
           <textarea name="message" placeholder="您的星际讯息..." rows="5" required></textarea>
         </div>
+        <!-- 请确保此处的 site key 在 Google reCAPTCHA 控制台中授权了域名 max-a-x.github.io -->
         <div class="g-recaptcha" data-sitekey="6LdpEN4qAAAAAK8bWIgvAbv8Tgk4jqT_coHteHQD"></div>
-        <button type="submit" class="neon-button">发送讯息<span class="send-icon">➤</span></button>
+        <button type="submit" class="neon-button">
+          发送讯息
+          <span class="send-icon">➤</span>
+        </button>
       </form>
     </div>
+    <div class="star-map"></div>
   </main>
   <button class="back-to-top">⬆ 返回顶部</button>
-  
-  <!-- 添加 Utterances 评论系统 -->
-  <script src="https://utteranc.es/client.js"
-          repo="MAX-A-X/max-a-x.github.io"
-          issue-term="title"
-          theme="github-dark"
-          crossorigin="anonymous"
-          async>
+  <!-- 加载完成后隐藏 loading-screen -->
+  <script>
+    window.addEventListener("load", function() {
+      var loadingScreen = document.querySelector(".loading-screen");
+      if (loadingScreen) {
+        loadingScreen.style.display = "none";
+      }
+    });
   </script>
-  
   <script src="js/script.js"></script>
 </body>
 </html>
