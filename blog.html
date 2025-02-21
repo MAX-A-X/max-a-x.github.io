@@ -3,28 +3,20 @@
 <head>
   <link rel="preload" href="css/style.css" as="style">
   <link rel="preload" href="images/logo.svg" as="image">
-  <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
   <link rel="icon" type="image/svg+xml" href="images/logo.svg">
-  <link rel="alternate icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="images/logo.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>星迹 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
-  <nav class="navbar">
-    <a href="/" class="brand">
-      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-      <span class="brand-text">MAX Apex Xenith</span>
-    </a>
-    <!-- 其他导航项保持不变 -->
-  </nav>
 </head>
 <body>
   <!-- 加载屏幕 -->
   <div class="loading-screen">
     <div class="loading-spinner"></div>
-    <div class="loading-text" data-i18n="loading">加载中...</div>
+    <div class="loading-text">加载中...</div>
   </div>
+
+  <!-- 导航栏 -->
   <nav class="navbar">
     <a href="/" class="brand">
       <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
@@ -38,102 +30,98 @@
       <li><a href="/forum">星云</a></li>
       <li><a href="/contact">星桥</a></li>
       <div class="search-container">
-        <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
+        <input type="text" class="search-input" placeholder="搜索星域...">
         <button class="search-button"></button>
         <div class="search-results"></div>
       </div>
-      <button class="theme-toggle">
-        <span class="light-icon">☀️</span>
-        <span class="dark-icon"></span>
-      </button>
+      <button class="theme-toggle">🌙</button>
     </ul>
-    <div class="hamburger">☰</div>
   </nav>
+
+  <!-- 页面主体 -->
   <main class="page-content">
     <div class="centered-container">
       <h1>星迹</h1>
-      <!-- 博客列表区域 -->
-      <div id="blog-list">
-        <div class="blog-item" data-id="blog-1">
-          <h2>博客标题 1</h2>
-          <p>这里是博客 1 的摘要……</p>
+
+      <!-- 博客列表 -->
+      <div id="blog-list" class="blog-list">
+        <div class="blog-card" data-id="blog-1">
+          <img src="images/blog1.jpg" alt="博客 1">
+          <div class="blog-content">
+            <h2>探索宇宙的边界</h2>
+            <p>黑洞、暗物质、虫洞，究竟哪些是真实存在的？</p>
+          </div>
         </div>
-        <div class="blog-item" data-id="blog-2">
-          <h2>博客标题 2</h2>
-          <p>这里是博客 2 的摘要……</p>
+        <div class="blog-card" data-id="blog-2">
+          <img src="images/blog2.jpg" alt="博客 2">
+          <div class="blog-content">
+            <h2>人工智能的未来</h2>
+            <p>AI 发展日新月异，它会替代人类的工作，还是创造更多机遇？</p>
+          </div>
         </div>
-        <!-- 可添加更多博客卡片 -->
       </div>
-      <!-- 博客详情区域（初始隐藏） -->
+
+      <!-- 博客详情 -->
       <div id="blog-detail" class="hidden">
-        <article id="blog-1" class="blog-content hidden">
-          <h2>博客标题 1</h2>
-          <p>这里是博客 1 的详细内容……</p>
-          <button class="back-to-list">返回列表</button>
-          <!-- 评论区（动态加载 Utterances） -->  
-          <div class="utterances-container" data-issue-term="blog-1"></div>
-        </article>
-        <article id="blog-2" class="blog-content hidden">
-          <h2>博客标题 2</h2>
-          <p>这里是博客 2 的详细内容……</p>
-          <button class="back-to-list">返回列表</button>
-          <div class="utterances-container" data-issue-term="blog-2"></div>
-        </article>
+        <button class="back-to-list">返回列表</button>
+        <div id="blog-content"></div>
+        <div id="comments"></div>
       </div>
     </div>
   </main>
+
+  <!-- 返回顶部按钮 -->
   <button class="back-to-top">⬆ 返回顶部</button>
-  <!-- 加载完成后隐藏 loading-screen -->
-  <script>
-    window.addEventListener("load", function(){
-      var loadingScreen = document.querySelector(".loading-screen");
-      if (loadingScreen) {
-        loadingScreen.style.display = "none";
-      }
-    });
-  </script>
-  <!-- 博客切换逻辑：点击博客卡片显示详情，并动态加载评论 -->
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const blogList = document.getElementById("blog-list");
       const blogDetail = document.getElementById("blog-detail");
-      const blogItems = document.querySelectorAll(".blog-item");
-      blogItems.forEach(item => {
-        item.addEventListener("click", () => {
-          const blogId = item.dataset.id;
+      const blogContent = document.getElementById("blog-content");
+      const comments = document.getElementById("comments");
+      const backToList = document.querySelector(".back-to-list");
+
+      const blogData = {
+        "blog-1": {
+          title: "探索宇宙的边界",
+          content: "<p>人类对宇宙的探索从未止步。黑洞、暗物质、虫洞，究竟哪些是真实存在的？</p><p>探索更多星际奥秘……</p>"
+        },
+        "blog-2": {
+          title: "人工智能的未来",
+          content: "<p>AI 发展日新月异，它会替代人类的工作，还是创造更多机遇？</p><p>让我们探讨人工智能的无限可能。</p>"
+        }
+      };
+
+      document.querySelectorAll(".blog-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const blogId = card.dataset.id;
           blogList.classList.add("hidden");
           blogDetail.classList.remove("hidden");
-          // 隐藏所有博客详情内容
-          document.querySelectorAll(".blog-content").forEach(el => el.classList.add("hidden"));
-          // 显示对应详情
-          const detail = document.getElementById(blogId);
-          detail.classList.remove("hidden");
-          window.location.hash = blogId;
-          // 动态加载 Utterances 评论区（如果未加载过）
-          let container = detail.querySelector(".utterances-container");
-          if (container && !container.getAttribute("data-loaded")) {
-            let script = document.createElement("script");
-            script.src = "https://utteranc.es/client.js";
-            script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
-            script.setAttribute("issue-term", blogId);
-            script.setAttribute("theme", "github-dark");
-            script.setAttribute("crossorigin", "anonymous");
-            script.async = true;
-            container.appendChild(script);
-            container.setAttribute("data-loaded", "true");
-          }
+          blogContent.innerHTML = `<h2>${blogData[blogId].title}</h2>${blogData[blogId].content}`;
+
+          comments.innerHTML = "";
+          let script = document.createElement("script");
+          script.src = "https://utteranc.es/client.js";
+          script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
+          script.setAttribute("issue-term", blogId);
+          script.setAttribute("theme", "github-dark");
+          script.setAttribute("crossorigin", "anonymous");
+          script.async = true;
+          comments.appendChild(script);
         });
       });
-      // 返回列表按钮逻辑
-      document.querySelectorAll(".back-to-list").forEach(button => {
-        button.addEventListener("click", () => {
-          blogList.classList.remove("hidden");
-          blogDetail.classList.add("hidden");
-          history.pushState(null, "", "#");
-        });
+
+      backToList.addEventListener("click", () => {
+        blogList.classList.remove("hidden");
+        blogDetail.classList.add("hidden");
+      });
+
+      window.addEventListener("load", () => {
+        document.querySelector(".loading-screen").style.display = "none";
       });
     });
   </script>
+
   <script src="js/script.js"></script>
 </body>
 </html>
