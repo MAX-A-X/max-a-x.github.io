@@ -56,6 +56,7 @@
     /* ========== 导航菜单 ========== */
     .nav-menu { list-style: none; display: flex; flex-wrap: wrap; }
     .nav-menu li { margin: 5px 10px; }
+    <!-- 给所有按钮添加 type="button" 避免默认提交 -->
     .nav-menu li button {
       type: "button";
       background: none; border: none; color: #ffd700; font-size: 16px;
@@ -330,13 +331,13 @@
         <!-- 使用原来的 SVG LOGO -->
         <img src="logo.svg" alt="Logo" class="logo">
         <ul class="nav-menu">
-          <li><button type="button" onclick="switchPage('page-home')">首页</button></li>
-          <li><button type="button" onclick="switchPage('page-game-intro')">游戏介绍</button></li>
-          <li><button type="button" onclick="switchPage('page-progress')">开发进度</button></li>
-          <li><button type="button" onclick="switchPage('page-discussion')">讨论交流</button></li>
-          <li><button type="button" onclick="switchPage('page-play')">开始游玩</button></li>
-          <li><button type="button" onclick="switchPage('page-about')">关于我们</button></li>
-          <li><button type="button" onclick="switchPage('page-personal')">个人主页</button></li>
+          <li><button type="button" class="nav-item" data-key="home" onclick="switchPage('page-home')">首页</button></li>
+          <li><button type="button" class="nav-item" data-key="intro" onclick="switchPage('page-game-intro')">游戏介绍</button></li>
+          <li><button type="button" class="nav-item" data-key="progress" onclick="switchPage('page-progress')">开发进度</button></li>
+          <li><button type="button" class="nav-item" data-key="discussion" onclick="switchPage('page-discussion')">讨论交流</button></li>
+          <li><button type="button" class="nav-item" data-key="play" onclick="switchPage('page-play')">开始游玩</button></li>
+          <li><button type="button" class="nav-item" data-key="about" onclick="switchPage('page-about')">关于我们</button></li>
+          <li><button type="button" class="nav-item" data-key="personal" onclick="switchPage('page-personal')">个人主页</button></li>
         </ul>
         <div class="nav-right">
           <button id="lang-toggle">中文/English</button>
@@ -409,17 +410,17 @@
       </div>
       <div id="backstory-detail" class="detail-modal">
         <h3>背景介绍详情</h3>
-        <p>设定在后末日的废墟世界，各大势力为争夺资源展开激烈斗争。你所属的“审判小队”肩负拯救人类使命，深入敌后揭露毒贩组织的阴谋。</p>
+        <p>设定在后末日的废墟世界，各大势力为争夺资源展开激烈斗争。你所属的“审判小队”肩负着拯救人类的使命，深入敌后揭露毒贩组织的阴谋。</p>
         <button onclick="closeDetail('backstory-detail')">关闭</button>
       </div>
       <div id="character-detail" class="detail-modal">
         <h3>角色介绍详情</h3>
-        <p>游戏中角色各具特色：冷静精准的狙击手、果敢勇猛的突击手等。每个角色不仅拥有独特技能，还承载着各自背景故事与使命，助你在战场上形成最佳配合。</p>
+        <p>游戏中角色各具特色：冷静精准的狙击手、果敢勇猛的突击手等。每个角色不仅拥有独特技能，还承载着各自的背景故事与使命，助你在战场上形成最佳配合。</p>
         <button onclick="closeDetail('character-detail')">关闭</button>
       </div>
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
-        <p>以下是各型号狙击枪的详细参数及后坐力数据：</p>
+        <p>以下列出了各型号狙击枪的详细参数及后坐力数据：</p>
         <div class="table-container">
           <table class="weapon-table">
             <tr>
@@ -474,7 +475,7 @@
               <td>金色</td>
               <td>射程最远，精准度顶级</td>
             </tr>
-            <!-- 更多数据行... -->
+            <!-- 其他数据行可自行补充 -->
           </table>
         </div>
         <br>
@@ -497,7 +498,7 @@
               <td>19.00</td>
               <td>17.10</td>
             </tr>
-            <!-- 更多数据行... -->
+            <!-- 其他数据行可自行补充 -->
           </table>
         </div>
         <button onclick="closeDetail('weapon-detail')">关闭</button>
@@ -509,7 +510,7 @@
       </div>
       <div id="armor-detail" class="detail-modal">
         <h3>防具介绍详情</h3>
-        <p>详细介绍各种防具的材质、重量、保护值及灵活性，帮助你在战斗中有效降低伤害。</p>
+        <p>详细介绍各种防具的材质、重量、保护值和灵活性，帮助你在战斗中有效降低伤害。</p>
         <button onclick="closeDetail('armor-detail')">关闭</button>
       </div>
       <div id="item-detail" class="detail-modal">
@@ -716,13 +717,14 @@
     });
   </script>
   <script>
-    // 页面切换：调试输出确保函数被调用
+    // 页面切换
     function switchPage(pageId) {
       console.log("Switching to page:", pageId);
       var pages = document.querySelectorAll('.page');
       pages.forEach(function(page) { page.classList.remove('active'); });
       document.getElementById(pageId).classList.add('active');
     }
+    
     // 打开/关闭详情弹窗，并禁止/恢复背景滚动
     function openDetail(detailId) {
       document.getElementById(detailId).style.display = 'block';
@@ -733,7 +735,7 @@
       document.body.style.overflow = 'auto';
     }
     
-    // 中英切换功能
+    // 中英切换功能（更新导航和游戏简介内容）
     let currentLanguage = "zh";
     const translations = {
       zh: {
@@ -748,34 +750,34 @@
 <strong>游戏类型：</strong>第一人称战术狙击射击游戏（FPS）<br><br>
 <strong>开发平台：</strong>PC / 移动设备 / Web 端<br><br>
 <strong>当前版本：</strong>RC 1.0.0<br><br>
-<strong>游戏官网：</strong> <a href="https://max-a-x.github.io/trialaction/" target="_blank">https://max-a-x.github.io/trialaction/</a><br><br>
+<strong>官网：</strong> <a href="https://max-a-x.github.io/trialaction/" target="_blank">https://max-a-x.github.io/trialaction/</a><br><br>
 <strong>游戏背景：</strong><br>
-玩家代号“鹰眼”，军衔为一级军士，隶属于精英特种作战部队“审判小队”。在全球范围内，毒贩组织活动猖獗，他们不仅掌控庞大的毒品交易网络，更具备先进武装力量。为维护全球安全，玩家受命执行“审判行动”，通过精准狙杀敌方目标，瓦解毒贩核心势力。<br><br>
+玩家代号“鹰眼”，军衔为一级军士，隶属于精英特种作战部队“审判小队”。在世界范围内，毒贩组织的活动愈发猖獗，他们不仅控制着庞大的毒品交易网络，还掌握着先进的武装力量。为维护全球安全，玩家受命执行“审判行动”，通过精准狙杀敌方目标，瓦解毒贩组织的核心势力。<br><br>
 <strong>游戏简介：</strong><br>
-《审判行动：致命瞄准》是一款专注于单发狙击枪战斗的战术射击游戏。玩家扮演一名精英狙击手，在各种高风险任务中执行精准打击，完成致命狙杀。游戏强调真实狙击体验，包括弹道计算、风速影响、心跳控制等，力求带给玩家极致的战术沉浸感。<br><br>
+《审判行动：致命瞄准》是一款专注于单发狙击枪战斗的战术射击游戏，玩家将扮演一名精英狙击手，在各种高风险任务中执行精准打击，完成致命狙杀。游戏强调真实的狙击体验，包括弹道计算、风速影响、心跳控制等元素，力求带给玩家极致的战术狙击沉浸感。<br><br>
 <strong>核心玩法：</strong><br>
-1. 真实狙击模拟 - 采用物理弹道模拟，考虑距离、风速、重力及呼吸控制。<br>
-2. 战术任务执行 - 包含暗杀、破坏等多种任务，需制定灵活策略。<br>
-3. 多种狙击枪械 - 仅使用单发狙击枪，真实数据采集，如 AMR、Barrett M82A1、MK3、SV98、AWM，各具特色。<br>
-4. 动态环境影响 - 天气、地形与目标移动影响射击，要求精确计算。<br>
-5. 自定义装备、技能升级与道具购买 - 升级狙击枪配件、提升角色技能、购买道具应对任务。<br>
-6. 沉浸式任务模式 - 任务基于真实战场，部分任务限时，鼓励自由发挥。<br><br>
+1. <strong>真实狙击模拟</strong> - 采用物理弹道模拟，考虑距离、风速、重力、呼吸控制等因素，考验玩家的狙击技巧。<br>
+2. <strong>战术任务执行</strong> - 任务包含暗杀、破坏等多种目标，玩家需制定战术策略，灵活应对。<br>
+3. <strong>多种狙击枪械</strong> - 仅包含单发狙击枪，真实枪械数据采集，如 AMR、Barrett M82A1、MK3、SV98、AWM，每种枪械拥有不同特性，需根据任务需求选择合适武器。<br>
+4. <strong>动态环境影响</strong> - 天气、地形、目标移动等因素影响射击，需精确计算。<br>
+5. <strong>自定义装备、技能升级与道具购买</strong> - 可升级狙击枪配件、提升角色技能、购买各类道具以适应任务。<br>
+6. <strong>沉浸式任务模式</strong> - 基于真实战场设定，部分任务具有限时性，鼓励玩家自由发挥。<br><br>
 <strong>游戏模式：</strong><br>
-- 任务模式：以故事驱动，扮演狙击手执行致命任务，考验技术。<br>
-- 靶场模式：不同距离靶标，击杀目标获相应奖励。<br><br>
+- <strong>任务模式</strong>：随故事驱动，扮演狙击手执行各类致命任务，包含极限距离狙击、移动目标狙杀等，考验玩家技术。<br>
+- <strong>靶场模式</strong>：含有不同距离靶标，击杀目标获得奖励。<br><br>
 <strong>操作说明：</strong><br>
-- 瞄准：使用鼠标指针，按 Q/E 进行左右倾斜。<br>
-- 射击：鼠标左键射击。<br>
-- 呼吸控制：按住空格屏息以减少准星抖动。<br>
-- 换弹：鼠标左键拉栓/换弹。<br>
-- 道具使用/切换：滚动鼠标中键调出道具，点击切换狙击配件或使用道具。<br><br>
+- <strong>瞄准：</strong>使用鼠标指针进行瞄准，按住 Q/E 进行左/右倾斜。<br>
+- <strong>射击：</strong>鼠标左键进行射击。<br>
+- <strong>呼吸控制：</strong>按住空格屏息以减少准星抖动，提高射击精准度。<br>
+- <strong>换弹：</strong>鼠标左键进行拉栓/换弹。<br>
+- <strong>道具使用/切换：</strong>滚动鼠标中键调出道具，点击切换狙击配件或使用道具。<br><br>
 <strong>开发周期：</strong><br>
 前期策划与原型设计（1-2 个月）<br>
 开发与测试阶段（1-2 个月）<br>
 优化与发布（2-3 个月）<br><br>
 <strong>文件大小：</strong>42MB<br><br>
 <strong>开发愿景：</strong><br>
-《审判行动：致命瞄准》旨在打造一款硬核、写实的狙击游戏，摒弃传统FPS快节奏冲锋，强调隐蔽、耐心与精准，带来最纯粹的狙击快感。`
+《审判行动：致命瞄准》旨在打造一款硬核、写实的狙击游戏，为热爱战术狙击的玩家提供独特体验。游戏摒弃传统FPS快节奏冲锋，强调隐蔽、耐心与精准，带来最纯粹的狙击快感。`
       },
       en: {
         home: "Home",
@@ -791,18 +793,18 @@
 <strong>Current Version:</strong> RC 1.0.0<br><br>
 <strong>Official Website:</strong> <a href="https://max-a-x.github.io/trialaction/" target="_blank">https://max-a-x.github.io/trialaction/</a><br><br>
 <strong>Game Background:</strong><br>
-The player, code-named "Eagle Eye", is a first-class sergeant in the elite special operations unit "Judgment Squad". Globally, drug cartels have become increasingly rampant, controlling massive drug networks and wielding advanced armed forces. To safeguard global security, the player is tasked with executing "Judgment Action" by precisely sniping enemy targets to dismantle the cartel's core forces.<br><br>
+The player, codenamed "Eagle Eye", is a first-class sergeant in the elite special operations unit "Judgment Squad". Globally, drug cartels have become increasingly rampant, controlling massive drug networks and wielding advanced armed forces. To safeguard global security, the player is tasked with executing "Judgment Action" by precisely sniping enemy targets to dismantle the cartel's core forces.<br><br>
 <strong>Game Overview:</strong><br>
-"Judgment Action: Lethal Aim" is a tactical shooting game focusing on single-shot sniper rifles. Players assume the role of an elite sniper who must deliver precision strikes in high-risk missions. The game emphasizes a realistic sniping experience with ballistic calculations, wind influence, and heartbeat control, delivering an immersive tactical sniping experience.<br><br>
+"Judgment Action: Lethal Aim" is a tactical shooting game focused on single-shot sniper rifles. Players assume the role of an elite sniper executing precise strikes in high-risk missions. Emphasizing a realistic sniping experience with ballistic calculations, wind influence, and heartbeat control, the game delivers an immersive tactical sniping experience.<br><br>
 <strong>Core Gameplay:</strong><br>
 1. Realistic Sniper Simulation – Employs physics-based ballistics considering distance, wind, gravity, and breath control.<br>
 2. Tactical Mission Execution – Missions include assassination and sabotage, requiring flexible strategy.<br>
-3. Diverse Sniper Rifles – Only single-shot sniper rifles with real-world data (e.g., AMR, Barrett M82A1, MK3, SV98, AWM) with unique traits.<br>
+3. Diverse Sniper Rifles – Featuring only single-shot sniper rifles with real-world data (e.g., AMR, Barrett M82A1, MK3, SV98, AWM), each with unique traits.<br>
 4. Dynamic Environmental Impact – Weather, terrain, and moving targets affect shots, demanding precision.<br>
 5. Custom Equipment, Skill Upgrades & Item Purchase – Upgrade rifle attachments, enhance skills, and purchase items for various missions.<br>
 6. Immersive Mission Mode – Missions based on realistic battlefields, with some timed tasks to encourage tactical play.<br><br>
 <strong>Game Modes:</strong><br>
-- Mission Mode: Story-driven, playing as a sniper executing deadly tasks, testing your skills.<br>
+- Mission Mode: Story-driven, playing as a sniper to execute deadly tasks, testing your skills.<br>
 - Range Mode: Targets at various distances yield rewards based on performance.<br><br>
 <strong>Controls:</strong><br>
 - Aiming: Use the mouse pointer; hold Q/E to lean left/right.<br>
