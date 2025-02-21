@@ -19,10 +19,7 @@
     .container { max-width: 1200px; margin: auto; padding: 20px; }
     
     /* 确保内容区域在粒子背景之上 */
-    #content {
-      position: relative;
-      z-index: 1;
-    }
+    #content { position: relative; z-index: 1; }
     
     /* 滚动淡入效果 */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
@@ -47,58 +44,13 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    /* 优化后的 LOGO整体容器及悬停放大效果 */
-    #logo-text {
+    /* 使用SVG LOGO图片，并添加悬停缩放特效 */
+    .logo {
+      height: 60px;
       margin-left: 20px;
       transition: transform 0.3s;
     }
-    #logo-text:hover { transform: scale(1.05); }
-    /* “审判”字体：金属银灰 */
-    #logo-judge {
-      font-size: 2.5rem;
-      font-family: Impact, sans-serif;
-      background: linear-gradient(to bottom, #707070, #D0D0D0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px 2px #000000, 4px 4px 4px #8B0000;
-    }
-    /* “行动”字体：亮金色，稍大且下移 */
-    #logo-action {
-      font-size: 3rem;
-      font-family: "Arial Rounded MT Bold", sans-serif;
-      background: linear-gradient(to bottom, #FFE680, #B8860B);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 1px 1px 1px #000000;
-      position: relative;
-      top: 5px;
-    }
-    /* 副标题“致命瞄准”，添加交叉准星点缀 */
-    #logo-subtitle {
-      font-size: 1.2rem;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #660000, #FF0000);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 1px 1px 1px #000000;
-      margin-top: 5px;
-    }
-    #logo-subtitle .crosshair-accent {
-      position: relative;
-      padding-left: 20px;
-    }
-    #logo-subtitle .crosshair-accent::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-      background: #FF3333;
-      border: 2px solid #000000;
-      border-radius: 50%;
-    }
+    .logo:hover { transform: scale(1.1); }
     
     /* ========== 导航菜单 ========== */
     .nav-menu { list-style: none; display: flex; flex-wrap: wrap; }
@@ -156,6 +108,7 @@
     .animated-title {
       font-size: 3rem;
       margin-bottom: 10px;
+      /* 渐变与霓虹闪烁效果（结合金属、暗红等色调） */
       background: linear-gradient(90deg, #FFD700 0%, #FF2E63 50%, #FFD700 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -211,10 +164,9 @@
     }
     
     /* ========== 武器介绍参数表 ========== */
-    .table-container { overflow-x: auto; }
+    .table-container { overflow-x: auto; margin-top: 20px; }
     .weapon-table {
-      width: 100%; border-collapse: collapse; margin-top: 20px;
-      table-layout: auto;
+      width: 100%; border-collapse: collapse; table-layout: auto;
     }
     .weapon-table th, .weapon-table td {
       border: 1px solid #444; padding: 8px 10px; text-align: center;
@@ -224,8 +176,7 @@
     
     /* ========== 后坐力数据表 ========== */
     .recoil-table {
-      width: 100%; border-collapse: collapse; margin-top: 20px;
-      table-layout: auto;
+      width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: auto;
     }
     .recoil-table th, .recoil-table td {
       border: 1px solid #444; padding: 8px 10px; text-align: center;
@@ -241,13 +192,22 @@
       width: 16px; height: 16px; background: #ffd700; border-radius: 50%;
     }
     
-    /* ========== 关于我们：互动按钮 ========== */
-    .interactive-buttons { display: flex; gap: 15px; margin-top: 20px; }
-    .interactive-buttons button {
-      background: #ffd700; color: #0d0d0d; border: none; padding: 10px 20px;
-      border-radius: 4px; cursor: pointer; transition: background 0.3s;
+    /* ========== 开始游玩页面说明 ========== */
+    .version-container { margin-top: 20px; }
+    .version {
+      background: #222; padding: 15px; border: 1px solid #444; border-radius: 6px;
+      margin-bottom: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .interactive-buttons button:hover { background: #ffc107; }
+    .version:hover { transform: scale(1.03); box-shadow: 0 0 10px #ff2e63; }
+    .version h4 { margin-bottom: 10px; color: #ffd700; }
+    .version p { line-height: 1.6; }
+    
+    /* ========== 关于我们页面 ========== */
+    .about-container { margin-top: 20px; }
+    .about-section { margin-bottom: 20px; }
+    .about-section h4 { color: #ffd700; margin-bottom: 10px; }
+    .about-section p { line-height: 1.6; }
     
     /* ========== 模态框（登录/注册） ========== */
     .modal {
@@ -280,12 +240,8 @@
   <header>
     <div class="container">
       <nav>
-        <!-- 优化后的 LOGO -->
-        <div id="logo-text">
-          <div id="logo-judge">审判</div>
-          <div id="logo-action">行动</div>
-          <div id="logo-subtitle">致命<span class="crosshair-accent"></span>瞄准</div>
-        </div>
+        <!-- 使用原来的SVG LOGO图片 -->
+        <img src="logo.svg" alt="Logo" class="logo">
         <ul class="nav-menu">
           <li><button onclick="switchPage('page-home')">首页</button></li>
           <li><button onclick="switchPage('page-game-intro')">游戏介绍</button></li>
@@ -321,58 +277,58 @@
       </div>
     </div>
     
-    <!-- 游戏介绍：卡片展示各子项 -->
+    <!-- 游戏介绍：卡片展示各子项，完善内容 -->
     <div id="page-game-intro" class="page fade-in">
       <h2>游戏介绍</h2>
       <div class="card-container">
         <div class="card fade-in" onclick="openDetail('play-detail')">
           <h3>玩法介绍</h3>
-          <p>点击查看详情</p>
+          <p>详细了解操作技巧、射击机制及策略。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('backstory-detail')">
           <h3>背景介绍</h3>
-          <p>点击查看详情</p>
+          <p>探索世界末日下的真实故事与阴谋。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('character-detail')">
           <h3>角色介绍</h3>
-          <p>点击查看详情</p>
+          <p>了解精英狙击手的背景与动机。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('weapon-detail')">
           <h3>武器介绍</h3>
-          <p>点击查看详情</p>
+          <p>查看各型号狙击枪的详细参数。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('scope-detail')">
           <h3>瞄准镜介绍</h3>
-          <p>点击查看详情</p>
+          <p>比较不同瞄准镜的优势与特点。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('armor-detail')">
           <h3>防具介绍</h3>
-          <p>点击查看详情</p>
+          <p>选择最佳防具，增强生存能力。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('item-detail')">
           <h3>道具介绍</h3>
-          <p>点击查看详情</p>
+          <p>辅助装备的详细说明及使用技巧。</p>
         </div>
       </div>
       <!-- 详情弹窗 -->
       <div id="play-detail" class="detail-modal">
         <h3>玩法介绍详情</h3>
-        <p>这里详细介绍游戏的玩法、操作方式和战斗机制。</p>
+        <p>在《审判行动》中，你将扮演一名精英狙击手，通过精准射击、隐秘潜行与策略部署完成任务。游戏采用真实物理模拟，每一次射击都考验你的反应和判断，利用地形和掩体实现最佳狙击效果。</p>
         <button onclick="closeDetail('play-detail')">关闭</button>
       </div>
       <div id="backstory-detail" class="detail-modal">
         <h3>背景介绍详情</h3>
-        <p>这里详细介绍游戏的背景故事和世界观。</p>
+        <p>游戏背景设定在一个后末日的世界，各大势力为争夺资源展开激烈斗争。你所在的部队肩负拯救人类的使命，揭露隐藏在暗处的阴谋，探索被遗忘的秘密基地和废墟城市。</p>
         <button onclick="closeDetail('backstory-detail')">关闭</button>
       </div>
       <div id="character-detail" class="detail-modal">
         <h3>角色介绍详情</h3>
-        <p>这里详细介绍主要角色、能力和故事背景。</p>
+        <p>游戏中拥有多位性格鲜明、技能各异的角色。无论是冷静精准的狙击手，还是擅长近战的突击手，每个角色都有独特的背景故事和战斗风格。选择适合你的角色，打造专属战术组合。</p>
         <button onclick="closeDetail('character-detail')">关闭</button>
       </div>
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
-        <p>以下是详细枪械参数：</p>
+        <p>下面是各型号狙击枪的详细参数及后坐力数据，帮助你选择最适合任务的武器：</p>
         <div class="table-container">
           <table class="weapon-table">
             <tr>
@@ -624,180 +580,21 @@
             </tr>
           </table>
         </div>
-        <br>
-        <!-- 后坐力数据表 -->
-        <h4>后坐力数据</h4>
-        <div class="table-container">
-          <table class="recoil-table">
-            <tr>
-              <th>武器名称</th>
-              <th>初始</th>
-              <th>第一次开火</th>
-              <th>第一次衰减</th>
-              <th>第二次开火</th>
-              <th>最终后坐力</th>
-            </tr>
-            <tr>
-              <td>AMR</td>
-              <td>0</td>
-              <td>10.00</td>
-              <td>9.00</td>
-              <td>19.00</td>
-              <td>17.10</td>
-            </tr>
-            <tr>
-              <td>Barrett M82A1</td>
-              <td>0</td>
-              <td>9.17</td>
-              <td>8.25</td>
-              <td>17.42</td>
-              <td>15.67</td>
-            </tr>
-            <tr>
-              <td>M200 Intervention</td>
-              <td>0</td>
-              <td>7.50</td>
-              <td>6.75</td>
-              <td>14.25</td>
-              <td>12.82</td>
-            </tr>
-            <tr>
-              <td>OM-50 涅墨西斯</td>
-              <td>0</td>
-              <td>8.33</td>
-              <td>7.50</td>
-              <td>15.83</td>
-              <td>14.25</td>
-            </tr>
-            <tr>
-              <td>BA-50</td>
-              <td>0</td>
-              <td>8.75</td>
-              <td>7.88</td>
-              <td>16.62</td>
-              <td>14.96</td>
-            </tr>
-            <tr>
-              <td>DT-HTI</td>
-              <td>0</td>
-              <td>7.92</td>
-              <td>7.12</td>
-              <td>15.04</td>
-              <td>13.54</td>
-            </tr>
-            <tr>
-              <td>SIG50</td>
-              <td>0</td>
-              <td>8.08</td>
-              <td>7.28</td>
-              <td>15.36</td>
-              <td>13.82</td>
-            </tr>
-            <tr>
-              <td>AX-50</td>
-              <td>0</td>
-              <td>8.00</td>
-              <td>7.20</td>
-              <td>15.20</td>
-              <td>13.68</td>
-            </tr>
-            <tr>
-              <td>AWM</td>
-              <td>0</td>
-              <td>5.00</td>
-              <td>4.50</td>
-              <td>9.50</td>
-              <td>8.55</td>
-            </tr>
-            <tr>
-              <td>MK3</td>
-              <td>0</td>
-              <td>4.92</td>
-              <td>4.42</td>
-              <td>9.34</td>
-              <td>8.41</td>
-            </tr>
-            <tr>
-              <td>Tactical 2</td>
-              <td>0</td>
-              <td>4.92</td>
-              <td>4.42</td>
-              <td>9.34</td>
-              <td>8.41</td>
-            </tr>
-            <tr>
-              <td>CSRX-300</td>
-              <td>0</td>
-              <td>3.75</td>
-              <td>3.38</td>
-              <td>7.12</td>
-              <td>6.41</td>
-            </tr>
-            <tr>
-              <td>SSG M1</td>
-              <td>0</td>
-              <td>5.00</td>
-              <td>4.50</td>
-              <td>9.50</td>
-              <td>8.55</td>
-            </tr>
-            <tr>
-              <td>AX338</td>
-              <td>0</td>
-              <td>4.83</td>
-              <td>4.35</td>
-              <td>9.18</td>
-              <td>8.27</td>
-            </tr>
-            <tr>
-              <td>M24A3</td>
-              <td>0</td>
-              <td>4.75</td>
-              <td>4.28</td>
-              <td>9.03</td>
-              <td>8.12</td>
-            </tr>
-            <tr>
-              <td>SVDK</td>
-              <td>0</td>
-              <td>5.17</td>
-              <td>4.65</td>
-              <td>9.82</td>
-              <td>8.83</td>
-            </tr>
-            <tr>
-              <td>M40A6</td>
-              <td>0</td>
-              <td>3.33</td>
-              <td>3.00</td>
-              <td>6.33</td>
-              <td>5.70</td>
-            </tr>
-            <tr>
-              <td>Izhmash SV98</td>
-              <td>0</td>
-              <td>3.50</td>
-              <td>3.15</td>
-              <td>6.65</td>
-              <td>5.99</td>
-            </tr>
-          </table>
-        </div>
         <button onclick="closeDetail('weapon-detail')">关闭</button>
       </div>
       <div id="scope-detail" class="detail-modal">
         <h3>瞄准镜介绍详情</h3>
-        <p>详细介绍各类瞄准镜的参数和使用效果。</p>
+        <p>详细介绍各类瞄准镜的参数、倍率和使用效果，帮助你在不同距离下做出最佳选择。</p>
         <button onclick="closeDetail('scope-detail')">关闭</button>
       </div>
       <div id="armor-detail" class="detail-modal">
         <h3>防具介绍详情</h3>
-        <p>详细介绍各种防具的属性和防护效果。</p>
+        <p>了解各种防具的材质、重量、保护值和灵活性，选择最适合你战术的装备。</p>
         <button onclick="closeDetail('armor-detail')">关闭</button>
       </div>
       <div id="item-detail" class="detail-modal">
         <h3>道具介绍详情</h3>
-        <p>详细介绍各类道具的用途和效果。</p>
+        <p>介绍各种辅助道具的用途，如医疗包、烟雾弹、侦查无人机等，以及它们在战场中的作用。</p>
         <button onclick="closeDetail('item-detail')">关闭</button>
       </div>
     </div>
@@ -815,33 +612,59 @@
     <!-- 讨论交流 -->
     <div id="page-discussion" class="page fade-in">
       <h2>讨论交流</h2>
-      <p>这里可嵌入第三方讨论版（如 Disqus）或其他评论系统。</p>
+      <p>这里集成了玩家论坛、评论区和实时聊天窗口，供玩家交流战术与心得。（例如：嵌入Disqus或第三方论坛）</p>
     </div>
     
     <!-- 开始游玩 -->
     <div id="page-play" class="page fade-in">
       <h2>开始游玩</h2>
-      <div>
-        <p>在线游玩：</p>
-        <iframe src="https://example.com/online-game" width="100%" height="500" frameborder="0"></iframe>
+      <div class="version-container">
+        <div class="version">
+          <h4>在线游玩版本</h4>
+          <p>无需下载，直接在网页上体验全动态狙击模拟。支持多人对战，实时PK。</p>
+        </div>
+        <div class="version">
+          <h4>Windows 版本</h4>
+          <p>提供完整PC端安装包，拥有更丰富的图形和音效，支持高分辨率显示。</p>
+        </div>
+        <div class="version">
+          <h4>Linux 版本</h4>
+          <p>专为Linux玩家优化的安装包，兼容多种发行版，运行流畅稳定。</p>
+        </div>
+        <div class="version">
+          <h4>Android 版本</h4>
+          <p>移动端版本，适配多种分辨率，触控操作与陀螺仪控制相结合，体验沉浸式狙击快感。</p>
+        </div>
+        <div class="version">
+          <h4>RC 版本</h4>
+          <p>预览版，收集玩家反馈，持续更新改进，抢先体验最新功能和地图。</p>
+        </div>
       </div>
-      <div style="margin-top:20px;">
-        <p>下载版本：</p>
-        <ul>
-          <li><a href="#">Windows 版本</a></li>
-          <li><a href="#">Linux 版本</a></li>
-          <li><a href="#">Android 版本</a></li>
-          <li><a href="#">RC 版本</a></li>
-        </ul>
+      <br>
+      <div>
+        <p>在线游玩示例：</p>
+        <iframe src="https://example.com/online-game" width="100%" height="500" frameborder="0"></iframe>
       </div>
     </div>
     
     <!-- 关于我们 -->
     <div id="page-about" class="page fade-in">
       <h2>关于我们</h2>
-      <p>这里介绍开发团队、支持与帮助信息等。</p>
+      <div class="about-container">
+        <div class="about-section">
+          <h4>开发团队</h4>
+          <p>我们是一支由资深游戏制作人、程序员和美术设计师组成的团队，致力于打造真实、震撼的狙击体验。《审判行动：致命瞄准》凝聚了团队对战术、精度和美学的极致追求。</p>
+        </div>
+        <div class="about-section">
+          <h4>支持与帮助</h4>
+          <p>常见问题解答、教程视频、论坛交流和在线客服为你提供全方位支持。若有疑问，请通过客服邮箱与我们联系。</p>
+        </div>
+        <div class="about-section">
+          <h4>联系我们</h4>
+          <p>客服邮箱：support@example.com<br>工单系统：<a href="#">点击这里提交工单</a><br>在线客服：请点击右下角图标咨询</p>
+        </div>
+      </div>
       <div class="interactive-buttons">
-        <button onclick="alert('联系我们：support@example.com')">联系我们</button>
         <button onclick="alert('提交反馈：请发送邮件至feedback@example.com')">提交反馈</button>
         <button onclick="alert('查看FAQ：请访问FAQ页面')">FAQ</button>
       </div>
@@ -851,7 +674,7 @@
     <div id="page-personal" class="page fade-in">
       <h2>个人主页</h2>
       <p>欢迎来到您的个人中心！</p>
-      <p>这里可以显示用户的基本信息、历史记录等（需后端支持）。</p>
+      <p>在这里，你可以查看战绩统计、历史对战记录以及个人定制设置。（功能待完善）</p>
     </div>
   </div>
   
@@ -933,9 +756,7 @@
     // IntersectionObserver：为所有 .fade-in 元素添加 visible 类（滚动淡入效果）
     document.addEventListener("DOMContentLoaded", function() {
       const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
       });
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     });
