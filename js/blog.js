@@ -248,115 +248,97 @@ document.addEventListener("DOMContentLoaded", () => new BlogManager());
 
 
 
-class BlogManager {
-  constructor() {
-    this.blogList = document.querySelector(".blog-grid"); // 博客列表
-    this.blogDetail = document.getElementById("blog-detail"); // 博客详情区域
-
-    if (!this.blogList || !this.blogDetail) {
-      console.error("❌ 错误：找不到博客列表或详情元素！");
-      return;
-    }
-
-    this.init();
-  }
-
-  init() {
-    console.log("✅ 博客管理器初始化");
-    this.setupEventListeners();
-    this.checkInitialHash();
-  }
-
-  setupEventListeners() {
-    // 监听所有 "阅读更多" 按钮
-    document.querySelectorAll(".read-more").forEach(button => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const postId = event.target.dataset.postId;
-        console.log(`📌 阅读更多按钮被点击，文章ID: ${postId}`);
-        this.showBlogDetail(postId);
-      });
-    });
-
-    // 监听返回按钮
-    document.querySelectorAll(".back-to-list").forEach(button => {
-      button.addEventListener("click", () => this.showBlogList());
-    });
-  }
-
-  checkInitialHash() {
-    if (window.location.hash) {
-      const postId = window.location.hash.substring(1);
-      this.showBlogDetail(postId);
-    } else {
-      this.showBlogList();
-    }
-  }
-
-  showBlogDetail(postId) {
-    const post = document.getElementById(postId);
-    if (!post) {
-      console.error(`❌ 错误：找不到 ID 为 ${postId} 的文章`);
-      return;
-    }
-
-    console.log(`✅ 显示文章: ${postId}`);
-    this.blogList.style.display = "none"; // 隐藏博客列表
-    this.blogDetail.style.display = "block"; // 显示文章详情
-
-    // 隐藏所有文章
-    document.querySelectorAll(".post-content").forEach(post => {
-      post.classList.add("hidden");
-    });
-
-    // 仅显示点击的文章
-    post.classList.remove("hidden");
-    window.location.hash = postId; // 更新 URL
-  }
-
-  showBlogList() {
-    this.blogList.style.display = "grid"; // 显示博客列表
-    this.blogDetail.style.display = "none"; // 隐藏博客详情
-    history.pushState(null, "", "#"); // 清除 hash
-  }
+// 动态加载 Utterances 评论组件
+function loadUtterances(container, issueTerm) {
+  if (container.getAttribute('data-loaded')) return;
+  var script = document.createElement('script');
+  script.src = "https://utteranc.es/client.js";
+  script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
+  script.setAttribute("issue-term", issueTerm);
+  script.setAttribute("theme", "github-light");
+  script.setAttribute("crossorigin", "anonymous");
+  script.async = true;
+  container.appendChild(script);
+  container.setAttribute('data-loaded', 'true');
 }
 
+document.addEventListener("DOMContentLoaded", () => {
 
-
-// 初始化博客管理器
-document.addEventListener("DOMContentLoaded", () => new BlogManager());
-
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  const readMoreLinks = document.querySelectorAll(".read-more");
-  const blogGrid = document.querySelector(".blog-grid");
-  const blogDetail = document.getElementById("blog-detail");
-  const backButtons = document.querySelectorAll(".back-to-list");
-
-  readMoreLinks.forEach(link => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault(); // 阻止默认的跳转行为
-
-      const postId = this.getAttribute("data-post-id");
-      const postContent = document.getElementById(postId);
-
-      if (postContent) {
-        blogGrid.style.display = "none"; // 隐藏文章列表
-        blogDetail.classList.remove("hidden"); // 显示文章详情
-        postContent.classList.remove("hidden"); // 显示具体文章
+  class WorkManager {
+    constructor() {
+      // 作品卡片列表区域：只隐藏其中的 .grid-container
+      this.workGrid = document.querySelector(".grid-container");
+      // 作品详情区域
+      this.workDetail = document.getElementById("work-detail");
+      if (!this.workGrid || !this.workDetail) {
+        console.error("❌ 错误：找不到作品列表或详情元素！");
+        return;
       }
-    });
-  });
+      this.setupEventListeners();
+      this.checkInitialHash();
+    }
 
-  backButtons.forEach(button => {
-    button.addEventListener("click", function () {
-      blogGrid.style.display = "flex"; // 显示文章列表
-      blogDetail.classList.add("hidden"); // 隐藏文章详情
-      document.querySelectorAll(".post-content").forEach(post => {
-        post.classList.add("hidden"); // 隐藏所有文章
+    setupEventListeners() {
+      console.log("绑定点击事件到作品卡片...");
+      // 为每个作品卡片绑定点击事件
+      document.querySelectorAll(".work-item").forEach(item => {
+        item.addEventListener("click", () => {
+          const workId = item.dataset.id;
+          console.log(`作品卡片点击，ID: ${workId}`);
+          this.showWorkDetail(workId);
+        });
       });
-    });
-  });
+      // 绑定返回按钮
+      document.querySelectorAll(".back-to-list").forEach(button => {
+        button.addEventListener("click", () => this.showWorkList());
+      });
+      // 监听 URL hash 变化
+      window.addEventListener("hashchange", () => this.checkInitialHash());
+    }
+
+    checkInitialHash() {
+      const workId = window.location.hash.substring(1);
+      if (workId) {
+        this.showWorkDetail(workId);
+      } else {
+        this.showWorkList();
+      }
+    }
+
+    showWorkDetail(workId) {
+      const work = document.getElementById(workId);
+      if (!work) {
+        console.error(`❌ 错误：找不到 ID 为 ${workId} 的作品`);
+        return;
+      }
+      console.log(`✅ 显示作品: ${workId}`);
+      // 隐藏作品卡片列表部分（grid-container），但保留标题及其他外围内容
+      this.workGrid.classList.add("hidden");
+      // 显示作品详情区域
+      this.workDetail.classList.remove("hidden");
+      // 隐藏所有作品详情内容
+      document.querySelectorAll(".work-content").forEach(item => {
+        item.classList.add("hidden");
+      });
+      // 显示对应的作品详情
+      work.classList.remove("hidden");
+      window.location.hash = workId;
+      
+      // 动态加载评论（如果未加载过）
+      let container = work.querySelector(".utterances-container");
+      if (container && !container.getAttribute('data-loaded')) {
+         loadUtterances(container, workId);
+      }
+    }
+
+    showWorkList() {
+      // 显示作品卡片列表
+      this.workGrid.classList.remove("hidden");
+      // 隐藏作品详情区域
+      this.workDetail.classList.add("hidden");
+      history.pushState(null, "", "#");
+    }
+  }
+
+  new WorkManager();
 });
