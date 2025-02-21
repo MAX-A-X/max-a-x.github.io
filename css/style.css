@@ -927,40 +927,43 @@ html {
   --text-secondary: #909090;
 }
 
-
-/* 博客列表 */
-.blog-grid {
+.blog-list {
   display: grid;
-  gap: 2rem;
-  transition: opacity 0.3s;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-/* 博客详情容器 */
-.blog-detail-container {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
+.blog-card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.blog-card img {
   width: 100%;
-  height: 100vh;
-  background: var(--primary-bg);
-  padding: 4rem 2rem;
-  overflow-y: auto;
-  z-index: 1000;
+  height: 180px;
+  object-fit: cover;
 }
 
-.blog-detail-container.active {
-  display: block;
-  animation: slideIn 0.5s ease;
+.blog-content {
+  padding: 15px;
+  color: #fff;
 }
 
-.post-content {
-  max-width: 800px;
-  margin: 0 auto;
+.blog-detail {
+  padding: 20px;
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 @keyframes slideIn {
