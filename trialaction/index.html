@@ -56,13 +56,17 @@
     /* ========== 导航菜单 ========== */
     .nav-menu { list-style: none; display: flex; flex-wrap: wrap; }
     .nav-menu li { margin: 5px 10px; }
-    /* 预留中英切换后更新的导航文字 */
-    .nav-menu li button { background: none; border: none; color: #ffd700; font-size: 16px; cursor: pointer; padding: 10px; transition: color 0.3s; }
+    .nav-menu li button {
+      type: "button";
+      background: none; border: none; color: #ffd700; font-size: 16px;
+      cursor: pointer; padding: 10px; transition: color 0.3s;
+    }
     .nav-menu li button:hover { color: #fff; }
     .nav-right { margin-right: 20px; }
     .nav-right button {
       margin-left: 10px; padding: 8px 12px; background: #333;
-      border: 1px solid #ffd700; color: #ffd700; border-radius: 4px; cursor: pointer; transition: background 0.3s;
+      border: 1px solid #ffd700; color: #ffd700; border-radius: 4px; cursor: pointer;
+      transition: background 0.3s;
     }
     .nav-right button:hover { background: #444; }
     /* 背景音乐切换器 */
@@ -326,13 +330,13 @@
         <!-- 使用原来的 SVG LOGO -->
         <img src="logo.svg" alt="Logo" class="logo">
         <ul class="nav-menu">
-          <li><button class="nav-item" data-key="home">首页</button></li>
-          <li><button class="nav-item" data-key="intro">游戏介绍</button></li>
-          <li><button class="nav-item" data-key="progress">开发进度</button></li>
-          <li><button class="nav-item" data-key="discussion">讨论交流</button></li>
-          <li><button class="nav-item" data-key="play">开始游玩</button></li>
-          <li><button class="nav-item" data-key="about">关于我们</button></li>
-          <li><button class="nav-item" data-key="personal">个人主页</button></li>
+          <li><button type="button" onclick="switchPage('page-home')">首页</button></li>
+          <li><button type="button" onclick="switchPage('page-game-intro')">游戏介绍</button></li>
+          <li><button type="button" onclick="switchPage('page-progress')">开发进度</button></li>
+          <li><button type="button" onclick="switchPage('page-discussion')">讨论交流</button></li>
+          <li><button type="button" onclick="switchPage('page-play')">开始游玩</button></li>
+          <li><button type="button" onclick="switchPage('page-about')">关于我们</button></li>
+          <li><button type="button" onclick="switchPage('page-personal')">个人主页</button></li>
         </ul>
         <div class="nav-right">
           <button id="lang-toggle">中文/English</button>
@@ -405,17 +409,17 @@
       </div>
       <div id="backstory-detail" class="detail-modal">
         <h3>背景介绍详情</h3>
-        <p>设定在后末日的废墟世界，各大势力为争夺资源展开激烈斗争。你所属的“审判小队”肩负着拯救人类的使命，深入敌后揭露毒贩组织的阴谋。</p>
+        <p>设定在后末日的废墟世界，各大势力为争夺资源展开激烈斗争。你所属的“审判小队”肩负拯救人类使命，深入敌后揭露毒贩组织的阴谋。</p>
         <button onclick="closeDetail('backstory-detail')">关闭</button>
       </div>
       <div id="character-detail" class="detail-modal">
         <h3>角色介绍详情</h3>
-        <p>游戏中角色各具特色：冷静精准的狙击手、果敢勇猛的突击手等。每个角色不仅拥有独特技能，还承载着各自的背景故事与使命，助你在战场上形成最佳搭配。</p>
+        <p>游戏中角色各具特色：冷静精准的狙击手、果敢勇猛的突击手等。每个角色不仅拥有独特技能，还承载着各自背景故事与使命，助你在战场上形成最佳配合。</p>
         <button onclick="closeDetail('character-detail')">关闭</button>
       </div>
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
-        <p>下面列出了各型号狙击枪的详细参数及后坐力数据：</p>
+        <p>以下是各型号狙击枪的详细参数及后坐力数据：</p>
         <div class="table-container">
           <table class="weapon-table">
             <tr>
@@ -431,7 +435,6 @@
               <th>品质</th>
               <th>备注</th>
             </tr>
-            <!-- 此处请保留或补充完整所有枪械数据 -->
             <tr>
               <td>AMR（Anti-Material Rifle）</td>
               <td>12.7×99mm</td>
@@ -457,6 +460,19 @@
               <td>850</td>
               <td>金色</td>
               <td>半自动，超强穿甲，极高后坐力</td>
+            </tr>
+            <tr>
+              <td>M200 "Intervention"</td>
+              <td>.408 CheyTac</td>
+              <td>★★★★★ (2000)</td>
+              <td>★★★★★</td>
+              <td>25mm</td>
+              <td>★★★☆☆ (7)</td>
+              <td>★★★★☆</td>
+              <td>900</td>
+              <td>910</td>
+              <td>金色</td>
+              <td>射程最远，精准度顶级</td>
             </tr>
             <!-- 更多数据行... -->
           </table>
@@ -488,12 +504,12 @@
       </div>
       <div id="scope-detail" class="detail-modal">
         <h3>瞄准镜介绍详情</h3>
-        <p>介绍各类瞄准镜的倍率、视野、使用环境及特殊效果，助你在不同战场下选用最佳配件。</p>
+        <p>介绍各类瞄准镜的倍率、视野、使用环境及特殊效果，助你选用最佳配件。</p>
         <button onclick="closeDetail('scope-detail')">关闭</button>
       </div>
       <div id="armor-detail" class="detail-modal">
         <h3>防具介绍详情</h3>
-        <p>详细介绍各种防具的材质、重量、保护值和灵活性，帮助你在战斗中有效降低伤害。</p>
+        <p>详细介绍各种防具的材质、重量、保护值及灵活性，帮助你在战斗中有效降低伤害。</p>
         <button onclick="closeDetail('armor-detail')">关闭</button>
       </div>
       <div id="item-detail" class="detail-modal">
@@ -503,181 +519,66 @@
       </div>
     </div>
     
-    <!-- 开发进度：炫酷时间线 -->
+    <!-- 开发进度（炫酷时间线） -->
     <div id="page-progress" class="page fade-in">
       <h2 class="page-title" data-key="progress">开发进度</h2>
       <div class="timeline-container">
-        <div class="timeline-item">
-          <div class="timeline-content">V1.0 重制审判行动</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.1 优化所有界面</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.1.1 优化图层问题</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.2 新增主菜单</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.3 优化主菜单</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.4 制作新版商店</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.4.1 优化并新增新的商店内容</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.4.2 优化商店购买按钮，出现克隆体异常（超过Scratch限制）</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.5 新增个人主页</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.6 新增数字打印模块</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.7 新增存档码功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.8 新增公共存档码功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V1.9 新增设置功能 & V1.9.1 完善设置功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.0 游戏大致完成</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.1 新增AMR金色品质狙击枪，并新增黑市，完善黑市</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.2 优化</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.3 新增未来科技系列瞄准镜 & V2.3.1 优化</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.4 新增电脑端和移动端选择 & V2.4.1 新增移动端按钮并优化</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.5 新增游戏关卡 & V2.5.1 优化并修复游戏关卡</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.6 新增大量枪支</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.7 改善商店界面并分类物品</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.8 完善枪支</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V2.9 新增大量枪支真实数据（数据来源于ChatGPT）</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.0 枪支完善完成</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.1 新增防具</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.2 将防具分类进商店，并添加大厅交互功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.3 改善购买功能并添加列表数据</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.4 新增技能功能 & V3.5 完善技能功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.6 新增成就功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.7 优化并修复背景音乐播放异常</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.8 为平衡游戏增加了关卡的奖励程度</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V3.9 进行了整体优化，解决了卡顿问题</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.0 为迎接新年，新增了烟花装饰</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.1 完善狙击射击功能，并使用真实枪支数据</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.2 项目达到了6000积木！</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.3 新增无需计时器的停止页</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.4 完善了枪械提示栏</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.5 新增了有时间限制的任务，提升了游戏难度</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.6 新增了玩家ID</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.7 新增了赛季榜单，并有大厅交互功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.8 新增云变量转云列表功能（补充Scratch限制）</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V4.9 修复存档功能无法存储列表的问题</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.0 终于是个像样的游戏了！</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.1 修复弹着点闪光显示问题</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.2 修复目标碰到判定点无反应问题</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.3 优化目标造型</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.4 完善并精简代码；新增赛季皮肤；新增关于功能</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.5 积木总数超过10000，手都麻了！</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.6 优化</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.7 开始内测</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.8 研制云变量私有云存档</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V5.9 新增ID、云密码、自动存档；修复存档异常</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V6.0 即将发布</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V6.1 新增采集榜单</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V6.2 研制排行榜</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">V6.3 排行榜研制成功；修复商店关闭后开始游戏不显示问题；优化</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">-----RC-----  V1.0.0 公测</div>
-        </div>
+        <div class="timeline-item"><div class="timeline-content">V1.0 重制审判行动</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.1 优化所有界面</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.1.1 优化图层问题</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.2 新增主菜单</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.3 优化主菜单</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.4 制作新版商店</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.4.1 优化并新增商店内容</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.4.2 优化商店按钮（超过Scratch限制）</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.5 新增个人主页</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.6 新增数字打印模块</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.7 新增存档码功能</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.8 新增公共存档码功能</div></div>
+        <div class="timeline-item"><div class="timeline-content">V1.9 新增设置功能 & V1.9.1 完善设置</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.0 游戏大致完成</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.1 新增AMR金色品质狙击枪 & 完善黑市</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.2 优化</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.3 新增未来科技系列瞄准镜 & 优化</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.4 新增电脑端和移动端选择 & 优化移动端按钮</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.5 新增游戏关卡 & 修复关卡</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.6 新增大量枪支</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.7 改善商店界面并分类物品</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.8 完善枪支</div></div>
+        <div class="timeline-item"><div class="timeline-content">V2.9 新增大量真实枪支数据</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.0 枪支完善完成</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.1 新增防具</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.2 防具分类进商店 & 大厅交互</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.3 改善购买功能并添加列表数据</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.4 新增技能功能 & V3.5 完善技能</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.6 新增成就功能</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.7 修复背景音乐播放异常</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.8 关卡奖励优化</div></div>
+        <div class="timeline-item"><div class="timeline-content">V3.9 整体优化，解决卡顿问题</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.0 新增烟花装饰</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.1 完善狙击射击功能，真实枪支数据</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.2 项目达6000积木</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.3 新增停止页</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.4 完善枪械提示栏</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.5 新增限时任务，提升难度</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.6 新增玩家ID</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.7 新增赛季榜单 & 大厅交互</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.8 云变量转云列表功能</div></div>
+        <div class="timeline-item"><div class="timeline-content">V4.9 修复存档列表问题</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.0 终于是个像样的游戏了！</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.1 修复弹着点闪光显示问题</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.2 修复目标判定问题</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.3 优化目标造型</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.4 完善并精简代码；新增赛季皮肤；新增关于功能</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.5 积木总数超过10000</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.6 优化</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.7 开始内测</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.8 研制云变量私有云存档</div></div>
+        <div class="timeline-item"><div class="timeline-content">V5.9 新增ID、云密码、自动存档；修复存档异常</div></div>
+        <div class="timeline-item"><div class="timeline-content">V6.0 即将发布</div></div>
+        <div class="timeline-item"><div class="timeline-content">V6.1 新增采集榜单</div></div>
+        <div class="timeline-item"><div class="timeline-content">V6.2 研制排行榜</div></div>
+        <div class="timeline-item"><div class="timeline-content">V6.3 排行榜研制成功；修复商店问题；优化</div></div>
       </div>
     </div>
     
@@ -696,7 +597,7 @@
       <!-- Utterances 评论系统 -->
       <div id="utterances"></div>
       <script src="https://utteranc.es/client.js"
-          repo="max-a-x/trialaction-comments"  <!-- 请替换为你的 GitHub 评论仓库 -->
+          repo="max-a-x/trialaction-comments"
           issue-term="pathname"
           label="Comment"
           theme="github-dark"
@@ -815,8 +716,9 @@
     });
   </script>
   <script>
-    // 页面切换
+    // 页面切换：调试输出确保函数被调用
     function switchPage(pageId) {
+      console.log("Switching to page:", pageId);
       var pages = document.querySelectorAll('.page');
       pages.forEach(function(page) { page.classList.remove('active'); });
       document.getElementById(pageId).classList.add('active');
@@ -848,19 +750,19 @@
 <strong>当前版本：</strong>RC 1.0.0<br><br>
 <strong>游戏官网：</strong> <a href="https://max-a-x.github.io/trialaction/" target="_blank">https://max-a-x.github.io/trialaction/</a><br><br>
 <strong>游戏背景：</strong><br>
-玩家代号“鹰眼”，军衔为一级军士，隶属于精英特种作战部队“审判小队”。在世界范围内，毒贩组织的活动愈发猖獗，他们不仅控制着庞大的毒品交易网络，还掌握着先进的武装力量。为维护全球安全，玩家受命执行“审判行动”，通过精准狙杀敌方目标，瓦解毒贩组织的核心势力。<br><br>
+玩家代号“鹰眼”，军衔为一级军士，隶属于精英特种作战部队“审判小队”。在全球范围内，毒贩组织活动猖獗，他们不仅掌控庞大的毒品交易网络，更具备先进武装力量。为维护全球安全，玩家受命执行“审判行动”，通过精准狙杀敌方目标，瓦解毒贩核心势力。<br><br>
 <strong>游戏简介：</strong><br>
-《审判行动：致命瞄准》是一款专注于单发狙击枪战斗的战术射击游戏，玩家将扮演一名精英狙击手，在各种高风险任务中执行精准打击，完成致命狙杀。游戏强调真实狙击体验，包括弹道计算、风速影响、心跳控制等，力求带给玩家极致战术沉浸感。<br><br>
+《审判行动：致命瞄准》是一款专注于单发狙击枪战斗的战术射击游戏。玩家扮演一名精英狙击手，在各种高风险任务中执行精准打击，完成致命狙杀。游戏强调真实狙击体验，包括弹道计算、风速影响、心跳控制等，力求带给玩家极致的战术沉浸感。<br><br>
 <strong>核心玩法：</strong><br>
-1. 真实狙击模拟 - 采用物理弹道模拟，考虑距离、风速、重力、呼吸控制等因素，考验玩家狙击技巧。<br>
-2. 战术任务执行 - 任务包含暗杀、破坏等目标，需制定灵活战术。<br>
-3. 多种狙击枪械 - 真实数据采集，仅单发狙击枪，如 AMR、Barrett M82A1、MK3、SV98、AWM，各具特点。<br>
-4. 动态环境影响 - 天气、地形、目标移动影响射击，要求玩家精准计算。<br>
-5. 自定义装备系统、技能升级、道具购买 - 升级狙击枪配件，提升角色技能，购买各类道具以适应任务。<br>
+1. 真实狙击模拟 - 采用物理弹道模拟，考虑距离、风速、重力及呼吸控制。<br>
+2. 战术任务执行 - 包含暗杀、破坏等多种任务，需制定灵活策略。<br>
+3. 多种狙击枪械 - 仅使用单发狙击枪，真实数据采集，如 AMR、Barrett M82A1、MK3、SV98、AWM，各具特色。<br>
+4. 动态环境影响 - 天气、地形与目标移动影响射击，要求精确计算。<br>
+5. 自定义装备、技能升级与道具购买 - 升级狙击枪配件、提升角色技能、购买道具应对任务。<br>
 6. 沉浸式任务模式 - 任务基于真实战场，部分任务限时，鼓励自由发挥。<br><br>
 <strong>游戏模式：</strong><br>
-- 任务模式：故事驱动，扮演狙击手执行致命任务，考验技术。<br>
-- 靶场模式：不同距离靶标，击杀目标获得奖励。<br><br>
+- 任务模式：以故事驱动，扮演狙击手执行致命任务，考验技术。<br>
+- 靶场模式：不同距离靶标，击杀目标获相应奖励。<br><br>
 <strong>操作说明：</strong><br>
 - 瞄准：使用鼠标指针，按 Q/E 进行左右倾斜。<br>
 - 射击：鼠标左键射击。<br>
@@ -873,7 +775,7 @@
 优化与发布（2-3 个月）<br><br>
 <strong>文件大小：</strong>42MB<br><br>
 <strong>开发愿景：</strong><br>
-《审判行动：致命瞄准》旨在打造一款硬核、写实的狙击游戏，为热爱战术狙击的玩家提供独特体验。游戏摒弃传统FPS快节奏冲锋，强调隐蔽、耐心和精准，带来最纯粹的狙击快感。`
+《审判行动：致命瞄准》旨在打造一款硬核、写实的狙击游戏，摒弃传统FPS快节奏冲锋，强调隐蔽、耐心与精准，带来最纯粹的狙击快感。`
       },
       en: {
         home: "Home",
@@ -889,18 +791,18 @@
 <strong>Current Version:</strong> RC 1.0.0<br><br>
 <strong>Official Website:</strong> <a href="https://max-a-x.github.io/trialaction/" target="_blank">https://max-a-x.github.io/trialaction/</a><br><br>
 <strong>Game Background:</strong><br>
-The player, code-named "Eagle Eye", is a first-class sergeant in the elite special operations unit "Judgment Squad". Globally, drug cartels have become increasingly rampant, controlling massive drug trade networks and possessing advanced armed forces. To maintain global security, the player is tasked with executing "Judgment Action" by precisely sniping enemy targets to dismantle the cartel’s core forces.<br><br>
+The player, code-named "Eagle Eye", is a first-class sergeant in the elite special operations unit "Judgment Squad". Globally, drug cartels have become increasingly rampant, controlling massive drug networks and wielding advanced armed forces. To safeguard global security, the player is tasked with executing "Judgment Action" by precisely sniping enemy targets to dismantle the cartel's core forces.<br><br>
 <strong>Game Overview:</strong><br>
-"Judgment Action: Lethal Aim" is a tactical shooting game focusing on single-shot sniper rifles. Players take on the role of an elite sniper executing precision strikes in high-risk missions. Emphasizing a realistic sniping experience with ballistic calculations, wind influence, heartbeat control, and more, the game delivers an immersive tactical sniping experience.<br><br>
+"Judgment Action: Lethal Aim" is a tactical shooting game focusing on single-shot sniper rifles. Players assume the role of an elite sniper who must deliver precision strikes in high-risk missions. The game emphasizes a realistic sniping experience with ballistic calculations, wind influence, and heartbeat control, delivering an immersive tactical sniping experience.<br><br>
 <strong>Core Gameplay:</strong><br>
 1. Realistic Sniper Simulation – Employs physics-based ballistics considering distance, wind, gravity, and breath control.<br>
-2. Tactical Mission Execution – Missions include assassination, sabotage, etc., requiring flexible strategies.<br>
-3. Diverse Sniper Rifles – Featuring only single-shot sniper rifles with real-world data (e.g., AMR, Barrett M82A1, MK3, SV98, AWM), each with unique characteristics.<br>
-4. Dynamic Environmental Impact – Weather, terrain, and moving targets affect shots, demanding precise calculation.<br>
-5. Customizable Equipment, Skill Upgrades, and Item Purchase – Upgrade sniper rifle accessories; enhance character skills; purchase various items for different missions.<br>
-6. Immersive Mission Mode – Missions are based on realistic battlefields, with some featuring time limits to encourage tactical play.<br><br>
+2. Tactical Mission Execution – Missions include assassination and sabotage, requiring flexible strategy.<br>
+3. Diverse Sniper Rifles – Only single-shot sniper rifles with real-world data (e.g., AMR, Barrett M82A1, MK3, SV98, AWM) with unique traits.<br>
+4. Dynamic Environmental Impact – Weather, terrain, and moving targets affect shots, demanding precision.<br>
+5. Custom Equipment, Skill Upgrades & Item Purchase – Upgrade rifle attachments, enhance skills, and purchase items for various missions.<br>
+6. Immersive Mission Mode – Missions based on realistic battlefields, with some timed tasks to encourage tactical play.<br><br>
 <strong>Game Modes:</strong><br>
-- Mission Mode: Story-driven, playing as a sniper to execute deadly tasks, testing your skills with long-distance and moving target sniping.<br>
+- Mission Mode: Story-driven, playing as a sniper executing deadly tasks, testing your skills.<br>
 - Range Mode: Targets at various distances yield rewards based on performance.<br><br>
 <strong>Controls:</strong><br>
 - Aiming: Use the mouse pointer; hold Q/E to lean left/right.<br>
@@ -914,20 +816,24 @@ Development & Testing (1-2 months)<br>
 Optimization & Release (2-3 months)<br><br>
 <strong>File Size:</strong> 42MB<br><br>
 <strong>Vision:</strong><br>
-"Judgment Action: Lethal Aim" aims to create a hardcore, realistic sniper game for tactical sniping enthusiasts. Eschewing fast-paced FPS run-and-gun, it emphasizes stealth, patience, and precision to deliver the purest sniping experience.`
+"Judgment Action: Lethal Aim" aims to create a hardcore, realistic sniper game by eschewing traditional fast-paced FPS run-and-gun for stealth, patience, and precision, delivering the purest sniping experience.`
       }
     };
     
     function updateLanguage() {
-      // 更新导航
-      document.querySelectorAll('.nav-item').forEach(function(btn) {
+      // 更新导航按钮（通过 data-key 属性）
+      document.querySelectorAll('.nav-menu li button').forEach(function(btn) {
         const key = btn.getAttribute('data-key');
-        btn.textContent = translations[currentLanguage][key];
+        if(key && translations[currentLanguage][key]){
+          btn.textContent = translations[currentLanguage][key];
+        }
       });
       // 更新页面标题（仅针对已设置 data-key 的元素）
       document.querySelectorAll('.page-title').forEach(function(el) {
         const key = el.getAttribute('data-key');
-        el.textContent = translations[currentLanguage][key];
+        if(key && translations[currentLanguage][key]){
+          el.textContent = translations[currentLanguage][key];
+        }
       });
       // 更新游戏简介内容
       document.getElementById('game-description').innerHTML = translations[currentLanguage].gameDescription;
@@ -939,7 +845,6 @@ Optimization & Release (2-3 months)<br><br>
     document.getElementById('lang-toggle').addEventListener('click', function() {
       currentLanguage = (currentLanguage === "zh") ? "en" : "zh";
       updateLanguage();
-      // 同时切换按钮文本
       this.textContent = (currentLanguage === "zh") ? "中文/English" : "English/中文";
     });
     
@@ -953,7 +858,6 @@ Optimization & Release (2-3 months)<br><br>
         bgMusic.play();
         bgToggle.textContent = '背景音乐关';
       } else {
-        // 切换到下一个音轨
         currentTrack = (currentTrack + 1) % musicList.length;
         bgMusic.src = musicList[currentTrack];
         bgMusic.play();
@@ -961,14 +865,15 @@ Optimization & Release (2-3 months)<br><br>
       }
     });
     
-    // 页面切换
+    // 页面切换函数
     function switchPage(pageId) {
+      console.log("Switching to page:", pageId);
       var pages = document.querySelectorAll('.page');
       pages.forEach(function(page) { page.classList.remove('active'); });
       document.getElementById(pageId).classList.add('active');
     }
     
-    // 打开/关闭详情弹窗，并在打开时禁止背景滚动
+    // 打开/关闭详情弹窗，并禁止/恢复背景滚动
     function openDetail(detailId) {
       document.getElementById(detailId).style.display = 'block';
       document.body.style.overflow = 'hidden';
