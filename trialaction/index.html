@@ -17,7 +17,6 @@
     a { color: #ffd700; text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container { max-width: 1200px; margin: auto; padding: 20px; }
-    
     /* 确保内容区域在粒子背景之上 */
     #content { position: relative; z-index: 1; }
     
@@ -44,7 +43,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    /* 使用SVG LOGO图片，并添加悬停缩放特效 */
+    /* 使用原来的SVG LOGO图片，并添加悬停缩放特效 */
     .logo {
       height: 60px;
       margin-left: 20px;
@@ -108,8 +107,8 @@
     .animated-title {
       font-size: 3rem;
       margin-bottom: 10px;
-      /* 渐变与霓虹闪烁效果（结合金属、暗红等色调） */
-      background: linear-gradient(90deg, #FFD700 0%, #FF2E63 50%, #FFD700 100%);
+      /* 渐变、霓虹闪烁效果：融入金属与冷冽色调 */
+      background: linear-gradient(90deg, #FFD700 0%, #FF2E63 50%, #FFFFFF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: neon-flicker 3s infinite, fadeInUp 1s forwards;
@@ -129,18 +128,18 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .game-images img:hover {
-      transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.7);
+      transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,255,0.7);
     }
     
-    /* ========== 游戏介绍：卡片+弹窗详情 ========== */
+    /* ========== 游戏介绍（卡片+弹窗详情） ========== */
     .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px; }
     .card {
       background: #222; border: 1px solid #444; border-radius: 8px;
       width: 280px; padding: 20px; text-align: center; cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s; animation: fadeInUp 1s forwards;
     }
-    .card:hover { transform: scale(1.05); box-shadow: 0 0 10px #ffd700; }
-    .card h3 { margin-bottom: 10px; color: #ffd700; }
+    .card:hover { transform: scale(1.05); box-shadow: 0 0 10px #ffffff; }
+    .card h3 { margin-bottom: 10px; color: #ffffff; }
     .card:nth-child(1) { animation-delay: 0.2s; }
     .card:nth-child(2) { animation-delay: 0.4s; }
     .card:nth-child(3) { animation-delay: 0.6s; }
@@ -155,7 +154,8 @@
       background: #1a1a1a; padding: 30px;
       border: 2px solid #ffd700; border-radius: 8px;
       z-index: 1000; width: 90%; max-width: 600px;
-      display: none; animation: fadeInUp 0.5s ease;
+      max-height: 80vh; overflow-y: auto;
+      display: none; /* 为防止加载时位置抖动，初始隐藏 */
     }
     .detail-modal button {
       margin-top: 20px; padding: 8px 16px;
@@ -192,22 +192,32 @@
       width: 16px; height: 16px; background: #ffd700; border-radius: 50%;
     }
     
-    /* ========== 开始游玩页面说明 ========== */
+    /* ========== 开始游玩页面 ========== */
     .version-container { margin-top: 20px; }
     .version {
       background: #222; padding: 15px; border: 1px solid #444; border-radius: 6px;
       margin-bottom: 15px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    .version:hover { transform: scale(1.03); box-shadow: 0 0 10px #ff2e63; }
-    .version h4 { margin-bottom: 10px; color: #ffd700; }
+    .version:hover { transform: scale(1.03); box-shadow: 0 0 10px rgba(255,255,255,0.7); }
+    .version h4 { margin-bottom: 10px; color: #ffffff; }
     .version p { line-height: 1.6; }
     
     /* ========== 关于我们页面 ========== */
     .about-container { margin-top: 20px; }
     .about-section { margin-bottom: 20px; }
-    .about-section h4 { color: #ffd700; margin-bottom: 10px; }
+    .about-section h4 { color: #ffffff; margin-bottom: 10px; }
     .about-section p { line-height: 1.6; }
+    
+    /* ========== 个人主页 ========== */
+    .embed-placeholder {
+      background: #222;
+      border: 1px dashed #555;
+      padding: 20px;
+      text-align: center;
+      color: #aaa;
+      margin-top: 20px;
+    }
     
     /* ========== 模态框（登录/注册） ========== */
     .modal {
@@ -240,7 +250,7 @@
   <header>
     <div class="container">
       <nav>
-        <!-- 使用原来的SVG LOGO图片 -->
+        <!-- 使用原来的SVG LOGO -->
         <img src="logo.svg" alt="Logo" class="logo">
         <ul class="nav-menu">
           <li><button onclick="switchPage('page-home')">首页</button></li>
@@ -277,7 +287,7 @@
       </div>
     </div>
     
-    <!-- 游戏介绍：卡片展示各子项，完善内容 -->
+    <!-- 游戏介绍：卡片展示各子项 -->
     <div id="page-game-intro" class="page fade-in">
       <h2>游戏介绍</h2>
       <div class="card-container">
@@ -287,7 +297,7 @@
         </div>
         <div class="card fade-in" onclick="openDetail('backstory-detail')">
           <h3>背景介绍</h3>
-          <p>探索世界末日下的真实故事与阴谋。</p>
+          <p>探索末日废墟下的真实故事与阴谋。</p>
         </div>
         <div class="card fade-in" onclick="openDetail('character-detail')">
           <h3>角色介绍</h3>
@@ -310,25 +320,25 @@
           <p>辅助装备的详细说明及使用技巧。</p>
         </div>
       </div>
-      <!-- 详情弹窗 -->
+      <!-- 弹窗详情 -->
       <div id="play-detail" class="detail-modal">
         <h3>玩法介绍详情</h3>
-        <p>在《审判行动》中，你将扮演一名精英狙击手，通过精准射击、隐秘潜行与策略部署完成任务。游戏采用真实物理模拟，每一次射击都考验你的反应和判断，利用地形和掩体实现最佳狙击效果。</p>
+        <p>在《审判行动》中，你扮演一名精英狙击手。游戏采用真实物理模拟，每一次射击都要求你精准判断并利用地形、掩体来达到最佳狙击效果。掌握呼吸、待机和瞬间出击的技巧是致胜关键。</p>
         <button onclick="closeDetail('play-detail')">关闭</button>
       </div>
       <div id="backstory-detail" class="detail-modal">
         <h3>背景介绍详情</h3>
-        <p>游戏背景设定在一个后末日的世界，各大势力为争夺资源展开激烈斗争。你所在的部队肩负拯救人类的使命，揭露隐藏在暗处的阴谋，探索被遗忘的秘密基地和废墟城市。</p>
+        <p>游戏设定在一个后末日世界，各大势力为争夺资源展开残酷斗争。你所在的部队肩负着拯救人类的使命，揭露隐藏在暗处的阴谋，并探索废墟中遗留下的秘密基地。</p>
         <button onclick="closeDetail('backstory-detail')">关闭</button>
       </div>
       <div id="character-detail" class="detail-modal">
         <h3>角色介绍详情</h3>
-        <p>游戏中拥有多位性格鲜明、技能各异的角色。无论是冷静精准的狙击手，还是擅长近战的突击手，每个角色都有独特的背景故事和战斗风格。选择适合你的角色，打造专属战术组合。</p>
+        <p>游戏中角色个性鲜明：冷静精准的狙击手、勇猛果敢的突击手等。每个角色不仅拥有独特的技能和装备，还承载着各自的悲壮故事与使命感，帮助你在战场上发挥最佳效能。</p>
         <button onclick="closeDetail('character-detail')">关闭</button>
       </div>
       <div id="weapon-detail" class="detail-modal">
         <h3>武器介绍详情</h3>
-        <p>下面是各型号狙击枪的详细参数及后坐力数据，帮助你选择最适合任务的武器：</p>
+        <p>下面列出了各型号狙击枪的详细参数和后坐力数据，助你选择最适合任务的武器：</p>
         <div class="table-container">
           <table class="weapon-table">
             <tr>
@@ -584,17 +594,17 @@
       </div>
       <div id="scope-detail" class="detail-modal">
         <h3>瞄准镜介绍详情</h3>
-        <p>详细介绍各类瞄准镜的参数、倍率和使用效果，帮助你在不同距离下做出最佳选择。</p>
+        <p>介绍各类瞄准镜的倍率、视野、使用环境及特殊效果，助你在不同战场距离下做出最佳选择。</p>
         <button onclick="closeDetail('scope-detail')">关闭</button>
       </div>
       <div id="armor-detail" class="detail-modal">
         <h3>防具介绍详情</h3>
-        <p>了解各种防具的材质、重量、保护值和灵活性，选择最适合你战术的装备。</p>
+        <p>详细介绍各种防具的材质、重量、保护值及灵活性。选择合适的防具可有效降低伤害。</p>
         <button onclick="closeDetail('armor-detail')">关闭</button>
       </div>
       <div id="item-detail" class="detail-modal">
         <h3>道具介绍详情</h3>
-        <p>介绍各种辅助道具的用途，如医疗包、烟雾弹、侦查无人机等，以及它们在战场中的作用。</p>
+        <p>介绍各类辅助道具的用途，如医疗包、烟雾弹、侦查无人机等，帮助你在关键时刻扭转战局。</p>
         <button onclick="closeDetail('item-detail')">关闭</button>
       </div>
     </div>
@@ -612,7 +622,7 @@
     <!-- 讨论交流 -->
     <div id="page-discussion" class="page fade-in">
       <h2>讨论交流</h2>
-      <p>这里集成了玩家论坛、评论区和实时聊天窗口，供玩家交流战术与心得。（例如：嵌入Disqus或第三方论坛）</p>
+      <p>这里集成了玩家论坛、评论区和实时聊天窗口，让你与全球玩家共同讨论战术、分享经验。（例如嵌入 Disqus 或其他第三方系统）</p>
     </div>
     
     <!-- 开始游玩 -->
@@ -621,23 +631,23 @@
       <div class="version-container">
         <div class="version">
           <h4>在线游玩版本</h4>
-          <p>无需下载，直接在网页上体验全动态狙击模拟。支持多人对战，实时PK。</p>
+          <p>无需下载，直接在网页上体验全动态狙击模拟。支持多人实时对战、竞技排位和战术协作。</p>
         </div>
         <div class="version">
           <h4>Windows 版本</h4>
-          <p>提供完整PC端安装包，拥有更丰富的图形和音效，支持高分辨率显示。</p>
+          <p>提供完整的PC端安装包，拥有更丰富的图形和音效，支持高分辨率显示和自定义设置。</p>
         </div>
         <div class="version">
           <h4>Linux 版本</h4>
-          <p>专为Linux玩家优化的安装包，兼容多种发行版，运行流畅稳定。</p>
+          <p>专为Linux玩家优化的安装包，兼容主流发行版，确保流畅运行与高稳定性。</p>
         </div>
         <div class="version">
           <h4>Android 版本</h4>
-          <p>移动端版本，适配多种分辨率，触控操作与陀螺仪控制相结合，体验沉浸式狙击快感。</p>
+          <p>移动端版本适配多种设备，触控操作结合陀螺仪控制，带来沉浸式狙击体验。</p>
         </div>
         <div class="version">
           <h4>RC 版本</h4>
-          <p>预览版，收集玩家反馈，持续更新改进，抢先体验最新功能和地图。</p>
+          <p>抢先体验预览版，收集玩家反馈，持续优化更新，体验最新功能和地图。</p>
         </div>
       </div>
       <br>
@@ -653,15 +663,17 @@
       <div class="about-container">
         <div class="about-section">
           <h4>开发团队</h4>
-          <p>我们是一支由资深游戏制作人、程序员和美术设计师组成的团队，致力于打造真实、震撼的狙击体验。《审判行动：致命瞄准》凝聚了团队对战术、精度和美学的极致追求。</p>
+          <p>我们是一支由资深游戏制作人、程序员、美术设计师和音效师组成的团队。我们的目标是打造一款既真实又充满艺术气息的狙击游戏，将每一发子弹的精准与战场的残酷完美呈现。</p>
         </div>
         <div class="about-section">
           <h4>支持与帮助</h4>
-          <p>常见问题解答、教程视频、论坛交流和在线客服为你提供全方位支持。若有疑问，请通过客服邮箱与我们联系。</p>
+          <p>我们的支持团队提供全天候服务，帮助玩家解决安装、操作及游戏体验中的各种问题。请查阅常见问题解答（FAQ）、观看教程视频或直接联系我们的在线客服。</p>
         </div>
         <div class="about-section">
-          <h4>联系我们</h4>
-          <p>客服邮箱：support@example.com<br>工单系统：<a href="#">点击这里提交工单</a><br>在线客服：请点击右下角图标咨询</p>
+          <h4>联系方式</h4>
+          <p>客服邮箱：support@example.com<br>
+          工单系统：<a href="#">点击这里提交工单</a><br>
+          在线客服：点击右下角图标咨询</p>
         </div>
       </div>
       <div class="interactive-buttons">
@@ -674,7 +686,10 @@
     <div id="page-personal" class="page fade-in">
       <h2>个人主页</h2>
       <p>欢迎来到您的个人中心！</p>
-      <p>在这里，你可以查看战绩统计、历史对战记录以及个人定制设置。（功能待完善）</p>
+      <p>在这里，你可以查看战绩统计、历史对战记录以及个性化设置。</p>
+      <div class="embed-placeholder">
+        预留嵌入空位：例如展示视频、数据统计或社交媒体内容
+      </div>
     </div>
   </div>
   
@@ -723,9 +738,15 @@
       pages.forEach(function(page) { page.classList.remove('active'); });
       document.getElementById(pageId).classList.add('active');
     }
-    // 打开/关闭详情弹窗
-    function openDetail(detailId) { document.getElementById(detailId).style.display = 'block'; }
-    function closeDetail(detailId) { document.getElementById(detailId).style.display = 'none'; }
+    // 打开/关闭详情弹窗，并在打开弹窗时禁止背景滚动
+    function openDetail(detailId) {
+      document.getElementById(detailId).style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDetail(detailId) {
+      document.getElementById(detailId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
     // 中英切换（示例，待完善）
     document.getElementById('lang-toggle').addEventListener('click', function() {
       alert('中英切换功能暂未实现！');
@@ -740,6 +761,7 @@
         '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">登录</button>' +
         '</form>';
       modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
     });
     document.getElementById('register-btn').addEventListener('click', function() {
       modalBody.innerHTML = '<h2>注册</h2><form>' +
@@ -749,9 +771,18 @@
         '<button type="submit" style="width:100%; padding:10px; background:#ffd700; border:none; color:#1a1a1a;">注册</button>' +
         '</form>';
       modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
     });
-    document.getElementById('modal-close').addEventListener('click', function() { modal.style.display = 'none'; });
-    window.onclick = function(event) { if (event.target === modal) { modal.style.display = 'none'; } };
+    document.getElementById('modal-close').addEventListener('click', function() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    };
     
     // IntersectionObserver：为所有 .fade-in 元素添加 visible 类（滚动淡入效果）
     document.addEventListener("DOMContentLoaded", function() {
