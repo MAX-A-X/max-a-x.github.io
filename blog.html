@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link rel="preload" href="css/style.css" as="style">
-  <link rel="preload" href="images/logo.svg" as="image">
-  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>星迹 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- 内嵌部分样式，用于覆盖背景颜色和卡片样式 -->
+  <style>
+    /* 设置整个页面背景为深色，文字为白色 */
+    body {
+      background-color: #111;
+      color: #fff;
+    }
+    /* 可选：调整 .centered-container 背景为透明或无背景色 */
+    .centered-container {
+      background: transparent;
+    }
+    /* 博客列表卡片样式 */
+    .blog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .blog-card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
+    }
+    .blog-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .blog-content {
+      padding: 15px;
+      color: #fff;
+    }
+    .blog-detail {
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <!-- 加载屏幕 -->
   <div class="loading-screen">
     <div class="loading-spinner"></div>
-    <div class="loading-text">加载中...</div>
+    <div class="loading-text" data-i18n="loading">加载中...</div>
   </div>
 
   <!-- 导航栏 -->
@@ -30,12 +72,16 @@
       <li><a href="/forum">星云</a></li>
       <li><a href="/contact">星桥</a></li>
       <div class="search-container">
-        <input type="text" class="search-input" placeholder="搜索星域...">
+        <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
         <button class="search-button"></button>
         <div class="search-results"></div>
       </div>
-      <button class="theme-toggle">🌙</button>
+      <button class="theme-toggle">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon"></span>
+      </button>
     </ul>
+    <div class="hamburger">☰</div>
   </nav>
 
   <!-- 页面主体 -->
@@ -43,7 +89,7 @@
     <div class="centered-container">
       <h1>星迹</h1>
 
-      <!-- 博客列表 -->
+      <!-- 博客列表区域 -->
       <div id="blog-list" class="blog-list">
         <div class="blog-card" data-id="blog-1">
           <img src="images/blog1.jpg" alt="博客 1">
@@ -61,7 +107,7 @@
         </div>
       </div>
 
-      <!-- 博客详情 -->
+      <!-- 博客详情区域（初始隐藏） -->
       <div id="blog-detail" class="hidden">
         <button class="back-to-list">返回列表</button>
         <div id="blog-content"></div>
@@ -81,6 +127,7 @@
       const comments = document.getElementById("comments");
       const backToList = document.querySelector(".back-to-list");
 
+      // 模拟博客数据，可根据实际情况替换
       const blogData = {
         "blog-1": {
           title: "探索宇宙的边界",
@@ -99,7 +146,9 @@
           blogDetail.classList.remove("hidden");
           blogContent.innerHTML = `<h2>${blogData[blogId].title}</h2>${blogData[blogId].content}`;
 
+          // 清空旧评论区内容
           comments.innerHTML = "";
+          // 动态加载 Utterances 评论区
           let script = document.createElement("script");
           script.src = "https://utteranc.es/client.js";
           script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
