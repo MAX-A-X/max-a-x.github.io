@@ -50,47 +50,54 @@
   </nav>
   <main class="page-content">
     <div class="centered-container">
-      <!-- 标题始终显示 -->
+      <!-- 保留标题 -->
       <h1>星辉作品</h1>
-      <div class="grid-container">
-        <div class="work-item" data-id="work-1">
-          <img src="images/logo.svg" alt="MAX至臻星域">
-          <div class="work-overlay">
-            <h3>MAX至臻星域(LOGO)</h3>
-            <p>呈现星辰与巅峰的视觉感受</p>
+      <!-- 作品卡片列表区域 -->
+      <div id="work-list">
+        <div class="grid-container">
+          <div class="work-item" data-id="work-1">
+            <img src="images/logo.svg" alt="MAX至臻星域">
+            <div class="work-overlay">
+              <h3>MAX至臻星域(LOGO)</h3>
+              <p>呈现星辰与巅峰的视觉感受</p>
+            </div>
           </div>
-        </div>
-        <div class="work-item" data-id="work-2">
-          <img src="images/spacewaves.png" alt="空间波 Space Waves">
-          <div class="work-overlay">
-            <h3>《空间波 Space Waves》</h3>
-            <p>一款激动人心的横向卷轴游戏</p>
+          <div class="work-item" data-id="work-2">
+            <img src="images/spacewaves.png" alt="空间波 Space Waves">
+            <div class="work-overlay">
+              <h3>《空间波 Space Waves》</h3>
+              <p>一款激动人心的横向卷轴游戏</p>
+            </div>
           </div>
-        </div>
-        <div class="work-item" data-id="work-3">
-          <img src="images/spxdzmmz.png" alt="审判行动：致命瞄准">
-          <div class="work-overlay">
-            <h3>《审判行动：致命瞄准》</h3>
-            <p>一款全Scratch最真实的模拟类型的狙击游戏</p>
+          <div class="work-item" data-id="work-3">
+            <img src="images/spxdzmmz.png" alt="审判行动：致命瞄准">
+            <div class="work-overlay">
+              <h3>《审判行动：致命瞄准》</h3>
+              <p>一款全Scratch最真实的模拟类型的狙击游戏</p>
+            </div>
           </div>
         </div>
       </div>
-      <!-- 详情区域 -->
+      <!-- 作品详情区域 -->
       <div id="work-detail" class="hidden">
         <article id="work-1" class="work-content hidden">
           <h2>MAX至臻星域(LOGO)</h2>
           <p>这是 MAX Apex Xenith 的官方 LOGO，灵感来源于星辰与巅峰...</p>
           <button class="back-to-list">返回列表</button>
+          <!-- 评论区容器（用于 Utterances） -->
+          <div class="utterances-container" data-issue-term="work-1"></div>
         </article>
         <article id="work-2" class="work-content hidden">
           <h2>《空间波 Space Waves》</h2>
           <p>这是一款横向卷轴游戏，结合快节奏动作与挑战...</p>
           <button class="back-to-list">返回列表</button>
+          <div class="utterances-container" data-issue-term="work-2"></div>
         </article>
         <article id="work-3" class="work-content hidden">
           <h2>《审判行动：致命瞄准》</h2>
           <p>这是全 Scratch 平台最真实的狙击模拟游戏...</p>
           <button class="back-to-list">返回列表</button>
+          <div class="utterances-container" data-issue-term="work-3"></div>
         </article>
       </div>
     </div>
