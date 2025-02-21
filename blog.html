@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="images/logo.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>星迹详情 | MAX Apex Xenith</title>
+  <title>星迹 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
   <nav class="navbar">
     <a href="/" class="brand">
@@ -20,6 +20,7 @@
   </nav>
 </head>
 <body>
+  <!-- 加载屏幕 -->
   <div class="loading-screen">
     <div class="loading-spinner"></div>
     <div class="loading-text" data-i18n="loading">加载中...</div>
@@ -50,27 +51,88 @@
   </nav>
   <main class="page-content">
     <div class="centered-container">
-      <h1>博客详情标题</h1>
-      <article class="blog-content">
-         <p>这里是博客的详细内容……</p>
-      </article>
-      <!-- 博客评论区 -->
-      <div class="utterances-container" data-issue-term="blog-unique-identifier"></div>
+      <h1>星迹</h1>
+      <!-- 博客列表区域 -->
+      <div id="blog-list">
+        <div class="blog-item" data-id="blog-1">
+          <h2>博客标题 1</h2>
+          <p>这里是博客 1 的摘要……</p>
+        </div>
+        <div class="blog-item" data-id="blog-2">
+          <h2>博客标题 2</h2>
+          <p>这里是博客 2 的摘要……</p>
+        </div>
+        <!-- 可添加更多博客卡片 -->
+      </div>
+      <!-- 博客详情区域（初始隐藏） -->
+      <div id="blog-detail" class="hidden">
+        <article id="blog-1" class="blog-content hidden">
+          <h2>博客标题 1</h2>
+          <p>这里是博客 1 的详细内容……</p>
+          <button class="back-to-list">返回列表</button>
+          <!-- 评论区（动态加载 Utterances） -->  
+          <div class="utterances-container" data-issue-term="blog-1"></div>
+        </article>
+        <article id="blog-2" class="blog-content hidden">
+          <h2>博客标题 2</h2>
+          <p>这里是博客 2 的详细内容……</p>
+          <button class="back-to-list">返回列表</button>
+          <div class="utterances-container" data-issue-term="blog-2"></div>
+        </article>
+      </div>
     </div>
   </main>
   <button class="back-to-top">⬆ 返回顶部</button>
+  <!-- 加载完成后隐藏 loading-screen -->
   <script>
-    (function() {
-      var container = document.querySelector(".utterances-container");
-      var script = document.createElement('script');
-      script.src = "https://utteranc.es/client.js";
-      script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
-      script.setAttribute("issue-term", "blog-unique-identifier");
-      script.setAttribute("theme", "github-light");
-      script.setAttribute("crossorigin", "anonymous");
-      script.async = true;
-      container.appendChild(script);
-    })();
+    window.addEventListener("load", function(){
+      var loadingScreen = document.querySelector(".loading-screen");
+      if (loadingScreen) {
+        loadingScreen.style.display = "none";
+      }
+    });
+  </script>
+  <!-- 博客切换逻辑：点击博客卡片显示详情，并动态加载评论 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const blogList = document.getElementById("blog-list");
+      const blogDetail = document.getElementById("blog-detail");
+      const blogItems = document.querySelectorAll(".blog-item");
+      blogItems.forEach(item => {
+        item.addEventListener("click", () => {
+          const blogId = item.dataset.id;
+          blogList.classList.add("hidden");
+          blogDetail.classList.remove("hidden");
+          // 隐藏所有博客详情内容
+          document.querySelectorAll(".blog-content").forEach(el => el.classList.add("hidden"));
+          // 显示对应详情
+          const detail = document.getElementById(blogId);
+          detail.classList.remove("hidden");
+          window.location.hash = blogId;
+          // 动态加载 Utterances 评论区（如果未加载过）
+          let container = detail.querySelector(".utterances-container");
+          if (container && !container.getAttribute("data-loaded")) {
+            let script = document.createElement("script");
+            script.src = "https://utteranc.es/client.js";
+            script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
+            script.setAttribute("issue-term", blogId);
+            script.setAttribute("theme", "github-dark");
+            script.setAttribute("crossorigin", "anonymous");
+            script.async = true;
+            container.appendChild(script);
+            container.setAttribute("data-loaded", "true");
+          }
+        });
+      });
+      // 返回列表按钮逻辑
+      document.querySelectorAll(".back-to-list").forEach(button => {
+        button.addEventListener("click", () => {
+          blogList.classList.remove("hidden");
+          blogDetail.classList.add("hidden");
+          history.pushState(null, "", "#");
+        });
+      });
+    });
   </script>
   <script src="js/script.js"></script>
 </body>
