@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-
   <link rel="preload" href="css/style.css" as="style">
   <link rel="preload" href="images/logo.svg" as="image">
   <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
-  <link rel="preload" href="images/logo.svg" as="image">
   <link rel="icon" type="image/svg+xml" href="images/logo.svg">
   <link rel="alternate icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="images/logo.svg">
@@ -14,50 +12,47 @@
   <title>星桥联系 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
   <nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <!-- 其他导航项保持不变 -->
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
+    <!-- 其他导航项保持不变 -->
   </nav>
-  
+  <!-- 引入 Google reCAPTCHA -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
   <div class="loading-screen">
-  <div class="loading-spinner"></div>
-  <div class="loading-text" data-i18n="loading">加载中...</div>
-</div>
+    <div class="loading-spinner"></div>
+    <div class="loading-text" data-i18n="loading">加载中...</div>
+  </div>
   <nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="/">星域</a></li>
-    <li><a href="/about">星渊</a></li>
-    <li><a href="/works">星辉</a></li>
-    <li><a href="/blog">星迹</a></li>
-    <li><a href="/forum">星云</a></li>
-    <li><a href="/contact">星桥</a></li>
-    <div class="search-container">
-      <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
-      <button class="search-button">🔍</button>
-      <div class="search-results"></div>
-    </div>
-    <button class="theme-toggle">
-      <span class="light-icon">☀️</span>
-      <span class="dark-icon">🌙</span>
-    </button>
-  </ul>
-  <div class="hamburger">☰</div>
-</nav>
-
-
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">星域</a></li>
+      <li><a href="/about">星渊</a></li>
+      <li><a href="/works">星辉</a></li>
+      <li><a href="/blog">星迹</a></li>
+      <li><a href="/forum">星云</a></li>
+      <li><a href="/contact">星桥</a></li>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
+        <button class="search-button"></button>
+        <div class="search-results"></div>
+      </div>
+      <button class="theme-toggle">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon"></span>
+      </button>
+    </ul>
+    <div class="hamburger">☰</div>
+  </nav>
   <main class="contact-section">
     <div class="contact-container">
       <h2>星际通讯</h2>
-      
       <div class="contact-info">
         <div class="info-item">
           <i class="icon-location"></i>
@@ -72,8 +67,8 @@
           <p>星际热线：<br>+86 000 0000 0000</p>
         </div>
       </div>
-
       <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <!-- 隐藏字段确保 Netlify 表单识别 -->
         <input type="hidden" name="form-name" value="contact">
         <div class="form-group">
           <input type="text" name="name" placeholder="您的称呼" required>
@@ -84,14 +79,13 @@
         <div class="form-group">
           <textarea name="message" placeholder="您的星际讯息..." rows="5" required></textarea>
         </div>
-        <div class="g-recaptcha" data-sitekey="6LdpEN4qAAAAAK8bWIgvAbv8Tgk4jqT_coHteHQD"></div>
+        <div class="g-recaptcha" data-sitekey="your-real-site-key"></div>
         <button type="submit" class="neon-button">
           发送讯息
           <span class="send-icon">➤</span>
         </button>
       </form>
     </div>
-
     <div class="star-map"></div>
   </main>
   <button class="back-to-top">⬆ 返回顶部</button>
