@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-
   <link rel="preload" href="css/style.css" as="style">
   <link rel="preload" href="images/logo.svg" as="image">
   <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml">
-  <link rel="preload" href="images/logo.svg" as="image">
   <link rel="icon" type="image/svg+xml" href="images/logo.svg">
   <link rel="alternate icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="images/logo.svg">
@@ -14,94 +12,88 @@
   <title>星辉作品 | MAX Apex Xenith</title>
   <link rel="stylesheet" href="css/style.css">
   <nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <!-- 其他导航项保持不变 -->
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
+    <!-- 其他导航项保持不变 -->
   </nav>
-
 </head>
 <body>
   <div class="loading-screen">
-  <div class="loading-spinner"></div>
-  <div class="loading-text" data-i18n="loading">加载中...</div>
-</div>
+    <div class="loading-spinner"></div>
+    <div class="loading-text" data-i18n="loading">加载中...</div>
+  </div>
   <nav class="navbar">
-  <a href="/" class="brand">
-    <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
-    <span class="brand-text">MAX Apex Xenith</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="/">星域</a></li>
-    <li><a href="/about">星渊</a></li>
-    <li><a href="/works">星辉</a></li>
-    <li><a href="/blog">星迹</a></li>
-    <li><a href="/forum">星云</a></li>
-    <li><a href="/contact">星桥</a></li>
-    <div class="search-container">
-      <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
-      <button class="search-button">🔍</button>
-      <div class="search-results"></div>
-    </div>
-    <button class="theme-toggle">
-      <span class="light-icon">☀️</span>
-      <span class="dark-icon">🌙</span>
-    </button>
-  </ul>
-  <div class="hamburger">☰</div>
-</nav>
-
+    <a href="/" class="brand">
+      <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
+      <span class="brand-text">MAX Apex Xenith</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">星域</a></li>
+      <li><a href="/about">星渊</a></li>
+      <li><a href="/works">星辉</a></li>
+      <li><a href="/blog">星迹</a></li>
+      <li><a href="/forum">星云</a></li>
+      <li><a href="/contact">星桥</a></li>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索星域..." data-i18n-placeholder="searchPlaceholder">
+        <button class="search-button"></button>
+        <div class="search-results"></div>
+      </div>
+      <button class="theme-toggle">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon"></span>
+      </button>
+    </ul>
+    <div class="hamburger">☰</div>
+  </nav>
   <main class="page-content">
     <div class="centered-container">
-    <h1>星辉作品</h1>
-    <div class="grid-container">
-  <div class="work-item" data-id="work-1">
-    <img src="images/logo.svg" alt="MAX至臻星域">
-    <div class="work-overlay">
-      <h3>MAX至臻星域(LOGO)</h3>
-      <p>呈现星辰与巅峰的视觉感受</p>
+      <!-- 标题始终显示 -->
+      <h1>星辉作品</h1>
+      <div class="grid-container">
+        <div class="work-item" data-id="work-1">
+          <img src="images/logo.svg" alt="MAX至臻星域">
+          <div class="work-overlay">
+            <h3>MAX至臻星域(LOGO)</h3>
+            <p>呈现星辰与巅峰的视觉感受</p>
+          </div>
+        </div>
+        <div class="work-item" data-id="work-2">
+          <img src="images/spacewaves.png" alt="空间波 Space Waves">
+          <div class="work-overlay">
+            <h3>《空间波 Space Waves》</h3>
+            <p>一款激动人心的横向卷轴游戏</p>
+          </div>
+        </div>
+        <div class="work-item" data-id="work-3">
+          <img src="images/spxdzmmz.png" alt="审判行动：致命瞄准">
+          <div class="work-overlay">
+            <h3>《审判行动：致命瞄准》</h3>
+            <p>一款全Scratch最真实的模拟类型的狙击游戏</p>
+          </div>
+        </div>
+      </div>
+      <!-- 详情区域 -->
+      <div id="work-detail" class="hidden">
+        <article id="work-1" class="work-content hidden">
+          <h2>MAX至臻星域(LOGO)</h2>
+          <p>这是 MAX Apex Xenith 的官方 LOGO，灵感来源于星辰与巅峰...</p>
+          <button class="back-to-list">返回列表</button>
+        </article>
+        <article id="work-2" class="work-content hidden">
+          <h2>《空间波 Space Waves》</h2>
+          <p>这是一款横向卷轴游戏，结合快节奏动作与挑战...</p>
+          <button class="back-to-list">返回列表</button>
+        </article>
+        <article id="work-3" class="work-content hidden">
+          <h2>《审判行动：致命瞄准》</h2>
+          <p>这是全 Scratch 平台最真实的狙击模拟游戏...</p>
+          <button class="back-to-list">返回列表</button>
+        </article>
+      </div>
     </div>
-  </div>
-  <div class="work-item" data-id="work-2">
-    <img src="images/spacewaves.png" alt="空间波 Space Waves">
-    <div class="work-overlay">
-      <h3>《空间波 Space Waves》</h3>
-      <p>一款激动人心的横向卷轴游戏</p>
-    </div>
-  </div>
-  <div class="work-item" data-id="work-3">
-    <img src="images/spxdzmmz.png" alt="审判行动：致命瞄准">
-    <div class="work-overlay">
-      <h3>《审判行动：致命瞄准》</h3>
-      <p>一款全scratch最真实的模拟类型的狙击游戏</p>
-    </div>
-  </div>
-</div>
-      
-<!-- 详情页 -->
-      
-    <div id="work-detail" class="hidden">
-  <article id="work-1" class="work-content hidden">
-    <h2>MAX至臻星域(LOGO)</h2>
-    <p>这是 MAX Apex Xenith 的官方 LOGO，灵感来源于星辰与巅峰...</p>
-    <button class="back-to-list">返回列表</button>
-  </article>
-
-  <article id="work-2" class="work-content hidden">
-    <h2>《空间波 Space Waves》</h2>
-    <p>这是一款横向卷轴游戏，结合快节奏动作与挑战...</p>
-    <button class="back-to-list">返回列表</button>
-  </article>
-
-  <article id="work-3" class="work-content hidden">
-    <h2>《审判行动：致命瞄准》</h2>
-    <p>这是全 Scratch 平台最真实的狙击模拟游戏...</p>
-    <button class="back-to-list">返回列表</button>
-  </article>
-</div>
-
-</div>
   </main>
   <button class="back-to-top">⬆ 返回顶部</button>
   <script src="js/works.js"></script>
