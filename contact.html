@@ -112,7 +112,7 @@
         let correctAnswer = this.dataset.answer;
 
         if (parseInt(userAnswer) !== parseInt(correctAnswer)) {
-            alert("计算结果错误，请重新输入！");
+            alert(" 提交已阻止！计算结果错误，请重新输入！");
             event.preventDefault(); // 阻止提交
         }
     });
