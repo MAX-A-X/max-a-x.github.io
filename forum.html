@@ -16,7 +16,6 @@
       <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
       <span class="brand-text">MAX Apex Xenith</span>
     </a>
-    <!-- 其他导航项保持不变 -->
   </nav>
 </head>
 <body>
@@ -51,7 +50,24 @@
   <main class="page-content">
     <div class="centered-container">
       <h1>星云论坛</h1>
+      
+      <div class="forum-rules">
+        <h2>论坛注意事项</h2>
+        <ul>
+          <li>遵守基本的社交礼仪，尊重他人。</li>
+          <li>禁止恶意攻击、辱骂、歧视等行为。</li>
+          <li>不得发布非法或违规内容，包括但不限于盗版、诈骗等。</li>
+          <li>讨论时保持理性，禁止无意义的灌水或恶意刷屏。</li>
+          <li>任何违规行为可能导致帖子删除或封禁账号。</li>
+        </ul>
+      </div>
+      
       <div class="forum-grid">
+        <section class="forum-category pinned">
+          <h2>📌 普通交流（置顶）</h2>
+          <p>讨论任何话题，结交朋友，畅所欲言！</p>
+        </section>
+        
         <section class="forum-category">
           <h2>技术讨论</h2>
           <div class="thread-card">
@@ -61,12 +77,30 @@
               <span>2025-01-25</span>
             </div>
           </div>
-          <!-- 更多讨论主题 -->
+        </section>
+        
+        <section class="forum-category">
+          <h2>学术交流</h2>
+          <p>分享和探讨科学、数学、历史等学术内容。</p>
+        </section>
+        
+        <section class="forum-category">
+          <h2>游戏讨论</h2>
+          <p>交流游戏开发、玩法、推荐等相关内容。</p>
+        </section>
+        
+        <section class="forum-category">
+          <h2>创意分享</h2>
+          <p>展示你的创作，如绘画、音乐、写作等。</p>
+        </section>
+        
+        <section class="forum-category">
+          <h2>建议与反馈</h2>
+          <p>提出对 MAX Apex Xenith 论坛的建议和反馈。</p>
         </section>
       </div>
-      <!-- 集成 Utterances 评论区域 -->
+      
       <div id="comments">
-
         <script src="https://utteranc.es/client.js"
                 repo="MAX-A-X/max-a-x.github.io"
                 issue-term="pathname"
@@ -74,11 +108,7 @@
                 theme="github-dark"
                 crossorigin="anonymous"
                 async>
-      </script>
-
-
-        
-
+        </script>
       </div>
     </div>
   </main>
