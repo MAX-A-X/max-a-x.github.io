@@ -67,25 +67,20 @@
           <p>星际热线：<br>+86 000 0000 0000</p>
         </div>
       </div>
-      <form class="contact-form" name="contact" method="POST" data-netlify="true">
-        <!-- 隐藏字段确保 Netlify 识别表单 -->
-        <input type="hidden" name="form-name" value="contact">
-        <div class="form-group">
-          <input type="text" name="name" placeholder="您的称呼" required>
-        </div>
-        <div class="form-group">
-          <input type="email" name="email" placeholder="量子通讯地址" required>
-        </div>
-        <div class="form-group">
-          <textarea name="message" placeholder="您的星际讯息..." rows="5" required></textarea>
-        </div>
-        <!-- 请确保此处的 site key 在 Google reCAPTCHA 控制台中授权了域名 max-a-x.github.io -->
-        <div class="g-recaptcha" data-sitekey="6LdpEN4qAAAAAK8bWIgvAbv8Tgk4jqT_coHteHQD"></div>
-        <button type="submit" class="neon-button">
-          发送讯息
-          <span class="send-icon">➤</span>
-        </button>
-      </form>
+      <form action="https://formspree.io/f/mnnjrvdz" method="POST">
+    <div class="form-group">
+        <input type="text" name="name" placeholder="您的称呼" required>
+    </div>
+    <div class="form-group">
+        <input type="email" name="email" placeholder="量子通讯地址" required>
+    </div>
+    <div class="form-group">
+        <textarea name="message" placeholder="您的星际讯息..." rows="5" required></textarea>
+    </div>
+    <div class="g-recaptcha" data-sitekey="6Ld79N4qAAAAAMa0LDOAVWsLZNWqUvclNyobS4PR"></div>
+    <button type="submit">发送讯息</button>
+</form>
+
     </div>
     <div class="star-map"></div>
   </main>
