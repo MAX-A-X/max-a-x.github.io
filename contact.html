@@ -67,7 +67,7 @@
           <p>星际热线：<br>+86 000 0000 0000</p>
         </div>
       </div>
-      <form action="https://formspree.io/f/mnnjrvdz" method="POST">
+      <form id="contactForm" action="https://formspree.io/f/mnnjrvdz" method="POST">
     <div class="form-group">
         <input type="text" name="name" placeholder="您的称呼" required>
     </div>
@@ -77,12 +77,50 @@
     <div class="form-group">
         <textarea name="message" placeholder="您的星际讯息..." rows="5" required></textarea>
     </div>
+    
+    <!-- 随机计算题 -->
     <div class="form-group">
-        <label for="security">请输入 2+3 的结果：</label>
+        <label id="captcha-label"></label>
         <input type="text" id="security" name="security" required>
     </div>
+
     <button type="submit">发送讯息</button>
 </form>
+
+<script>
+    // 生成随机加法题
+    function generateCaptcha() {
+        let num1 = Math.floor(Math.random() * 10) + 1; // 1-10
+        let num2 = Math.floor(Math.random() * 10) + 1; // 1-10
+        let correctAnswer = num1 + num2;
+
+        document.getElementById("captcha-label").textContent = `请输入 ${num1} + ${num2} 的结果：`;
+        
+        // 存储答案
+        document.getElementById("contactForm").dataset.answer = correctAnswer;
+    }
+
+    // 页面加载时生成验证码
+    generateCaptcha();
+
+    // 表单提交前检查答案
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        let userAnswer = document.getElementById("security").value;
+        let correctAnswer = this.dataset.answer;
+
+        if (parseInt(userAnswer) !== parseInt(correctAnswer)) {
+            alert("计算结果错误，请重新输入！");
+            event.preventDefault(); // 阻止提交
+        }
+    });
+  window.addEventListener("load", function() {
+      var loadingScreen = document.querySelector(".loading-screen");
+      if (loadingScreen) {
+        loadingScreen.style.display = "none";
+      }
+    });
+</script>
+
 
 
     </div>
@@ -90,14 +128,7 @@
   </main>
   <button class="back-to-top">⬆ 返回顶部</button>
   <!-- 加载完成后隐藏 loading-screen -->
-  <script>
-    window.addEventListener("load", function() {
-      var loadingScreen = document.querySelector(".loading-screen");
-      if (loadingScreen) {
-        loadingScreen.style.display = "none";
-      }
-    });
-  </script>
+  
   <script src="js/script.js"></script>
 </body>
 </html>
