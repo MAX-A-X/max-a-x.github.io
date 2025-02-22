@@ -16,6 +16,7 @@
       <img src="images/logo.svg" alt="MAX Apex Xenith Logo" class="logo">
       <span class="brand-text">MAX Apex Xenith</span>
     </a>
+    <!-- 其他导航项保持不变 -->
   </nav>
 </head>
 <body>
@@ -51,6 +52,7 @@
     <div class="centered-container">
       <h1>星云论坛</h1>
       
+      <!-- 论坛注意事项 -->
       <div class="forum-rules">
         <h2>论坛注意事项</h2>
         <ul>
@@ -62,57 +64,119 @@
         </ul>
       </div>
       
-      <div class="forum-grid">
-        <section class="forum-category pinned">
-          <h2>📌 普通交流（置顶）</h2>
+      <!-- 论坛分类列表（固定分类） -->      
+      <div id="category-list" class="forum-categories">
+        <div class="category-card" data-category="普通交流">
+          <h2>📌 普通交流</h2>
           <p>讨论任何话题，结交朋友，畅所欲言！</p>
-        </section>
-        
-        <section class="forum-category">
+        </div>
+        <div class="category-card" data-category="技术讨论">
           <h2>技术讨论</h2>
-          <div class="thread-card">
-            <h3>《审判行动：致命瞄准》游戏的制作方案</h3>
-            <div class="meta">
-              <span>最后回复：MAX至臻星域制作团队</span>
-              <span>2025-01-25</span>
-            </div>
-          </div>
-        </section>
-        
-        <section class="forum-category">
+          <p>分享编程、硬件、软件等技术相关内容。</p>
+        </div>
+        <div class="category-card" data-category="学术交流">
           <h2>学术交流</h2>
-          <p>分享和探讨科学、数学、历史等学术内容。</p>
-        </section>
-        
-        <section class="forum-category">
+          <p>探讨科学、数学、历史等学术内容。</p>
+        </div>
+        <div class="category-card" data-category="游戏讨论">
           <h2>游戏讨论</h2>
-          <p>交流游戏开发、玩法、推荐等相关内容。</p>
-        </section>
-        
-        <section class="forum-category">
+          <p>讨论游戏开发、体验和攻略。</p>
+        </div>
+        <div class="category-card" data-category="创意分享">
           <h2>创意分享</h2>
           <p>展示你的创作，如绘画、音乐、写作等。</p>
-        </section>
-        
-        <section class="forum-category">
+        </div>
+        <div class="category-card" data-category="建议与反馈">
           <h2>建议与反馈</h2>
-          <p>提出对 MAX Apex Xenith 论坛的建议和反馈。</p>
-        </section>
+          <p>提供对论坛或产品的建议和反馈。</p>
+        </div>
       </div>
       
-      <div id="comments">
-        <script src="https://utteranc.es/client.js"
-                repo="MAX-A-X/max-a-x.github.io"
-                issue-term="pathname"
-                label="评论"
-                theme="github-dark"
-                crossorigin="anonymous"
-                async>
-        </script>
+      <!-- 论坛分类详情区域（初始隐藏） -->      
+      <div id="category-detail" class="hidden">
+        <button id="back-to-categories" class="back-to-list">返回分类列表</button>
+        <h2 id="category-title"></h2>
+        <!-- 这里用 Utterances 创建不同的讨论空间 --> 
+        <div id="category-discussion"></div>
       </div>
+      
     </div>
   </main>
   <button class="back-to-top">⬆ 返回顶部</button>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const categoryList = document.getElementById("category-list");
+      const categoryDetail = document.getElementById("category-detail");
+      const categoryTitle = document.getElementById("category-title");
+      const categoryDiscussion = document.getElementById("category-discussion");
+      const backToCategories = document.getElementById("back-to-categories");
+
+      // 当点击某个分类卡片时，加载该分类的讨论空间
+      document.querySelectorAll(".category-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const cat = card.dataset.category;
+          // 隐藏分类列表，显示详情区域
+          categoryList.classList.add("hidden");
+          categoryDetail.classList.remove("hidden");
+          categoryTitle.textContent = cat;
+          // 清空旧讨论内容
+          categoryDiscussion.innerHTML = "";
+          // 动态加载 Utterances 评论组件，issue-term 为分类名称
+          let script = document.createElement("script");
+          script.src = "https://utteranc.es/client.js";
+          script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
+          script.setAttribute("issue-term", cat);
+          script.setAttribute("label", "论坛-" + cat);
+          script.setAttribute("theme", "github-dark");
+          script.setAttribute("crossorigin", "anonymous");
+          script.async = true;
+          categoryDiscussion.appendChild(script);
+        });
+      });
+
+      // 返回分类列表按钮事件
+      backToCategories.addEventListener("click", () => {
+        categoryDetail.classList.add("hidden");
+        categoryList.classList.remove("hidden");
+      });
+
+      window.addEventListener("load", () => {
+        document.querySelector(".loading-screen").style.display = "none";
+      });
+    });
+  </script>
+  
+  <style>
+    /* 论坛分类卡片样式 */
+    .forum-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .category-card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .category-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    }
+    .category-card h2 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .category-card p {
+      color: #ccc;
+      font-size: 14px;
+    }
+    /* 论坛分类详情区域样式 */
+    #category-detail {\n  background: #1a1a1a;\n  padding: 20px;\n  border-radius: 10px;\n}\n\n#category-title {\n  color: #fff;\n  margin-bottom: 20px;\n}\n\n.back-to-list {\n  background: #ff4757;\n  color: #fff;\n  padding: 10px 15px;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-bottom: 20px;\n}\n\n.back-to-list:hover {\n  background: #e84118;\n}\n  </style>
+  
   <script src="js/script.js"></script>
 </body>
 </html>
