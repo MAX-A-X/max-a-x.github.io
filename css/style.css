@@ -1133,7 +1133,11 @@ body {
   background-color: #e84118;
 }
 
-
+video {
+  width: 50%; /* 让视频宽度变成原来的一半 */
+  max-width: 400px;
+  height: auto;
+}
 
 body {
   background: var(--primary-bg);
