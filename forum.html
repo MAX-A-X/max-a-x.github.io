@@ -66,6 +66,11 @@
       
       <!-- 论坛分类列表（固定分类） -->      
       <div id="category-list" class="forum-categories">
+        <!-- “全部”分类置顶  -->
+        <div class="category-card pinned" data-category="全部">
+          <h2>📌 全部</h2>
+          <p>查看所有分类的讨论内容。</p>
+        </div>
         <div class="category-card" data-category="普通交流">
           <h2>📌 普通交流</h2>
           <p>讨论任何话题，结交朋友，畅所欲言！</p>
@@ -122,11 +127,12 @@
           categoryTitle.textContent = cat;
           // 清空旧讨论内容
           categoryDiscussion.innerHTML = "";
-          // 动态加载 Utterances 评论组件，issue-term 为分类名称
+          // 设置 issue-term：在“全部”分类中，用 "all"（你可以在 Utterances 后台配置该 issue 为聚合讨论），其他类别用分类名称
+          let issueTerm = (cat === "全部") ? "all" : cat;
           let script = document.createElement("script");
           script.src = "https://utteranc.es/client.js";
           script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
-          script.setAttribute("issue-term", cat);
+          script.setAttribute("issue-term", issueTerm);
           script.setAttribute("label", "论坛-" + cat);
           script.setAttribute("theme", "github-dark");
           script.setAttribute("crossorigin", "anonymous");
@@ -175,8 +181,4 @@
       font-size: 14px;
     }
     /* 论坛分类详情区域样式 */
-    #category-detail {\n  background: #1a1a1a;\n  padding: 20px;\n  border-radius: 10px;\n}\n\n#category-title {\n  color: #fff;\n  margin-bottom: 20px;\n}\n\n.back-to-list {\n  background: #ff4757;\n  color: #fff;\n  padding: 10px 15px;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-bottom: 20px;\n}\n\n.back-to-list:hover {\n  background: #e84118;\n}\n  </style>
-  
-  <script src="js/script.js"></script>
-</body>
-</html>
+    #category-detail {\n  background: #1a1a1a;\n  padding: 20px;\n  border-radius: 10px;\n}\n\n#category-title {\n  color: #fff;\n  margin-bottom: 20px;\n}\n\n.back-to-list {\n  background: #ff4757;\n  color: #fff;\n  padding: 10px 15px;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-bottom: 20px;\n}\n\n.back-to-list:hover {\n  background: #e84118;\n}\n  </style>\n  \n  <script src=\"js/script.js\"></script>\n</body>\n</html>\n"}
