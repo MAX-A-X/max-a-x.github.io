@@ -10,7 +10,10 @@
 <!-- 优化 iOS 下的显示效果 -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+<!-- 禁用缓存，保证 WebView 版本更新 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
   <link rel="preload" href="css/style.css" as="style">
 
