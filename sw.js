@@ -1,42 +1,44 @@
-const CACHE_NAME = "pwa-cache-v1";
-const STATIC_FILES = [
-    "/",
-    "/index.html",
-    "/styles.css",
-    "/js/main.js",
-    "/manifest.json",
-    "/icons/icon-192x192.png",
-    "/icons/icon-512x512.png"
+const CACHE_NAME = 'max-apex-xenith-v2';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/js/app.js',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png'
 ];
 
-// 预缓存静态资源
-self.addEventListener("install", event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => {
-            console.log("正在预缓存静态资源");
-            return cache.addAll(STATIC_FILES);
-        })
-    );
-    self.skipWaiting(); // 立即激活新 Service Worker
+// 安装 Service Worker 并缓存资源
+self.addEventListener('install', (event) => {
+  console.log("正在预缓存静态资源");
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    }).catch(err => console.error("预缓存失败:", err))
+  );
 });
 
-// 激活时清理旧缓存
-self.addEventListener("activate", event => {
-    event.waitUntil(
-        caches.keys().then(keys => {
-            return Promise.all(
-                keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-            );
+// 激活时删除旧缓存，保证更新
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('清理旧缓存:', cacheName);
+            return caches.delete(cacheName);
+          }
         })
-    );
-    self.clients.claim(); // 立即接管所有页面
+      );
+    })
+  );
 });
 
-// 拦截请求并使用缓存
-self.addEventListener("fetch", event => {
-    event.respondWith(
-        caches.match(event.request).then(response => {
-            return response || fetch(event.request);
-        })
-    );
+// 拦截请求，优先使用缓存，离线可用
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    }).catch(() => caches.match('/index.html'))
+  );
 });
