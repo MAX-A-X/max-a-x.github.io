@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>嵌入式 SB3 运行器</title>
-  <!-- 使用 jsDelivr 加载 TurboWarp Player -->
-  <script src="https://cdn.jsdelivr.net/npm/turbowarp-player"></script>
+  <script src="https://turbowarp.org/embed.js" defer></script>
   <style>
     body {
       background-color: #121212;
@@ -33,34 +32,39 @@
 <body>
   <h2>嵌入式 SB3 运行器</h2>
   <div id="container"></div>
-  <button onclick="startSB3()">启动</button>
+  <button id="startButton">启动</button>
   
   <script>
-    // 调试输出，检查 TurboWarp 是否加载成功
-    console.log('TurboWarp:', typeof TurboWarp !== 'undefined' ? TurboWarp : '未定义');
-    
-    // 从 URL 参数获取 sb3 文件地址，如果没有则使用默认地址
-    const urlParams = new URLSearchParams(window.location.search);
-    const sb3Url = urlParams.get("sb3") || "https://m.maxmzh888.workers.dev/spacewaves.sb3";
-    
-    let player = null;
-    
-    function startSB3() {
-      if (!sb3Url) {
-        alert("未提供 sb3 文件地址！");
-        return;
+    window.onload = function() {
+      console.log("页面已加载，TurboWarp 是否存在？", typeof TurboWarp !== 'undefined' ? "已加载" : "未加载");
+      
+      // 获取 sb3 文件 URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const sb3Url = urlParams.get("sb3") || "https://m.maxmzh888.workers.dev/spacewaves.sb3";
+
+      let player = null;
+
+      function startSB3() {
+        if (!sb3Url) {
+          alert("未提供 sb3 文件地址！");
+          return;
+        }
+        if (player) return; // 防止重复启动
+
+        console.log("创建 TurboWarp Player...");
+        player = new TurboWarp.Player();
+        player.appendTo(document.getElementById("container"));
+        
+        console.log("加载项目：", sb3Url);
+        player.loadProject(sb3Url).then(() => {
+          console.log("SB3 文件加载成功！");
+        }).catch(error => {
+          console.error("SB3 加载失败:", error);
+        });
       }
-      if (player) return; // 防止重复启动
-      console.log("创建 TurboWarp Player...");
-      player = new TurboWarp.Player();
-      player.appendTo(document.getElementById("container"));
-      console.log("加载项目：", sb3Url);
-      player.loadProject(sb3Url).then(() => {
-        console.log("SB3 文件加载成功！");
-      }).catch(error => {
-        console.error("SB3 加载失败:", error);
-      });
-    }
+
+      document.getElementById("startButton").onclick = startSB3;
+    };
   </script>
 </body>
 </html>
