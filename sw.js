@@ -5,9 +5,9 @@ const PRECACHE_URLS = [
   '/index.html',
   '/styles.css',
   '/js/main.js',
-  '/icon-192x192.png',
   '/icon-512x512.png'
 ];
+
 
 self.addEventListener('install', event => {
   event.waitUntil(
