@@ -1,51 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SB3 运行器</title>
-    <script src="https://max-a-x.github.io/scratch-vm/dist/web/vm.js"></script> <!-- 你的 VM -->
-    <script src="https://max-a-x.github.io/scratch-render/dist/web/render.js"></script> <!-- 你的 Render -->
-    <style>
-        body {
-            background-color: #121212;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        #container {
-            width: 480px;
-            height: 360px;
-            border: 2px solid #fff;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>自定义 SB3 运行器</title>
+  <!-- 使用自己的 GitHub Pages 资源 -->
+  <script src="https://max-a-x.github.io/scratch-vm/vm.js"></script>
+  <script src="https://max-a-x.github.io/scratch-render/render.js"></script>
 </head>
 <body>
-    <h2>嵌入式 SB3 运行器</h2>
-    <div id="container"></div>
-    <button onclick="startSB3()">启动</button>
+  <h1>我的 SB3 运行器</h1>
+  <canvas id="stage" width="480" height="360"></canvas>
+  <button onclick="startSB3()">启动</button>
 
-    <script>
-        const sb3Url = "https://m.maxmzh888.workers.dev/spacewaves.sb3"; // 你的 SB3 文件 URL
-        let vm = new ScratchVM();
-        let renderer = new ScratchRender(document.getElementById("container"));
-
-        async function startSB3() {
-            const response = await fetch(sb3Url);
-            const arrayBuffer = await response.arrayBuffer();
-            await vm.loadProject(arrayBuffer);
-            vm.start();
-        }
-    </script>
+  <script>
+    function startSB3() {
+      const vm = new Scratch.vm();
+      const renderer = new Scratch.Renderer(document.getElementById("stage"));
+      vm.attachRenderer(renderer);
+      vm.start();
+    }
+  </script>
 </body>
 </html>
