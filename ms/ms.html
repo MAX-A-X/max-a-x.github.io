@@ -1,59 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SB3 运行器</title>
-    <script src="https://unpkg.com/@turbowarp/player"></script>
-    <style>
-        body {
-            background-color: #121212;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        #container {
-            width: 480px;
-            height: 360px;
-            border: 2px solid #fff;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>嵌入式 SB3 运行器</title>
+  <!-- 使用 jsDelivr 加载 TurboWarp Player -->
+  <script src="https://cdn.jsdelivr.net/npm/turbowarp-player"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #container {
+      width: 480px;
+      height: 360px;
+      border: 2px solid #fff;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h2>嵌入式 SB3 运行器</h2>
-    <div id="container"></div>
-    <button onclick="startSB3()">启动</button>
-
-    <script>
-        // 获取 URL 参数中的 sb3 文件地址
-        const urlParams = new URLSearchParams(window.location.search);
-        const sb3Url = urlParams.get("sb3");
-
-        let player;
-
-        function startSB3() {
-            if (!sb3Url) {
-                alert("未提供 sb3 文件地址！");
-                return;
-            }
-
-            if (player) return; // 防止重复启动
-
-            console.log("创建 TurboWarp Player...");
-            player = new TurboWarp.Player();
-            player.appendTo(document.getElementById("container"));
-            player.loadProject(sb3Url);
-        }
-    </script>
+  <h2>嵌入式 SB3 运行器</h2>
+  <div id="container"></div>
+  <button onclick="startSB3()">启动</button>
+  
+  <script>
+    // 调试输出，检查 TurboWarp 是否加载成功
+    console.log('TurboWarp:', typeof TurboWarp !== 'undefined' ? TurboWarp : '未定义');
+    
+    // 从 URL 参数获取 sb3 文件地址，如果没有则使用默认地址
+    const urlParams = new URLSearchParams(window.location.search);
+    const sb3Url = urlParams.get("sb3") || "https://m.maxmzh888.workers.dev/spacewaves.sb3";
+    
+    let player = null;
+    
+    function startSB3() {
+      if (!sb3Url) {
+        alert("未提供 sb3 文件地址！");
+        return;
+      }
+      if (player) return; // 防止重复启动
+      console.log("创建 TurboWarp Player...");
+      player = new TurboWarp.Player();
+      player.appendTo(document.getElementById("container"));
+      console.log("加载项目：", sb3Url);
+      player.loadProject(sb3Url).then(() => {
+        console.log("SB3 文件加载成功！");
+      }).catch(error => {
+        console.error("SB3 加载失败:", error);
+      });
+    }
+  </script>
 </body>
 </html>
