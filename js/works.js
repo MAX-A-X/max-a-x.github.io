@@ -5,7 +5,7 @@ function loadUtterances(container, issueTerm) {
   script.src = "https://utteranc.es/client.js";
   script.setAttribute("repo", "MAX-A-X/max-a-x.github.io");
   script.setAttribute("issue-term", issueTerm);
-  script.setAttribute("theme", "github-light");
+  script.setAttribute("theme", "github-dark");
   script.setAttribute("crossorigin", "anonymous");
   script.async = true;
   container.appendChild(script);
