@@ -1,70 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>嵌入式 SB3 运行器</title>
-  <script src="https://turbowarp.org/embed.js" defer></script>
-  <style>
-    body {
-      background-color: #121212;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    #container {
-      width: 480px;
-      height: 360px;
-      border: 2px solid #fff;
-    }
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB3 运行器</title>
+    <script src="https://max-a-x.github.io/scratch-vm/dist/web/vm.js"></script> <!-- 你的 VM -->
+    <script src="https://max-a-x.github.io/scratch-render/dist/web/render.js"></script> <!-- 你的 Render -->
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #container {
+            width: 480px;
+            height: 360px;
+            border: 2px solid #fff;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <h2>嵌入式 SB3 运行器</h2>
-  <div id="container"></div>
-  <button id="startButton">启动</button>
-  
-  <script>
-    window.onload = function() {
-      console.log("页面已加载，TurboWarp 是否存在？", typeof TurboWarp !== 'undefined' ? "已加载" : "未加载");
-      
-      // 获取 sb3 文件 URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const sb3Url = urlParams.get("sb3") || "https://m.maxmzh888.workers.dev/spacewaves.sb3";
+    <h2>嵌入式 SB3 运行器</h2>
+    <div id="container"></div>
+    <button onclick="startSB3()">启动</button>
 
-      let player = null;
+    <script>
+        const sb3Url = "https://m.maxmzh888.workers.dev/spacewaves.sb3"; // 你的 SB3 文件 URL
+        let vm = new ScratchVM();
+        let renderer = new ScratchRender(document.getElementById("container"));
 
-      function startSB3() {
-        if (!sb3Url) {
-          alert("未提供 sb3 文件地址！");
-          return;
+        async function startSB3() {
+            const response = await fetch(sb3Url);
+            const arrayBuffer = await response.arrayBuffer();
+            await vm.loadProject(arrayBuffer);
+            vm.start();
         }
-        if (player) return; // 防止重复启动
-
-        console.log("创建 TurboWarp Player...");
-        player = new TurboWarp.Player();
-        player.appendTo(document.getElementById("container"));
-        
-        console.log("加载项目：", sb3Url);
-        player.loadProject(sb3Url).then(() => {
-          console.log("SB3 文件加载成功！");
-        }).catch(error => {
-          console.error("SB3 加载失败:", error);
-        });
-      }
-
-      document.getElementById("startButton").onclick = startSB3;
-    };
-  </script>
+    </script>
 </body>
 </html>
