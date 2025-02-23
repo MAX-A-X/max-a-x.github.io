@@ -33,28 +33,26 @@
     <h2>嵌入式 SB3 运行器</h2>
     <div id="container"></div>
     <button onclick="startSB3()">启动</button>
-    
+
     <script>
-        const sb3Url = "https://m.maxmzh888.workers.dev"; // 确保这个链接有效
-        let player = null;
-        
+        // 获取 URL 参数中的 sb3 文件地址
+        const urlParams = new URLSearchParams(window.location.search);
+        const sb3Url = urlParams.get("sb3");
+
+        let player;
+
         function startSB3() {
-            if (player) {
-                console.log("已经启动，不能重复启动");
+            if (!sb3Url) {
+                alert("未提供 sb3 文件地址！");
                 return;
             }
 
+            if (player) return; // 防止重复启动
+
             console.log("创建 TurboWarp Player...");
             player = new TurboWarp.Player();
-            player.setProjectURL(sb3Url);  // 设定项目 URL
-            player.appendTo(document.getElementById("container")); // 添加到页面
-            
-            console.log("开始加载 SB3 文件:", sb3Url);
-            player.load(sb3Url).then(() => {
-                console.log("SB3 文件加载完成！");
-            }).catch(error => {
-                console.error("加载失败:", error);
-            });
+            player.appendTo(document.getElementById("container"));
+            player.loadProject(sb3Url);
         }
     </script>
 </body>
