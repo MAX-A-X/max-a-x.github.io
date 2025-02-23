@@ -35,14 +35,26 @@
     <button onclick="startSB3()">启动</button>
     
     <script>
-        const sb3Url = "https://m.maxmzh888.workers.dev/spacewaves.sb3"; // 替换为你的 Cloudflare 链接
+        const sb3Url = "https://m.maxmzh888.workers.dev/spacewaves.sb3"; // 确保这个链接有效
         let player = null;
         
         function startSB3() {
-            if (player) return; // 防止重复启动
+            if (player) {
+                console.log("已经启动，不能重复启动");
+                return;
+            }
+
+            console.log("创建 TurboWarp Player...");
             player = new TurboWarp.Player();
+            player.setProjectURL(sb3Url);  // 设定项目 URL
             player.appendTo(document.getElementById("container")); // 添加到页面
-            player.load(sb3Url); // 🚀 加载 sb3 文件
+            
+            console.log("开始加载 SB3 文件:", sb3Url);
+            player.load(sb3Url).then(() => {
+                console.log("SB3 文件加载完成！");
+            }).catch(error => {
+                console.error("加载失败:", error);
+            });
         }
     </script>
 </body>
